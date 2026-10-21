@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TalkTask</title>
+<meta name="description" content="Ask your data a question in plain words. Every figure is computed, every claim carries its receipt, and it says so when the data cannot answer.">
+<style>
+:root{--bg:#f6f7f4;--card:#fff;--ink:#1b2421;--ink2:#4f5c57;--ink3:#77847f;--rule:#d9dfda;--ac:#1f7a6b;--wash:#e3f0ec;color-scheme:light}
+@media (prefers-color-scheme:dark){:root{--bg:#121614;--card:#1a1f1d;--ink:#e6eae7;--ink2:#a9b4b0;--ink3:#7f8b86;--rule:#2c3330;--ac:#5fbfa3;--wash:#1d2d28;color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 -apple-system,"Segoe UI",system-ui,sans-serif;padding:0 16px}
+.wrap{max-width:720px;margin:0 auto;padding:40px 0 64px}
+header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:56px}
+.brand{font-weight:700;letter-spacing:.02em;font-size:18px;text-decoration:none;color:var(--ink)}
+header a.mail{color:var(--ac);text-decoration:none;font-size:15px}
+h1{font-size:clamp(32px,6vw,46px);line-height:1.15;margin:0 0 18px;letter-spacing:-.01em}
+h2{font-size:22px;margin:52px 0 12px;padding-top:20px;border-top:1px solid var(--rule)}
+h3{font-size:17px;margin:0 0 6px}
+p{margin:0 0 14px}
+.lede{font-size:20px;color:var(--ink2);max-width:60ch}
+.cta{display:inline-block;margin-top:10px;padding:12px 20px;border-radius:8px;background:var(--ac);color:#fff;text-decoration:none;font-weight:600}
+.grid{display:grid;gap:14px;margin-top:18px}
+.card{background:var(--card);border:1px solid var(--rule);border-radius:10px;padding:18px}
+.card p{margin:0;color:var(--ink2);font-size:16px}
+.k{display:inline-block;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ac);margin-bottom:6px}
+ul{padding-left:20px;margin:0 0 14px}
+li{margin-bottom:6px}
+.soon{font-size:12px;padding:2px 8px;border-radius:99px;background:var(--wash);color:var(--ac);margin-left:6px;vertical-align:2px}
+.muted{color:var(--ink3);font-size:15px}
+footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--rule);color:var(--ink3);font-size:14px}
+footer a{color:var(--ac)}
+@media (min-width:640px){.grid{grid-template-columns:1fr 1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header><a class="brand" href="/">TalkTask</a><a class="mail" href="mailto:hello@talktask.si">hello@talktask.si</a></header>
+
+<h1>Ask your data a question. Get an answer you can check.</h1>
+<p class="lede">Drop in a file: a survey, a tracker, reviews, support tickets, a spreadsheet. Ask in plain words. Every figure is computed by the engine, never written by the model. Every claim carries its receipt. When the data cannot carry the claim, it says so.</p>
+<a class="cta" href="mailto:hello@talktask.si?subject=TalkTask%20trial">Request a trial</a>
+
+<h2>How it works</h2>
+<div class="grid">
+<div class="card"><span class="k">1 · The door</span><h3>Your file is read once</h3><p>Every column is classified from its own rows. Personal data is set aside. You check the reading before the room opens.</p></div>
+<div class="card"><span class="k">2 · The room</span><h3>Ask anything</h3><p>The model writes a plan. The server checks every step against what the data holds, runs it, and checks the words against the figures before you see them.</p></div>
+<div class="card"><span class="k">3 · The receipt</span><h3>Every claim is traceable</h3><p>A figure cites its variable, its value and its base. A quote is matched character for character. A claim that cannot be matched is never shown.</p></div>
+</div>
+
+<h2>What you can ask</h2>
+<ul>
+<li>Why did consideration fall in the north?</li>
+<li>Who gave up before opening an account, and why?</li>
+<li>Which complaints are growing, and for whom?</li>
+<li>Does that hold in every segment?</li>
+<li>What is the most interesting thing in here?</li>
+</ul>
+<p class="muted">Crosstabs, trends, gradients, tests, regressions, forecasts, text themes and quotes. One question, one population, one dimension, optionally against another. Every table has a base and a test on each cell.</p>
+
+<h2>What has gone through it</h2>
+<ul>
+<li>33,489 app reviews and comments over ten years</li>
+<li>A 52-year social survey, 75,699 respondents</li>
+<li>A face-to-face study in ten Indian cities, 2,623 completes</li>
+<li>A brand tracker, two waves, 5,832 respondents</li>
+<li>20,000 support tickets, 5.7 million bike trips, a year of trending videos</li>
+<li>Annual reports, decks and documents, read page by page</li>
+</ul>
+
+<h2>Two ways to run it</h2>
+<div class="grid" style="grid-template-columns:1fr 1fr">
+<div class="card"><h3>Desktop</h3><p>Installed on your machine. The file never leaves it. Only the question and computed tables reach the model.</p></div>
+<div class="card"><h3>Cloud <span class="soon">in preparation</span></h3><p>Log in at app.talktask.si. Nothing to install. One space per company.</p></div>
+</div>
+
+<h2>What it will not do</h2>
+<p>It will not invent a figure, a quote or a respondent. It will not answer a question the data cannot carry. It will not apply a weight, scale a column or mark a value as missing unless the rows allow it. These refusals are counted as correct answers, and they are tested that way.</p>
+
+<footer>TalkTask · Prateek Bahl · London · <a href="mailto:hello@talktask.si">hello@talktask.si</a><br>This page sets no cookies and loads nothing from third parties.</footer>
+</div>
+</body>
+</html>
