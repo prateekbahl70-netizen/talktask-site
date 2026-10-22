@@ -3,81 +3,326 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>TalkTask</title>
-<meta name="description" content="Ask your data a question in plain words. Every figure is computed, every claim carries its receipt, and it says so when the data cannot answer.">
+<title>TalkTask: answers that show their working</title>
+<meta name="description" content="Ask your survey, tracker or spreadsheet a question in plain words. TalkTask counts every figure itself, shows where each one came from, and tells you when the data cannot answer.">
+<meta property="og:title" content="TalkTask: answers that show their working">
+<meta property="og:description" content="Ask your data a question in plain words. Every figure is counted by the engine and carries its receipt. When the data cannot answer, it says so.">
+<meta property="og:image" content="https://talktask.si/og.png">
+<meta property="og:url" content="https://talktask.si/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preload" href="fonts/next.woff2" as="font" type="font/woff2" crossorigin>
 <style>
-:root{--bg:#f6f7f4;--card:#fff;--ink:#1b2421;--ink2:#4f5c57;--ink3:#77847f;--rule:#d9dfda;--ac:#1f7a6b;--wash:#e3f0ec;color-scheme:light}
-@media (prefers-color-scheme:dark){:root{--bg:#121614;--card:#1a1f1d;--ink:#e6eae7;--ink2:#a9b4b0;--ink3:#7f8b86;--rule:#2c3330;--ac:#5fbfa3;--wash:#1d2d28;color-scheme:dark}}
+@font-face{font-family:"Atkinson Next";src:url(fonts/next.woff2) format("woff2");font-weight:200 800;font-display:swap}
+@font-face{font-family:"Atkinson Mono";src:url(fonts/mono.woff2) format("woff2");font-weight:200 800;font-display:swap}
+:root{
+  --ground:#e9edf1; --paper:#fcfdfe; --ink:#13294b; --muted:#586a80;
+  --marker:#ffe14d; --on-marker:#13294b; --pen:#c21f39; --line:#c9d2dc;
+  --band:#13294b; --on-band:#e9edf1; --on-band-muted:#a9b8ca;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root{
+  --ground:#0e1b2e; --paper:#16263d; --ink:#e8eef6; --muted:#9fb0c5;
+  --pen:#ff7a88; --line:#2b3e58; --band:#1d3150; --on-band:#e8eef6; --on-band-muted:#a9b8ca;
+  color-scheme:dark;
+}}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 -apple-system,"Segoe UI",system-ui,sans-serif;padding:0 16px}
-.wrap{max-width:720px;margin:0 auto;padding:40px 0 64px}
-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:56px}
-.brand{font-weight:700;letter-spacing:.02em;font-size:18px;text-decoration:none;color:var(--ink)}
-header a.mail{color:var(--ac);text-decoration:none;font-size:15px}
-h1{font-size:clamp(32px,6vw,46px);line-height:1.15;margin:0 0 18px;letter-spacing:-.01em}
-h2{font-size:22px;margin:52px 0 12px;padding-top:20px;border-top:1px solid var(--rule)}
-h3{font-size:17px;margin:0 0 6px}
-p{margin:0 0 14px}
-.lede{font-size:20px;color:var(--ink2);max-width:60ch}
-.cta{display:inline-block;margin-top:10px;padding:12px 20px;border-radius:8px;background:var(--ac);color:#fff;text-decoration:none;font-weight:600}
-.grid{display:grid;gap:14px;margin-top:18px}
-.card{background:var(--card);border:1px solid var(--rule);border-radius:10px;padding:18px}
-.card p{margin:0;color:var(--ink2);font-size:16px}
-.k{display:inline-block;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ac);margin-bottom:6px}
-ul{padding-left:20px;margin:0 0 14px}
-li{margin-bottom:6px}
-.soon{font-size:12px;padding:2px 8px;border-radius:99px;background:var(--wash);color:var(--ac);margin-left:6px;vertical-align:2px}
-.muted{color:var(--ink3);font-size:15px}
-footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--rule);color:var(--ink3);font-size:14px}
-footer a{color:var(--ac)}
-@media (min-width:640px){.grid{grid-template-columns:1fr 1fr 1fr}}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--ground);color:var(--ink);font:400 18px/1.6 "Atkinson Next",system-ui,sans-serif}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+@media (max-width:600px){.wrap{padding:0 16px}}
+:focus-visible{outline:3px solid var(--marker);outline-offset:3px;border-radius:4px}
+.btn{display:inline-block;background:var(--ink);color:var(--ground);font-weight:700;font-size:17px;text-decoration:none;padding:13px 22px;border-radius:999px}
+.btn:hover{background:var(--pen);color:#fff}
+p{margin:0 0 16px;max-width:64ch}
+
+/* header */
+.top{display:flex;justify-content:space-between;align-items:center;padding:22px 0}
+.mark{font-weight:800;font-size:22px;letter-spacing:-.02em;text-decoration:none}
+.top .btn{padding:9px 18px;font-size:15px}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1fr 1.05fr;gap:56px;align-items:start;padding:40px 0 96px}
+@media (max-width:960px){.hero{grid-template-columns:1fr;gap:40px;padding-bottom:72px}}
+h1{font-size:clamp(52px,8.4vw,104px);line-height:.95;letter-spacing:-.035em;font-weight:800;margin:0 0 30px}
+.lead{font-size:22px;line-height:1.5;margin-bottom:32px}
+.hint{color:var(--muted);font-size:15px;margin-top:28px}
+
+/* the exchange */
+.ex{background:var(--paper);border-radius:6px;padding:28px 30px 30px;position:relative;z-index:2}
+@media (max-width:600px){.ex{padding:22px 18px}}
+.who{font-size:14px;color:var(--muted);margin:0 0 4px}
+.q{font-size:21px;font-weight:700;margin:0 0 20px}
+.plan{font-size:16px;color:var(--muted);margin:0 0 18px;padding-left:14px;border-left:4px solid var(--line)}
+.obs{list-style:none;margin:0 0 18px;padding:0}
+.obs li{margin:0 0 8px;font-size:17px}
+.fig{font:inherit;font-weight:700;color:var(--on-marker);background:linear-gradient(transparent 12%,var(--marker) 12%,var(--marker) 88%,transparent 88%);border:0;padding:0 3px;margin:0 -1px;cursor:pointer;border-radius:2px}
+.fig[aria-pressed=true]{outline:2px solid var(--ink);outline-offset:1px}
+.fig:hover{filter:saturate(1.4) brightness(.97)}
+.read{font-size:16px;margin:0 0 6px}
+.chart{display:block;width:100%;height:auto;margin:6px 0 4px}
+.chart text{font-family:"Atkinson Next",system-ui,sans-serif;font-size:13px;fill:var(--muted)}
+.cap{font-size:14px;color:var(--muted);margin:14px 0 0}
+
+/* the receipt */
+.slot{position:relative;margin:-6px 18px 0;overflow:hidden;z-index:1}
+.receipt{--ink:#13294b;--muted:#586a80;--line:#c9d2dc;background:#fcfdfe;color:var(--ink);font:400 14px/1.55 "Atkinson Mono",ui-monospace,monospace;padding:22px 22px 30px;
+  -webkit-mask:conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) 50%/14px 100%;
+          mask:conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) 50%/14px 100%}
+.receipt:empty{display:none}
+.receipt h2{font:700 15px/1.3 "Atkinson Mono",ui-monospace,monospace;margin:0 0 12px;display:flex;justify-content:space-between;gap:12px}
+.receipt dl{margin:0;display:grid;grid-template-columns:8.5em 1fr;gap:6px 14px}
+.receipt dt{color:var(--muted)}
+.receipt dd{margin:0}
+.receipt .tot{border-top:2px dashed var(--line);margin-top:12px;padding-top:10px;font-weight:700}
+@media (max-width:600px){.receipt dl{grid-template-columns:1fr;gap:0}.receipt dt{margin-top:8px}}
+.printing{animation:print .7s cubic-bezier(.2,.7,.2,1) both}
+@keyframes print{from{transform:translateY(-100%)}to{transform:none}}
+@media (prefers-reduced-motion:reduce){.printing{animation:none}}
+
+/* sections */
+section{padding:96px 0}
+@media (max-width:600px){section{padding:64px 0}}
+h2.s{font-size:clamp(34px,5vw,56px);line-height:1.02;letter-spacing:-.025em;font-weight:800;margin:0 0 22px;max-width:16ch}
+.sub{font-size:20px;color:var(--muted);max-width:56ch;margin-bottom:44px}
+.paperband{background:var(--paper)}
+
+/* the stop */
+.stop{display:grid;grid-template-columns:1.25fr .9fr;gap:48px;align-items:start}
+@media (max-width:900px){.stop{grid-template-columns:1fr;gap:28px}}
+.draft{font-size:24px;line-height:1.5;margin:0}
+.draft s{text-decoration:none;background:linear-gradient(transparent 52%,var(--pen) 52%,var(--pen) 58%,transparent 58%)}
+.margin{color:var(--pen);font-size:19px;line-height:1.45;border-left:4px solid var(--pen);padding-left:18px}
+.margin p{margin:0 0 14px}
+.margin q{font-style:italic}
+.said{margin-top:40px;font-size:18px}
+.said b{display:block;font-size:14px;color:var(--muted);font-weight:400;margin-bottom:4px}
+
+/* the no */
+.no{font-size:clamp(26px,3.4vw,40px);line-height:1.2;font-weight:700;margin:0 0 26px;max-width:30ch}
+.nh{list-style:none;padding:0;margin:0 0 30px}
+.nh li{font-size:22px;margin:0 0 8px}
+.nh li::before{content:"";display:inline-block;width:.55em;height:.55em;border:3px solid var(--pen);border-radius:50%;margin-right:.55em;vertical-align:.02em}
+.ledger{font-size:20px;max-width:52ch}
+
+/* the path */
+.band{background:var(--band);color:var(--on-band)}
+.band .sub{color:var(--on-band-muted)}
+.lanes{display:grid;grid-template-columns:5em 1fr 1fr;margin:0;padding:0;list-style:none}
+.lanes li{display:contents}
+.lanes .hd{font-weight:700;font-size:16px;color:var(--on-band-muted);padding:0 22px 14px}
+.lanes .when{grid-column:1;color:var(--on-band-muted);font-size:15px;padding:18px 0}
+.lanes .st{padding:16px 22px;font-size:18px;line-height:1.45;border-top:2px solid rgba(233,237,241,.14)}
+.lanes .m{grid-column:2}
+.lanes .r{grid-column:3}
+.lanes .y{grid-column:2/4}
+.lanes .tag{display:block;font-weight:700;margin-bottom:2px}
+.lanes .m .tag{color:var(--marker)}
+.lanes .r .tag,.lanes .y .tag{color:var(--on-band)}
+.lanes .st:not(.y){color:var(--on-band-muted)}
+@media (max-width:760px){.lanes{grid-template-columns:1fr}.lanes .when,.lanes .hdrow{display:none}.lanes .m,.lanes .r,.lanes .y{grid-column:1}.lanes .m .tag::after{content:" (the model)";font-weight:400}.lanes .r .tag::after{content:" (the room)";font-weight:400}}
+
+/* the data */
+.shelves{display:grid;grid-template-columns:repeat(2,1fr);gap:8px 56px;margin:0 0 40px;padding:0;list-style:none}
+@media (max-width:760px){.shelves{grid-template-columns:1fr}}
+.shelves li{font-size:20px;padding:12px 0}
+.formats{font-size:18px;color:var(--muted);max-width:70ch}
+
+/* close */
+.close{display:grid;grid-template-columns:1fr 1fr;gap:56px}
+@media (max-width:860px){.close{grid-template-columns:1fr;gap:28px}}
+.close h3{font-size:24px;margin:0 0 8px}
+.soon{color:var(--muted);font-weight:400}
+.cta{margin-top:72px}
+.cta .no{margin-bottom:22px}
+footer{padding:36px 0 48px;color:var(--muted);font-size:15px}
+footer p{max-width:none;margin:0 0 6px}
 </style>
 </head>
 <body>
 <div class="wrap">
-<header><a class="brand" href="/">TalkTask</a><a class="mail" href="mailto:hello@talktask.si">hello@talktask.si</a></header>
+  <header class="top">
+    <a class="mark" href="/">TalkTask</a>
+    <a class="btn" href="mailto:hello@talktask.si?subject=TalkTask%20trial">Ask for a trial</a>
+  </header>
 
-<h1>Ask your data a question. Get an answer you can check.</h1>
-<p class="lede">Drop in a file: a survey, a tracker, reviews, support tickets, a spreadsheet. Ask in plain words. Every figure is computed by the engine, never written by the model. Every claim carries its receipt. When the data cannot carry the claim, it says so.</p>
-<a class="cta" href="mailto:hello@talktask.si?subject=TalkTask%20trial">Request a trial</a>
+  <div class="hero">
+    <div>
+      <h1>Answers that show their working.</h1>
+      <p class="lead">Ask your survey, tracker or spreadsheet a question in plain words. TalkTask counts every figure itself, shows where each one came from, and tells you when the data cannot answer.</p>
+      <a class="btn" href="mailto:hello@talktask.si?subject=TalkTask%20trial">Ask for a trial</a>
+      <p class="hint">Beside this is a real question and the room's real answer, copied from its record. Select a highlighted figure to see its receipt.</p>
+    </div>
 
-<h2>How it works</h2>
-<div class="grid">
-<div class="card"><span class="k">1 · The door</span><h3>Your file is read once</h3><p>Every column is classified from its own rows. Personal data is set aside. You check the reading before the room opens.</p></div>
-<div class="card"><span class="k">2 · The room</span><h3>Ask anything</h3><p>The model writes a plan. The server checks every step against what the data holds, runs it, and checks the words against the figures before you see them.</p></div>
-<div class="card"><span class="k">3 · The receipt</span><h3>Every claim is traceable</h3><p>A figure cites its variable, its value and its base. A quote is matched character for character. A claim that cannot be matched is never shown.</p></div>
+    <div>
+      <div class="ex">
+        <p class="who">Asked of the General Social Survey, 1972 to 2024</p>
+        <p class="q">Are americans more or less happy as compared to the past</p>
+        <p class="plan">The plan, in words: how the share giving each answer to general happiness has moved from the first decade to the last.</p>
+        <ul class="obs">
+          <li>'pretty happy': <button class="fig" data-k="p70" aria-pressed="false" aria-controls="receipt">52.9%</button> in 1970s to <button class="fig" data-k="p20" aria-pressed="false" aria-controls="receipt">57%</button> in 2020s, 4.1 points up.</li>
+          <li>'very happy': <button class="fig" data-k="v70" aria-pressed="false" aria-controls="receipt">34.3%</button> in 1970s to <button class="fig" data-k="v20" aria-pressed="false" aria-controls="receipt">20.2%</button> in 2020s, 14.1 points down.</li>
+          <li>'not too happy': <button class="fig" data-k="n70" aria-pressed="false" aria-controls="receipt">12.8%</button> in 1970s to <button class="fig" data-k="n20" aria-pressed="false" aria-controls="receipt">22.8%</button> in 2020s, 10 points up.</li>
+        </ul>
+        <svg class="chart" id="chart" viewBox="0 0 560 212" role="img" aria-label="Line chart by decade: very happy fell from 34.3% in the 1970s to 20.2% in the 2020s; not too happy rose from 12.8% to 22.8%; pretty happy stayed between 52.9% and 57.7%."></svg>
+        <p class="read">The middle of the distribution barely moved: 'pretty happy' is the median answer in every decade. The change is at the two ends, and they moved in opposite directions. That is a hollowing of the top, not a slide of the whole distribution.</p>
+        <p class="cap">Room record 4083, 30 September 2026.</p>
+      </div>
+      <div class="slot"><div class="receipt" id="receipt" aria-live="polite"></div></div>
+    </div>
+  </div>
 </div>
 
-<h2>What you can ask</h2>
-<ul>
-<li>Why did consideration fall in the north?</li>
-<li>Who gave up before opening an account, and why?</li>
-<li>Which complaints are growing, and for whom?</li>
-<li>Does that hold in every segment?</li>
-<li>What is the most interesting thing in here?</li>
-</ul>
-<p class="muted">Crosstabs, trends, gradients, tests, regressions, forecasts, text themes and quotes. One question, one population, one dimension, optionally against another. Every table has a base and a test on each cell.</p>
+<section class="paperband">
+  <div class="wrap">
+    <h2 class="s">It stops its own model.</h2>
+    <p class="sub">A language model writes the sentences. Before you see them, the room checks each one against what it counted. A sentence that fails does not reach you.</p>
+    <div class="stop">
+      <div>
+        <p class="who">Asked of a public file of 4,803 films, 28 September 2026</p>
+        <p class="q">what measures do you have to measure how the movie did?</p>
+        <p class="draft">The model's draft: <s>The room does not hold direct measures of movie performance such as box office revenue or audience ratings.</s> However, it can analyze related factors such as production budget and genre…</p>
+      </div>
+      <div class="margin">
+        <p>Wrong. The file holds box office revenue in dollars.</p>
+        <p>The room's check, as recorded: <q>claimed not to hold what this analysis holds … this analysis holds revenue ("box office revenue in dollars")</q></p>
+      </div>
+    </div>
+    <p class="said"><b>What the person saw</b>“I will not give you that answer, because it did not pass the checks”, followed by the reasons. Room record 3876.</p>
+  </div>
+</section>
 
-<h2>What has gone through it</h2>
-<ul>
-<li>33,489 app reviews and comments over ten years</li>
-<li>A 52-year social survey, 75,699 respondents</li>
-<li>A face-to-face study in ten Indian cities, 2,623 completes</li>
-<li>A brand tracker, two waves, 5,832 respondents</li>
-<li>20,000 support tickets, 5.7 million bike trips, a year of trending videos</li>
-<li>Annual reports, decks and documents, read page by page</li>
-</ul>
+<section>
+  <div class="wrap">
+    <h2 class="s">It says when the data cannot answer.</h2>
+    <p class="who">Asked of the General Social Survey, 8 October 2026</p>
+    <p class="no">what are the main differences between people following BASEBALL in US and SOCCER in US</p>
+    <ul class="nh">
+      <li>'following baseball in the US' is not in this data</li>
+      <li>'following soccer in the US' is not in this data</li>
+    </ul>
+    <p class="sub">Its plan then said: “The survey holds nothing about following baseball or soccer, so the nearest measurable thing is every question ranked by the largest difference between the survey's own groups.” Room record 4625.</p>
+    <p class="ledger">Since 1 August 2026 the rooms have been asked <b>5,305 questions</b>, by the founder, by testers and by an outside benchmark. In <b>1,293</b> of them the room gave no answer, and said so.</p>
+  </div>
+</section>
 
-<h2>Two ways to run it</h2>
-<div class="grid" style="grid-template-columns:1fr 1fr">
-<div class="card"><h3>Desktop</h3><p>Installed on your machine. The file never leaves it. Only the question and computed tables reach the model.</p></div>
-<div class="card"><h3>Cloud <span class="soon">in preparation</span></h3><p>Log in at app.talktask.si. Nothing to install. One space per company.</p></div>
+<section class="band">
+  <div class="wrap">
+    <h2 class="s">The model plans and writes. The room counts and checks.</h2>
+    <p class="sub">The language model never produces a figure. It proposes what to measure and puts the results into words. Everything in between is ordinary arithmetic on your rows.</p>
+    <ol class="lanes">
+      <li class="hdrow" aria-hidden="true"><span class="hd when"></span><span class="hd m">The model</span><span class="hd r">The room</span></li>
+      <li><span class="when">First</span><span class="st m"><span class="tag">Plans</span>Reads your question and writes a plan: which question in the data, which people, which breakdown.</span></li>
+      <li><span class="when">Then</span><span class="st r"><span class="tag">Checks the plan</span>Each step is tested against what your file holds. Nothing is guessed. A step that cannot run is named.</span></li>
+      <li><span class="when">Then</span><span class="st r"><span class="tag">Counts</span>Tables, trends, gaps and tests, computed from the rows. Every cell keeps its base.</span></li>
+      <li><span class="when">Then</span><span class="st r"><span class="tag">Checks the result</span>Does what was counted answer what you asked? If not, the plan goes back once with the reason.</span></li>
+      <li><span class="when">Then</span><span class="st m"><span class="tag">Writes</span>Puts the counted results into plain sentences.</span></li>
+      <li><span class="when">Then</span><span class="st r"><span class="tag">Checks the words</span>Every figure, base and quote is matched to the count. A sentence that fails is removed.</span></li>
+      <li><span class="when">Last</span><span class="st y"><span class="tag">You see</span>The answer, the plan in words, the tables and a receipt for every figure. Or a plain reason why not.</span></li>
+    </ol>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 class="s">Bring the data you already have.</h2>
+    <p class="sub">Each file is read once. Every column is classified from its own rows, personal data is set aside, and the room recounts everything before it opens. These have gone through it:</p>
+    <ul class="shelves">
+      <li><b>A 52-year social survey:</b> 75,699 respondents, 1972 to 2024</li>
+      <li><b>A face-to-face study</b> in ten Indian cities: 2,623 interviews</li>
+      <li><b>A brand tracker</b> in two waves: 5,832 respondents</li>
+      <li><b>33,489 app reviews and comments</b> over ten years</li>
+      <li><b>5,723,532 bike-share trips</b> in twelve monthly files</li>
+      <li><b>A year of YouTube trending videos:</b> 208,686 records</li>
+      <li><b>4,803 films</b> with budgets, revenue and genres</li>
+      <li><b>A folder of linked tables</b> on US school funding and test scores</li>
+    </ul>
+    <p class="formats">It reads CSV, Excel, SPSS, Stata, Parquet, JSON and Triple-S files, zipped folders of them, and Postgres and BigQuery tables. Reading reports, decks and Word files page by page is in testing.</p>
+  </div>
+</section>
+
+<section class="paperband">
+  <div class="wrap">
+    <div class="close">
+      <div>
+        <h3>Trials run now</h3>
+        <p>On a public data set, or on yours. You ask the questions; the room answers with its receipts. Write and say what data you have.</p>
+      </div>
+      <div>
+        <h3>Desktop and cloud <span class="soon">(in preparation)</span></h3>
+        <p>A desktop version where your file never leaves your machine: only your question and the counted tables go to the language model. A cloud version at app.talktask.si with a private space for each company.</p>
+      </div>
+    </div>
+    <div class="cta">
+      <p class="no">Built in London by Prateek Bahl, after ten years in consumer insights.</p>
+      <a class="btn" href="mailto:hello@talktask.si?subject=TalkTask%20trial">Ask for a trial</a>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <footer>
+    <p>TalkTask, London. <a href="mailto:hello@talktask.si">hello@talktask.si</a></p>
+    <p>Survey data: General Social Survey 1972–2024, NORC at the University of Chicago. Type: Atkinson Hyperlegible, Braille Institute, Open Font License. This page sets no cookies and loads nothing from other sites.</p>
+  </footer>
 </div>
 
-<h2>What it will not do</h2>
-<p>It will not invent a figure, a quote or a respondent. It will not answer a question the data cannot carry. It will not apply a weight, scale a column or mark a value as missing unless the rows allow it. These refusals are counted as correct answers, and they are tested that way.</p>
+<script>
+// Every figure below was recounted from the GSS rows inside the room's own universe (22 Oct 2026); all match room record 4083.
+const Q = "Taken all together, how would you say things are these days--would you say that you are very happy, pretty happy, or not too happy?";
+const D70 = {when: "the 1970s", years: "1972 to 1978", base: 10361};
+const D20 = {when: "the 2020s", years: "2021, 2022 and 2024", base: 6809};
+const R = {
+  p70: {ans: "pretty happy", d: D70, n: 5480, pct: "52.9%"},
+  p20: {ans: "pretty happy", d: D20, n: 3881, pct: "57.0%", chg: "+4.1 points since the 1970s"},
+  v70: {ans: "very happy", d: D70, n: 3559, pct: "34.3%"},
+  v20: {ans: "very happy", d: D20, n: 1376, pct: "20.2%", chg: "−14.1 points since the 1970s"},
+  n70: {ans: "not too happy", d: D70, n: 1322, pct: "12.8%"},
+  n20: {ans: "not too happy", d: D20, n: 1552, pct: "22.8%", chg: "+10.0 points since the 1970s"},
+};
+const fmt = n => n.toLocaleString("en-GB");
+const box = document.getElementById("receipt");
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+function show(k, animate) {
+  const r = R[k];
+  document.querySelectorAll(".fig").forEach(b => b.setAttribute("aria-pressed", b.dataset.k === k));
+  box.innerHTML =
+    `<h2><span>Receipt for ${r.pct}</span><span>record 4083</span></h2><dl>` +
+    `<dt>Question</dt><dd>${Q}</dd>` +
+    `<dt>Counted</dt><dd>'${r.ans}'</dd>` +
+    `<dt>Who</dt><dd>Respondents interviewed ${r.d.years} (${r.d.when})</dd>` +
+    `<dt>The room holds</dt><dd>65,015 of the survey's 75,699 respondents: those who answered all eleven questions its groups are built from</dd>` +
+    `<dt>Source</dt><dd>General Social Survey 1972–2024, NORC at the University of Chicago</dd>` +
+    (r.chg ? `<dt>Change</dt><dd>${r.chg}</dd>` : "") +
+    `</dl><div class="tot">${fmt(r.n)} of ${fmt(r.d.base)} = ${r.pct}. The figure in the sentence matches the count.</div>`;
+  if (animate && !reduce) { box.classList.remove("printing"); void box.offsetWidth; box.classList.add("printing"); }
+}
+document.querySelectorAll(".fig").forEach(b => b.addEventListener("click", () => show(b.dataset.k, true)));
 
-<footer>TalkTask · Prateek Bahl · London · <a href="mailto:hello@talktask.si">hello@talktask.si</a><br>This page sets no cookies and loads nothing from third parties.</footer>
-</div>
+// The chart, drawn from the room's decade shares (same universe, recounted).
+const S = {
+  dec: ["1970s", "1980s", "1990s", "2000s", "2010s", "2020s"],
+  "pretty happy": [52.9, 56.1, 57.7, 56.3, 56.2, 57.0],
+  "very happy": [34.3, 31.8, 30.7, 30.8, 29.2, 20.2],
+  "not too happy": [12.8, 12.1, 11.6, 12.9, 14.6, 22.8],
+};
+(function chart() {
+  const svg = document.getElementById("chart"), ns = "http://www.w3.org/2000/svg";
+  const x = i => 30 + i * 78, y = v => 182 - v * 2.7;
+  const el = (t, a, txt) => { const e = document.createElementNS(ns, t); for (const k in a) e.setAttribute(k, a[k]); if (txt) e.textContent = txt; svg.appendChild(e); return e; };
+  S.dec.forEach((d, i) => el("text", {x: x(i), y: 206, "text-anchor": "middle"}, d));
+  const css = getComputedStyle(document.documentElement);
+  const col = {"pretty happy": css.getPropertyValue("--muted").trim(), "very happy": css.getPropertyValue("--ink").trim(), "not too happy": css.getPropertyValue("--pen").trim()};
+  const endDy = {"pretty happy": 5, "very happy": 13, "not too happy": -4};
+  for (const k of ["pretty happy", "very happy", "not too happy"]) {
+    el("polyline", {points: S[k].map((v, i) => `${x(i)},${y(v)}`).join(" "), fill: "none", stroke: col[k], "stroke-width": k === "pretty happy" ? 2 : 3, "stroke-linejoin": "round", "stroke-linecap": "round"});
+    const last = S[k].length - 1;
+    el("circle", {cx: x(last), cy: y(S[k][last]), r: 4, fill: col[k]});
+    el("text", {x: x(last) + 10, y: y(S[k][last]) + endDy[k], style: `fill:${col[k]};font-weight:700`}, k);
+  }
+})();
+setTimeout(() => show("v20", true), 700);
+</script>
 </body>
 </html>
