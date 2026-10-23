@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>TalkTask: answers from your data, with receipts</title>
-<meta name="description" content="Ask your survey, tracker, spreadsheet or database a question in plain words. TalkTask counts every figure itself, shows where each one came from, and tells you when the data cannot answer.">
+<meta name="description" content="Ask your surveys, spreadsheets, databases and folders of reports a question in plain words. TalkTask counts every figure itself, shows where each one came from, and says so when the data cannot answer.">
 <meta property="og:title" content="TalkTask: answers that show their working">
 <meta property="og:description" content="Ask your data a question in plain words. Every figure is counted by the engine and carries its receipt. When the data cannot answer, it says so.">
 <meta property="og:image" content="https://talktask.si/og.png">
@@ -12,559 +12,921 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preload" href="fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
-<meta name="theme-color" content="#010102">
+<meta name="theme-color" content="#12151b">
 <style>
 @font-face{font-family:"Inter";src:url(fonts/inter.woff2) format("woff2");font-weight:100 900;font-display:swap}
 @font-face{font-family:"JetBrains Mono";src:url(fonts/jbmono.woff2) format("woff2");font-weight:100 800;font-display:swap}
-/* Linear-inspired tokens: near-black canvas, four-step surface ladder, hairlines, one lavender accent. Dark only. */
+/* Slate canvas, light type, one spectrum colour per section. Dark only. */
 :root{
-  --canvas:#010102; --s1:#0f1011; --s2:#141516; --s3:#18191a; --s4:#1f2023;
-  --hair:#23252a; --hair2:#34343a; --hair3:#3e3e44;
-  --ink:#f7f8f8; --ink2:#d0d6e0; --ink3:#8a8f98; --ink4:#62666d;
-  --acc:#5e6ad2; --acc-hi:#828fff; --acc-soft:rgba(94,106,210,.18); --acc-line:rgba(130,143,255,.55);
-  --err:#eb5757; --ok:#27a644;
-  --paper:#f5f6f6; --paper-ink:#08090a; --paper-mute:#5c6066; --paper-line:#d6d9dd;
+  --bg:#12151b; --bg2:#191d24; --bg3:#20252e; --line:#2a2f39; --line2:#3a404c;
+  --ink:#eef1f4; --ink2:#c5cbd3; --ink3:#8d95a1; --ink4:#5f6774;
+  --r:#e0705f; --o:#e0925a; --a:#d9b04f; --y:#a5bf5a; --g:#5fb17f; --t:#4fb0b0; --b:#5c95d6; --i:#7f84d8; --v:#a882d6; --p:#cf78a8;
+  --paper:#f4f5f6; --paper-ink:#0b0d10; --paper-mute:#5c6066; --paper-line:#cfd3d8;
   --ease:cubic-bezier(.2,.8,.2,1);
   color-scheme:dark;
 }
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}}
-body{margin:0;background:var(--canvas);color:var(--ink2);font:400 16px/1.55 "Inter",system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:-.05px;-webkit-font-smoothing:antialiased;font-feature-settings:"cv11","ss01"}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;overflow-x:clip}
+body{margin:0;background:var(--bg);color:var(--ink2);font:400 16px/1.6 "Inter",system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased;font-feature-settings:"cv11","ss01";overflow-x:hidden}
+/* a faint grid under everything, brightest near the top */
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;
+  background-image:linear-gradient(rgba(255,255,255,.028) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.028) 1px,transparent 1px);
+  background-size:56px 56px;-webkit-mask:radial-gradient(ellipse 80% 60% at 50% 0%,#000 30%,transparent 80%);mask:radial-gradient(ellipse 80% 60% at 50% 0%,#000 30%,transparent 80%)}
 a{color:inherit}
-button{font:inherit;color:inherit;letter-spacing:inherit}
-.wrap{max-width:1280px;margin:0 auto;padding:0 32px}
-@media (max-width:600px){.wrap{padding:0 16px}}
-:focus-visible{outline:2px solid rgba(94,105,209,.6);outline-offset:2px;border-radius:6px}
+button{font:inherit;color:inherit}
 p{margin:0 0 16px;max-width:66ch}
-b,strong{color:var(--ink);font-weight:600}
-.btn{display:inline-block;background:var(--acc);color:#fff;font-weight:500;font-size:14px;line-height:1.2;text-decoration:none;padding:9px 14px;border-radius:8px;border:0;cursor:pointer;transition:background-color .15s var(--ease)}
-.btn:hover{background:var(--acc-hi)}
+b,strong{color:var(--ink);font-weight:500}
+.wrap{max-width:1180px;margin:0 auto;padding:0 40px}
+@media (max-width:700px){.wrap{padding:0 16px}}
+:focus-visible{outline:2px solid var(--b);outline-offset:3px;border-radius:3px}
+
+/* type */
+.lab{display:block;font:500 11px/1.4 "JetBrains Mono",ui-monospace,monospace;letter-spacing:.26em;text-transform:uppercase;color:var(--ink3);margin:0 0 18px}
+.lab .tag{display:inline-block;letter-spacing:.14em;border:1px solid currentColor;border-radius:999px;padding:1px 8px;margin-left:10px;opacity:.85}
+h1,h2{font-weight:300;color:var(--ink);margin:0 0 20px;text-wrap:balance}
+h1{font-size:clamp(40px,5.4vw,68px);line-height:1.03;letter-spacing:-.03em;max-width:14ch}
+h1 em{font-style:normal;background:linear-gradient(90deg,var(--b),var(--v) 45%,var(--p) 75%,var(--o));-webkit-background-clip:text;background-clip:text;color:transparent}
+h2{font-size:clamp(30px,3.8vw,46px);line-height:1.1;letter-spacing:-.022em;max-width:24ch}
+h3{font-weight:400;font-size:19px;line-height:1.35;color:var(--ink);margin:0 0 8px;letter-spacing:-.01em}
+.lead{font-size:18px;line-height:1.6;color:var(--ink3);max-width:62ch}
+.small{font-size:13px;color:var(--ink3)}
+.mono{font-family:"JetBrains Mono",ui-monospace,monospace}
+.closer{font-size:18px;color:var(--ink2);border-top:1px solid var(--line);padding-top:22px;margin-top:44px;max-width:none}
+
+/* buttons */
+.btn{display:inline-block;background:var(--ink);color:var(--bg);font-weight:500;font-size:14px;line-height:1.2;text-decoration:none;padding:11px 18px;border-radius:4px;border:1px solid var(--ink);cursor:pointer;transition:background-color .15s var(--ease),color .15s var(--ease)}
+.btn:hover{background:transparent;color:var(--ink)}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line2)}
+.btn.ghost:hover{border-color:var(--ink3)}
 
 /* header */
-.top{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:18px 0}
-.mark{font-weight:600;font-size:18px;letter-spacing:-.4px;text-decoration:none;color:var(--ink);white-space:nowrap}
+.top{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:22px 0}
+.mark{display:flex;align-items:center;gap:10px;font-weight:500;font-size:18px;letter-spacing:-.3px;text-decoration:none;color:var(--ink)}
+.mark svg{display:block}
 .nav{display:flex;gap:24px;font-size:14px}
 .nav a{text-decoration:none;color:var(--ink3);transition:color .15s var(--ease)}
 .nav a:hover{color:var(--ink)}
-.top .btn{white-space:nowrap}
-@media (max-width:900px){.nav{display:none}}
+@media (max-width:1040px){.nav{display:none}}
 
 /* sections */
-section{padding:96px 0}
-section+section{border-top:1px solid var(--hair)}
-@media (max-width:600px){section{padding:64px 0}}
-h1,h2.s{font-size:clamp(38px,5vw,56px);line-height:1.08;letter-spacing:-1.8px;font-weight:600;color:var(--ink);margin:0 0 18px;max-width:20ch}
-.sub{font-size:18px;line-height:1.5;color:var(--ink3);max-width:62ch;margin-bottom:44px}
-.small{font-size:13px;color:var(--ink3)}
-.panel{background:var(--s1);border:1px solid var(--hair);border-radius:16px;box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
+section{padding:112px 0 96px;border-top:1px solid var(--line);position:relative}
+@media (max-width:700px){section{padding:72px 0 64px}}
+.rv{opacity:0;transform:translateY(16px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.rv.in{opacity:1;transform:none}
 
-/* motion: one enter for every content swap - opacity, a short rise, a little blur */
-.enter{animation:enter .28s var(--ease) backwards}
-@keyframes enter{from{opacity:0;transform:translateY(6px);filter:blur(4px)}}
+/* ---------- hero ---------- */
+.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:48px;align-items:center;padding:48px 0 96px;position:relative}
+.hero::before{content:"";position:absolute;right:0;top:-10%;width:65%;height:110%;pointer-events:none;z-index:-1;
+  background:radial-gradient(closest-side at 30% 40%,rgba(92,149,214,.22),transparent),radial-gradient(closest-side at 70% 60%,rgba(168,130,214,.18),transparent),radial-gradient(closest-side at 55% 85%,rgba(207,120,168,.12),transparent);filter:blur(10px)}
+@media (max-width:980px){.hero{grid-template-columns:1fr;gap:40px;padding:24px 0 72px}}
+.hero .lead{margin-bottom:30px}
+.btns{display:flex;gap:10px;flex-wrap:wrap}
+.stage3d{position:relative;perspective:1500px;min-height:640px}
+@media (max-width:980px){.stage3d{perspective:none;min-height:0}}
+.rig3d{position:relative;transform-style:preserve-3d;transform:rotateY(-11deg) rotateX(5deg);transition:transform .5s var(--ease)}
+@media (max-width:980px){.rig3d{transform:none}}
+.sheet{position:absolute;border-radius:6px;border:1px solid var(--line2);box-shadow:0 30px 60px -20px rgba(0,0,0,.7);overflow:hidden}
+.sheet b{position:absolute;left:12px;top:9px;font:500 10px "JetBrains Mono",monospace;letter-spacing:.18em;color:var(--ink3)}
+.sheet.xls{width:300px;height:220px;left:-120px;top:60px;transform:translateZ(-180px) rotateZ(-4deg);background:#1a2a24;
+  background-image:linear-gradient(rgba(95,177,127,.35) 1px,transparent 1px),linear-gradient(90deg,rgba(95,177,127,.35) 1px,transparent 1px);background-size:50px 22px;background-position:0 30px}
+.sheet.pdf{width:240px;height:300px;right:-50px;top:-20px;transform:translateZ(-260px) rotateZ(5deg);background:#2a2024;
+  background-image:repeating-linear-gradient(transparent 0 16px,rgba(224,112,95,.28) 16px 18px);background-position:20px 44px;background-size:calc(100% - 40px) 100%;background-repeat:no-repeat}
+.sheet.sav{width:280px;height:170px;left:30px;bottom:-30px;transform:translateZ(-120px) rotateZ(2deg);background:#202537;
+  background-image:linear-gradient(90deg,rgba(127,132,216,.55) 0 30%,transparent 30%),repeating-linear-gradient(transparent 0 20px,rgba(127,132,216,.25) 20px 21px);background-size:100% 100%,100% 100%;background-position:0 34px,0 34px}
+@media (max-width:980px){.sheet{display:none}}
+.demo{position:relative;background:rgba(25,29,36,.92);backdrop-filter:blur(6px);border:1px solid var(--line2);border-radius:8px;padding:26px 26px 4px;min-height:600px;transform:translateZ(0);
+  box-shadow:0 50px 100px -30px rgba(0,0,0,.8),0 0 0 1px rgba(255,255,255,.02) inset}
+@media (max-width:700px){.demo{padding:18px 16px 4px;min-height:640px}}
+.demo .step{opacity:0;transform:translateY(6px);transition:opacity .45s var(--ease),transform .45s var(--ease);margin-bottom:18px}
+.demo .step.on{opacity:1;transform:none}
+.demo .lab{margin-bottom:6px;letter-spacing:.2em}
+.typed{font-size:18px;color:var(--ink);margin:0;min-height:3.2em}
+.typed::after{content:"";display:inline-block;width:2px;height:1.05em;background:var(--ink2);vertical-align:-3px;margin-left:2px;animation:blink 1s steps(1) infinite}
+.typed.done::after{display:none}
+@keyframes blink{50%{opacity:0}}
+.demo .plan{font-size:14px;color:var(--ink3);border-left:2px solid var(--t);padding-left:12px;margin:0}
+.demo .ans{font-size:16px;color:var(--ink);margin:0}
+.replay{position:absolute;top:18px;right:18px;background:none;border:1px solid var(--line2);border-radius:3px;color:var(--ink3);font:500 10px "JetBrains Mono",monospace;letter-spacing:.2em;text-transform:uppercase;padding:5px 8px;cursor:pointer;z-index:2}
+.replay:hover{color:var(--ink)}
+
+/* reads: the formats strip */
+.reads{border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;padding:18px 0;-webkit-mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.reads .track{display:flex;gap:12px;width:max-content;animation:slide 48s linear infinite}
+.reads span{font:500 12px "JetBrains Mono",monospace;letter-spacing:.12em;color:var(--ink2);border:1px solid var(--line2);border-radius:999px;padding:6px 14px;white-space:nowrap;background:var(--bg2)}
+.reads span.t{color:var(--ink3);border-style:dashed}
+@keyframes slide{to{transform:translateX(-50%)}}
 
 /* figures and receipts */
-.fig{font:inherit;font-weight:600;color:var(--ink);background:var(--acc-soft);border:0;border-bottom:1px solid var(--acc-line);padding:0 4px;margin:0 -1px;cursor:pointer;border-radius:4px;transition:background-color .15s var(--ease)}
-.fig:hover{background:rgba(94,106,210,.3)}
-.fig[aria-pressed=true]{background:var(--acc);color:#fff;border-bottom-color:var(--acc)}
-.receipt{background:var(--paper);color:var(--paper-ink);font:400 13px/1.6 "JetBrains Mono",ui-monospace,monospace;padding:18px 20px 28px;margin-top:16px;border-radius:6px 6px 0 0;
+.fig{font:inherit;font-weight:500;color:var(--ink);background:rgba(92,149,214,.16);border:0;border-bottom:1px solid rgba(92,149,214,.7);padding:0 4px;margin:0 -1px;cursor:pointer;border-radius:3px;transition:background-color .15s var(--ease)}
+.fig:hover{background:rgba(92,149,214,.3)}
+.fig[aria-pressed=true]{background:var(--b);color:#fff;border-bottom-color:var(--b)}
+.receipt{background:var(--paper);color:var(--paper-ink);font:400 12.5px/1.6 "JetBrains Mono",ui-monospace,monospace;padding:16px 18px 26px;border-radius:4px 4px 0 0;
   -webkit-mask:conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) 50%/14px 100%;
           mask:conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) 50%/14px 100%}
 .receipt:empty{display:none}
-.receipt b{display:block;margin-bottom:8px;color:var(--paper-ink);font-weight:700}
+.receipt b{display:block;margin-bottom:6px;color:var(--paper-ink);font-weight:700}
 .receipt .m{color:var(--paper-mute)}
-.receipt .tot{border-top:1px dashed var(--paper-line);margin-top:10px;padding-top:8px;font-weight:700}
-.printing{animation:print .5s var(--ease) both}
-@keyframes print{from{clip-path:inset(0 0 100% 0)}to{clip-path:inset(0)}}
+.receipt .tot{border-top:1px dashed var(--paper-line);margin-top:8px;padding-top:6px;font-weight:700}
+.opening{animation:opening .7s var(--ease) both}
+@keyframes opening{from{clip-path:circle(0 at var(--ox,50%) 0)}to{clip-path:circle(160% at var(--ox,50%) 0)}}
+.dots{display:grid;grid-template-columns:repeat(20,9px);gap:3px;margin:10px 0 6px}
+@media (max-width:420px){.dots{grid-template-columns:repeat(20,7px);gap:2px}}
+.dots i{display:block;aspect-ratio:1;border:1px solid #b6bcc4;border-radius:2px;transition:background-color .2s,border-color .2s}
+.dots i.y{background:var(--b);border-color:var(--b)}
 
-/* 1. what it solves */
-.solve{display:grid;grid-template-columns:300px 1fr;gap:24px;align-items:stretch}
-@media (max-width:900px){.solve{grid-template-columns:1fr}}
-.ptabs{display:flex;flex-direction:column;gap:4px}
-@media (max-width:900px){.ptabs{flex-direction:row;overflow-x:auto;padding-bottom:4px}}
-.ptab{text-align:left;background:transparent;border:1px solid transparent;border-radius:8px;padding:12px 14px;cursor:pointer;font-size:15px;font-weight:500;color:var(--ink3);transition:background-color .15s var(--ease),color .15s var(--ease)}
-.ptab:hover{color:var(--ink);background:var(--s1)}
-.ptab[aria-selected=true]{background:var(--s2);border-color:var(--hair2);color:var(--ink)}
-@media (max-width:900px){.ptab{white-space:nowrap}}
-.pstage{padding:28px}
-@media (max-width:600px){.pstage{padding:18px 14px}}
-.switch{display:inline-flex;background:var(--canvas);border:1px solid var(--hair);border-radius:999px;padding:3px;margin-bottom:28px}
-.switch button{border:0;background:transparent;padding:6px 14px;border-radius:999px;cursor:pointer;font-weight:500;font-size:13px;color:var(--ink3);transition:background-color .15s var(--ease),color .15s var(--ease)}
-.switch button[aria-pressed=true]{background:var(--s3);color:var(--ink)}
-.flow{display:flex;flex-wrap:wrap;align-items:center;gap:14px 0;min-height:190px}
-.node{background:var(--s2);border:1px solid var(--hair2);border-radius:8px;padding:14px 16px;font-size:15px;line-height:1.3;font-weight:500;color:var(--ink);max-width:190px;opacity:0;transform:translateY(6px);filter:blur(3px);transition:opacity .3s var(--ease),transform .3s var(--ease),filter .3s var(--ease)}
-.node.in{opacity:1;transform:none;filter:none}
-.node.good{background:var(--acc);border-color:var(--acc);color:#fff}
-.node.many{display:flex;flex-direction:column;gap:6px;background:transparent;border:0;padding:0}
-.node.many span{background:var(--s2);border:1px solid var(--hair2);border-radius:6px;padding:6px 12px;font-size:13px}
-.node.good.many{background:transparent}
-.node.good.many span{background:var(--acc-soft);border-color:var(--acc-line);color:var(--ink)}
-.arrow{width:40px;height:1px;background:var(--hair3);position:relative;margin:0 6px;opacity:0;transition:opacity .3s var(--ease)}
-.arrow.in{opacity:1}
-.arrow::after{content:"";position:absolute;right:-1px;top:-4px;border:4.5px solid transparent;border-left:6px solid var(--hair3);border-right:0}
-.brk{color:var(--err);font-weight:500;font-size:15px;line-height:1.3;max-width:230px;opacity:0;transition:opacity .3s var(--ease);padding-left:8px}
-.brk.in{opacity:1}
-.brk::before{content:"✕ ";}
-.pnote{margin:20px 0 0;font-size:16px;color:var(--ink2);max-width:62ch;min-height:3em}
+/* ---------- the gap ---------- */
+.track2{position:relative;margin:56px 0 24px}
+.track2 .steps{font:500 11px "JetBrains Mono",monospace;letter-spacing:.2em;text-transform:uppercase;color:var(--ink3);display:flex;margin-bottom:12px}
+.track2 .steps span{width:38%}
+.track2 .steps em{font-style:normal;color:var(--r);padding-left:12px}
+.rail{position:relative;height:2px;background:var(--line2)}
+.rail::before{content:"";position:absolute;left:0;top:-1px;height:4px;width:38%;background:linear-gradient(90deg,var(--ink4),var(--ink));border-radius:2px}
+.rail::after{content:"";position:absolute;left:38%;top:-12px;width:1px;height:26px;background:var(--r);box-shadow:0 0 12px var(--r)}
+.later{margin-left:38%;padding-left:28px}
+.rings{display:flex;justify-content:space-between;max-width:560px;margin:28px 0 14px}
+.rings i{width:14px;height:14px;border:1.5px solid var(--r);border-radius:50%;opacity:0;transform:scale(.4);transition:opacity .4s var(--ease),transform .4s var(--ease)}
+.rings.in i{opacity:1;transform:none}
+@media (max-width:700px){.track2 .steps{flex-direction:column;gap:6px}.track2 .steps span{width:auto}.track2 .steps em{padding-left:0}.rail::before{width:42%}.rail::after{left:42%}.later{margin-left:0;padding-left:0}}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:48px}
+@media (max-width:860px){.three{grid-template-columns:1fr;gap:22px}}
+.three>div{border-top:1px solid var(--line2);padding-top:16px}
+.three>div.hot{border-top-color:var(--r)}
+.three .n{font:500 11px "JetBrains Mono",monospace;color:var(--ink4);letter-spacing:.2em;margin-bottom:10px}
+.three>div.hot .n{color:var(--r)}
+.three p{color:var(--ink3);font-size:15px}
 
-/* 2. capabilities */
-.cap{display:grid;grid-template-columns:1fr 380px;gap:24px;align-items:start}
-@media (max-width:980px){.cap{grid-template-columns:1fr}}
-.fams{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:28px;padding:28px}
-.fam h3{font-size:14px;font-weight:600;margin:0 0 2px;color:var(--ink)}
-.fam p{font-size:13px;color:var(--ink4);margin:0 0 12px}
-.chips{display:flex;flex-wrap:wrap;gap:6px}
-.chip{border:1px solid var(--hair2);background:var(--s2);color:var(--ink2);padding:5px 11px;border-radius:999px;font-size:13px;cursor:pointer;transition:background-color .15s var(--ease),border-color .15s var(--ease),color .15s var(--ease)}
-.chip:hover{border-color:var(--hair3);color:var(--ink)}
-.chip[aria-pressed=true]{background:var(--acc);border-color:var(--acc);color:#fff}
-.chip.t::after{content:" · testing";opacity:.7}
-.cdetail{padding:26px;position:sticky;top:20px}
-.cdetail h3{font-size:22px;font-weight:500;letter-spacing:-.4px;color:var(--ink);margin:0 0 8px}
-.cdetail .does{font-size:15px}
-.cdetail .q{font-size:17px;font-weight:500;color:var(--ink);margin:6px 0 10px}
-.cdetail .plan{font-size:14px;color:var(--ink3);border-left:2px solid var(--hair3);padding-left:12px;margin:0}
+/* ---------- the folder: an isometric scene ---------- */
+.isowrap{position:relative;margin:32px auto 0;width:100%;max-width:1100px;aspect-ratio:1026/483;overflow:hidden}
+.isofit{position:absolute;left:0;top:0;width:1100px;height:560px;transform-origin:0 0}
+.plane{position:absolute;left:170px;top:-80px;width:720px;height:640px;transform-style:preserve-3d;transform:rotateX(58deg) rotateZ(-42deg)}
+.slab{position:absolute;border-radius:6px;transform-style:preserve-3d}
+.file{width:150px;height:96px;background:var(--bg3);border:1px solid var(--c);padding:10px 12px;
+  box-shadow:1px 1px 0 color-mix(in srgb,var(--c) 55%,#000),2px 2px 0 color-mix(in srgb,var(--c) 50%,#000),3px 3px 0 color-mix(in srgb,var(--c) 45%,#000),4px 4px 0 color-mix(in srgb,var(--c) 40%,#000),5px 5px 0 color-mix(in srgb,var(--c) 35%,#000),14px 18px 28px rgba(0,0,0,.6)}
+.file i{display:block;font:600 11px "JetBrains Mono",monospace;color:var(--c);letter-spacing:.1em}
+.file span{display:block;font:500 12.5px/1.25 "Inter",sans-serif;color:var(--ink);margin-top:6px}
+.file::after{content:"";position:absolute;left:12px;right:12px;bottom:12px;height:20px;background:repeating-linear-gradient(transparent 0 4px,color-mix(in srgb,var(--c) 35%,transparent) 4px 6px)}
+.shelf{width:230px;height:190px;background:linear-gradient(135deg,color-mix(in srgb,var(--c) 22%,var(--bg2)),var(--bg2));border:1px solid var(--c);
+  box-shadow:1px 1px 0 color-mix(in srgb,var(--c) 50%,#000),2px 2px 0 color-mix(in srgb,var(--c) 45%,#000),3px 3px 0 color-mix(in srgb,var(--c) 40%,#000),4px 4px 0 color-mix(in srgb,var(--c) 35%,#000),5px 5px 0 color-mix(in srgb,var(--c) 30%,#000),6px 6px 0 color-mix(in srgb,var(--c) 25%,#000),7px 7px 0 color-mix(in srgb,var(--c) 22%,#000),8px 8px 0 color-mix(in srgb,var(--c) 20%,#000),24px 30px 44px rgba(0,0,0,.6)}
+.shelf .rows i{position:absolute;left:18px;right:18px;height:7px;border-radius:2px;background:color-mix(in srgb,var(--c) 70%,transparent)}
+.shelf em{position:absolute;left:16px;top:12px;font:600 11px/1.3 "JetBrains Mono",monospace;letter-spacing:.18em;color:var(--c);font-style:normal}
+.shelf em small{display:block;font:500 12px "Inter",sans-serif;letter-spacing:0;color:var(--ink2);margin-top:2px}
+.shelf .cells{position:absolute;inset:58px 22px 18px;display:grid;grid-template-columns:repeat(5,1fr);gap:5px}
+.shelf .cells i{background:color-mix(in srgb,var(--c) 45%,transparent);border-radius:2px}
+.shelf .cells i:nth-child(1),.shelf .cells i:nth-child(6),.shelf .cells i:nth-child(11),.shelf .cells i:nth-child(16){background:color-mix(in srgb,var(--c) 80%,transparent)}
+.shelf .text i{position:absolute;left:20px;height:5px;border-radius:3px;background:color-mix(in srgb,var(--c) 60%,transparent)}
+.disc{width:150px;height:150px;border-radius:50%;background:radial-gradient(circle at 40% 35%,color-mix(in srgb,var(--c) 40%,var(--bg3)),var(--bg2));border:1px solid var(--c)}
+.wire{position:absolute;height:0;border-top:2px dashed color-mix(in srgb,var(--c) 70%,transparent);transform-origin:0 0}
+/* billboard labels sit above the plane, facing the reader */
+.bill{position:absolute;transform-style:preserve-3d;pointer-events:none}
+.bill>div{transform:rotateZ(42deg) rotateX(-58deg) translateY(-100%);transform-origin:0 100%;white-space:nowrap}
+.bill b{display:block;font:500 11px "JetBrains Mono",monospace;letter-spacing:.24em;color:var(--c);text-transform:uppercase}
+.bill span{display:block;font-size:13px;color:var(--ink2);margin-top:2px}
+.bill .stem{position:absolute;left:0;top:100%;width:1px;height:46px;background:linear-gradient(var(--c),transparent)}
+.proofs{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:22px}
+@media (max-width:980px){.proofs{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:520px){.proofs{grid-template-columns:1fr}}
+.proofs div{border-top:2px solid var(--c);background:var(--bg2);border-radius:0 0 4px 4px;padding:14px 14px 16px;font-size:14px;color:var(--ink2)}
 
-/* 3. sources */
-.src{display:grid;grid-template-columns:250px 1fr;gap:24px;align-items:start}
-@media (max-width:900px){.src{grid-template-columns:1fr}}
-.slist{display:flex;flex-direction:column;gap:4px}
-@media (max-width:900px){.slist{flex-direction:row;flex-wrap:wrap}}
-.sbtn{text-align:left;border:1px solid transparent;background:transparent;border-radius:8px;padding:10px 14px;cursor:pointer;font-weight:500;font-size:14px;color:var(--ink2);transition:background-color .15s var(--ease),color .15s var(--ease)}
-.sbtn small{display:block;font-weight:400;font-size:12px;color:var(--ink4)}
-.sbtn:hover{background:var(--s1);color:var(--ink)}
-.sbtn[aria-pressed=true]{background:var(--s2);border-color:var(--hair2);color:var(--ink)}
-.pipe{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:12px}
-@media (max-width:700px){.pipe{grid-template-columns:1fr}}
-.pst{background:var(--s1);border:1px solid var(--hair);border-radius:12px;padding:14px;position:relative;overflow:hidden;min-height:122px;transition:opacity .3s var(--ease)}
-.pst .fill{position:absolute;left:0;bottom:0;height:2px;width:0;background:var(--acc-hi);transition:width .4s var(--ease)}
-.pst.done .fill{width:100%}
-.pst.skip{opacity:.4}
-.pst.skip .fill{width:0!important}
-.pst h4{margin:0 0 4px;font-size:14px;font-weight:600;color:var(--ink)}
-.pst p{font-size:13px;color:var(--ink3);margin:0}
-.pst .sec{font:500 13px "JetBrains Mono",ui-monospace,monospace;color:var(--ink);margin-top:8px;opacity:0;transition:opacity .25s var(--ease)}
-.pst.done .sec,.pst.skip .sec{opacity:1}
-.sres{padding:22px 24px}
-.sres .big{font-size:24px;font-weight:600;letter-spacing:-.6px;color:var(--ink);line-height:1.25;margin:0 0 6px}
-.tbar{display:flex;height:8px;border-radius:4px;overflow:hidden;margin:16px 0 10px;background:var(--s3);gap:2px}
-.tbar span{display:block;height:100%}
-.tkey{display:flex;flex-wrap:wrap;gap:4px 16px;font-size:13px;color:var(--ink3)}
-.tkey i{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:6px}
+/* ---------- when files disagree ---------- */
+.recon{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:28px;margin-top:44px;align-items:start}
+@media (max-width:980px){.recon{grid-template-columns:1fr}}
+.chartcard{background:var(--bg2);border:1px solid var(--line);border-radius:6px;padding:22px 22px 12px}
+.chartcard>svg{display:block;width:100%;height:auto}
+.chartcard text{font-family:"Inter",sans-serif}
+.rowbtn{cursor:pointer}
+.rowbtn rect.hit{fill:transparent}
+.rowbtn:hover rect.hit,.rowbtn.sel rect.hit{fill:rgba(255,255,255,.035)}
+.legend2{display:flex;flex-wrap:wrap;gap:8px 20px;font-size:13px;color:var(--ink3);margin:8px 0 6px}
+.legend2 span{display:inline-flex;align-items:center;gap:8px}
+.verdict{background:var(--bg2);border:1px solid var(--line);border-radius:6px;padding:22px}
+.chip{display:inline-block;font:600 11px "JetBrains Mono",monospace;letter-spacing:.18em;padding:4px 10px;border-radius:3px;margin-bottom:12px}
+.chip.d{background:rgba(224,112,95,.16);color:var(--r)}
+.chip.a{background:rgba(95,177,127,.16);color:var(--g)}
+.chip.n{background:rgba(141,149,161,.14);color:var(--ink3)}
+.verdict h3{font-size:22px;font-weight:300}
+.verdict .said{font-size:15px;color:var(--ink2)}
+.lines{font:400 12px/1.65 "JetBrains Mono",monospace;color:var(--ink3);border-top:1px solid var(--line);margin-top:14px;padding-top:12px}
+.lines div{margin-bottom:8px}
+.lines b{color:var(--t);font-weight:500}
+.aside{display:flex;gap:16px;align-items:flex-start;background:rgba(224,112,95,.06);border:1px solid rgba(224,112,95,.35);border-radius:6px;padding:18px 20px;margin-top:20px}
+.aside .x{flex:0 0 auto;width:34px;height:34px;border-radius:50%;border:1.5px solid var(--r);color:var(--r);display:grid;place-items:center;font:600 13px "JetBrains Mono",monospace}
+.aside p{margin:0;font-size:15px;color:var(--ink2)}
 
-/* 4. strategy */
-.steps{display:flex;margin:0 0 20px;padding:0;list-style:none;overflow-x:auto;gap:4px}
-.steps li{flex:1;min-width:104px}
-.sbn{width:100%;background:transparent;border:0;cursor:pointer;text-align:left;padding:0 8px 12px 0;color:var(--ink4);font-weight:500;font-size:14px;transition:color .15s var(--ease)}
-.sbn::before{content:"";display:block;height:2px;border-radius:1px;background:var(--hair2);margin-bottom:10px;transition:background-color .3s var(--ease)}
-.sbn:hover{color:var(--ink2)}
-.sbn.past{color:var(--ink3)}
-.sbn.past::before{background:var(--ink4)}
-.sbn[aria-current=step]{color:var(--ink)}
-.sbn[aria-current=step]::before{background:var(--acc-hi)}
-.sbn small{display:block;font-weight:400;font-size:12px}
-.spanel{display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:start;padding:30px;min-height:290px}
-@media (max-width:900px){.spanel{grid-template-columns:1fr;gap:22px;padding:20px 16px}}
-.spanel .who{font-size:13px;color:var(--ink3);margin:0 0 6px}
-.spanel .q{font-size:22px;font-weight:500;letter-spacing:-.4px;line-height:1.3;color:var(--ink);margin:0 0 16px}
-.spanel .said{font-size:16px;border-left:2px solid var(--hair3);padding-left:14px}
-.moves{list-style:none;padding:0;margin:0}
-.moves li{margin:0 0 16px;padding-left:14px;border-left:2px solid var(--acc)}
-.moves .do{font-weight:500;font-size:16px;color:var(--ink);display:block}
-.moves .bc{font-size:14px;color:var(--ink3)}
-.bars{display:flex;flex-direction:column;gap:8px;margin:6px 0}
-.bar{display:grid;grid-template-columns:8em 1fr;align-items:center;gap:10px;font-size:13px;color:var(--ink3)}
-.bar .tr{height:28px;background:var(--s2);border-radius:6px;position:relative}
-.bar .v{position:absolute;inset:0 auto 0 0;background:var(--s4);border:1px solid var(--hair3);border-radius:6px;width:0;transition:width .7s var(--ease)}
-.bar .v.hi{background:var(--acc);border-color:var(--acc)}
-.bar .lab{position:absolute;left:8px;top:4px;font-weight:600;color:var(--ink);white-space:nowrap;font-size:13px}
-.snav{display:flex;gap:8px;margin-top:16px}
-.snav button{background:var(--s1);border:1px solid var(--hair);border-radius:8px;padding:8px 14px;cursor:pointer;font-weight:500;font-size:14px;color:var(--ink);transition:background-color .15s var(--ease)}
-.snav button:hover{background:var(--s2)}
-.snav button:disabled{opacity:.35;cursor:default}
+/* ---------- how it works: two lanes ---------- */
+.lanes{margin-top:44px;background:var(--bg2);border:1px solid var(--line);border-radius:8px;padding:10px 10px 0;overflow:hidden}
+.lanes svg{display:block;width:100%;height:auto}
+.lanes text{font-family:"Inter",sans-serif}
+@media (max-width:760px){.lanes{display:none}}
+.flow{display:none;grid-template-columns:1fr;gap:12px;margin:36px 0 0}
+@media (max-width:760px){.flow{display:grid}}
+.box{background:var(--bg2);border:1px solid var(--line);border-radius:4px;padding:14px 16px 16px}
+.box .who{font:500 10px "JetBrains Mono",monospace;letter-spacing:.24em;text-transform:uppercase;margin-bottom:8px}
+.box.model{border-left:3px solid var(--v)}
+.box.room{border-left:3px solid var(--t)}
+.box.model .who{color:var(--v)}
+.box.room .who{color:var(--t)}
+.box h3{font-size:16px;margin-bottom:4px}
+.box p{font-size:14px;color:var(--ink3);margin:0}
+.legend{display:flex;flex-wrap:wrap;gap:10px 28px;margin:26px 0 0;font-size:14px;color:var(--ink3)}
+.legend span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:8px;vertical-align:-1px}
+.legend .lm::before{background:var(--v)}
+.legend .lr::before{background:var(--t)}
 
-/* checks */
-.stop{display:grid;grid-template-columns:1.25fr .9fr;gap:40px;align-items:start;padding:30px}
-@media (max-width:900px){.stop{grid-template-columns:1fr;gap:24px;padding:20px 16px}}
-.who{font-size:13px;color:var(--ink3);margin:0 0 6px}
-.qq{font-size:18px;font-weight:500;color:var(--ink);margin:0 0 18px}
-.draft{font-size:20px;line-height:1.55;margin:0;color:var(--ink2)}
-.draft s{text-decoration:line-through;text-decoration-color:var(--err);text-decoration-thickness:2px;color:var(--ink3)}
-.margin{color:var(--err);font-size:16px;line-height:1.5;border-left:2px solid var(--err);padding-left:16px}
-.margin p{margin:0 0 12px}
-.margin q{font-style:italic}
-.nh{list-style:none;padding:0;margin:0 0 20px}
-.nh li{font-size:17px;color:var(--ink);margin:0 0 8px}
-.nh li::before{content:"";display:inline-block;width:.5em;height:.5em;border:2px solid var(--err);border-radius:50%;margin-right:.6em}
-.twocol{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:24px}
-.twocol>div{padding:28px}
-@media (max-width:900px){.twocol{grid-template-columns:1fr}.twocol>div{padding:20px 16px}}
-.ledger{font-size:18px;color:var(--ink2);max-width:56ch;margin-top:44px}
+/* ---------- two answers ---------- */
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start;margin-top:48px;perspective:1600px}
+@media (max-width:900px){.vs{grid-template-columns:1fr;perspective:none}}
+.vs>div{background:var(--bg2);border:1px solid var(--line);border-radius:6px;padding:26px;box-shadow:0 40px 80px -40px rgba(0,0,0,.8)}
+@media (min-width:901px){.vs .agent{transform:rotateY(7deg);transform-origin:right center}.vs .room{transform:rotateY(-7deg);transform-origin:left center}}
+@media (max-width:700px){.vs>div{padding:20px 16px}}
+.vs .agent{border-top:2px solid var(--r)}
+.vs .room{border-top:2px solid var(--b)}
+.vs .agent .lab{color:var(--r)}
+.vs .room .lab{color:var(--b)}
+.qq{font-size:16px;color:var(--ink3);margin:0 0 16px}
+.said{font-size:18px;line-height:1.6;color:var(--ink);margin:0 0 18px}
+.bad{background:rgba(224,112,95,.16);border-bottom:2px solid var(--r);color:var(--ink);padding:0 3px;border-radius:2px}
+.code{font:12.5px/1.5 "JetBrains Mono",monospace;font-variant-ligatures:none;background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:11px 13px;color:var(--ink2);overflow-x:auto;white-space:pre;margin:0 0 18px}
+.why{border-left:2px solid var(--r);padding-left:14px;font-size:15px;color:var(--ink2)}
+.why p:first-child{color:var(--r)}
+.tally{font-size:18px;color:var(--ink2);max-width:72ch;margin-top:40px}
 
-/* close */
-.close{display:grid;grid-template-columns:1fr 1fr;gap:24px}
-.close>div{padding:28px}
-@media (max-width:860px){.close{grid-template-columns:1fr}}
-.close h3{font-size:20px;font-weight:600;letter-spacing:-.3px;color:var(--ink);margin:0 0 8px}
-.soon{color:var(--ink4);font-weight:400}
-.cta{margin-top:24px;padding:48px}
-@media (max-width:600px){.cta{padding:28px 18px}}
-.cta .line{font-size:clamp(26px,3.4vw,40px);line-height:1.15;letter-spacing:-1px;font-weight:600;color:var(--ink);margin:0 0 24px;max-width:28ch}
-footer{padding:36px 0 48px;color:var(--ink4);font-size:13px}
+/* ---------- the checks: glass filters ---------- */
+.filters{position:relative;height:330px;margin-top:40px;perspective:1300px}
+.rig{position:absolute;inset:0;transform-style:preserve-3d;transform:rotateX(10deg) rotateY(-16deg);transition:transform .6s var(--ease)}
+.pane{position:absolute;top:40px;width:120px;height:210px;border-radius:6px;cursor:pointer;background:color-mix(in srgb,var(--c) 14%,transparent);border:1px solid color-mix(in srgb,var(--c) 70%,transparent);
+  transform:rotateY(58deg);transform-style:preserve-3d;transition:background-color .25s var(--ease),transform .35s var(--ease),box-shadow .25s var(--ease);box-shadow:0 0 0 0 transparent}
+.pane::after{content:attr(data-n);position:absolute;left:50%;bottom:-30px;transform:translateX(-50%) rotateY(-58deg);font:500 11px "JetBrains Mono",monospace;color:var(--ink3);white-space:nowrap}
+.pane.lo::after{bottom:-46px}
+.pane:hover,.pane.sel{background:color-mix(in srgb,var(--c) 32%,transparent);box-shadow:0 0 40px color-mix(in srgb,var(--c) 40%,transparent)}
+.pane.sel{transform:rotateY(58deg) translateZ(26px)}
+.pane.sel::after{color:var(--ink)}
+.beam{position:absolute;top:144px;height:2px;background:linear-gradient(90deg,var(--ink3),var(--g));box-shadow:0 0 10px rgba(255,255,255,.25)}
+.card2{position:absolute;top:96px;width:190px;background:var(--bg3);border:1px solid var(--line2);border-radius:6px;padding:12px 14px;font-size:13px;color:var(--ink2);box-shadow:0 30px 60px -20px rgba(0,0,0,.8)}
+.card2 b{display:block;font:500 10px "JetBrains Mono",monospace;letter-spacing:.2em;color:var(--ink3);margin-bottom:6px;font-weight:500}
+.card2.out{border-color:var(--g)}
+.card2.out b{color:var(--g)}
+@media (max-width:900px){.filters{display:none}}
+.bands{display:none;gap:6px;margin:36px 0 0;flex-wrap:wrap}
+@media (max-width:900px){.bands{display:flex}}
+.band{flex:1 1 22%;min-width:70px;background:none;border:0;padding:8px 0 0;cursor:pointer;text-align:center}
+.band i{display:block;height:30px;border-radius:2px;opacity:.7}
+.band span{display:block;font:500 11px "JetBrains Mono",monospace;color:var(--ink3);margin-top:8px}
+.band[aria-pressed=true] i{opacity:1}
+.band[aria-pressed=true] span{color:var(--ink)}
+.bandnote{margin:18px 0 0;min-height:3.4em;font-size:19px;color:var(--ink)}
+.bandnote b{font:500 11px "JetBrains Mono",monospace;letter-spacing:.24em;text-transform:uppercase;display:block;margin-bottom:6px}
+.strikes{display:grid;grid-template-columns:1fr 1fr;gap:10px 28px;margin:8px 0 0;font:400 12.5px/1.6 "JetBrains Mono",monospace;color:var(--ink3)}
+@media (max-width:760px){.strikes{grid-template-columns:1fr}}
+.strikes b{font-weight:500;letter-spacing:.14em;color:var(--a)}
+.strikes div+div b{color:var(--r)}
+.pair{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--i);border-radius:6px;margin-top:44px;background:linear-gradient(135deg,rgba(127,132,216,.06),transparent 60%)}
+@media (max-width:760px){.pair{grid-template-columns:1fr}}
+.pair>div{padding:26px 28px}
+.pair>div+div{border-left:1px solid var(--line)}
+@media (max-width:760px){.pair>div+div{border-left:0;border-top:1px solid var(--line)}}
+.pair .big{font-weight:300;font-size:34px;color:var(--ink);letter-spacing:-.02em;margin:0 0 4px}
+.pair .lab{color:var(--i);margin-bottom:12px;letter-spacing:.2em}
+.pair p{font-size:15px;color:var(--ink3)}
+
+/* ---------- the dig ---------- */
+.dig{text-align:center;margin-top:48px}
+.dig .lab{color:var(--b);margin-bottom:12px}
+.finding{display:inline-block;border:1px solid var(--b);border-radius:4px;padding:14px 26px;font-size:19px;color:var(--ink);background:var(--bg);box-shadow:0 0 50px rgba(92,149,214,.25)}
+.fan{display:block;width:100%;height:auto;margin-top:-1px;overflow:visible}
+.fan line{stroke-width:1}
+.fan.pre line{stroke-dashoffset:var(--len)}
+.fan.draw line{animation:draw 1.1s var(--ease) both;animation-delay:calc(var(--i) * 25ms)}
+@keyframes draw{from{stroke-dashoffset:var(--len)}to{stroke-dashoffset:0}}
+.cuts{display:grid;grid-template-columns:repeat(5,1fr);gap:18px;margin-top:14px;text-align:center}
+@media (max-width:860px){.cuts{grid-template-columns:repeat(2,1fr);text-align:left}}
+.cuts h3{font-size:15px;margin:0 0 4px}
+.cuts p{font:400 12px/1.55 "JetBrains Mono",monospace;color:var(--b);margin:0 auto;max-width:none}
+.cuts .dead h3{color:var(--ink3)}
+.cuts .dead p{color:var(--ink4)}
+.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:56px}
+@media (max-width:860px){.trio{grid-template-columns:1fr;gap:22px}}
+.trio>div{border-top:1px solid var(--line2);padding-top:16px}
+.trio .lab{color:var(--b);margin-bottom:10px;letter-spacing:.2em}
+.trio p{font-size:15px;color:var(--ink3)}
+
+/* ---------- measured ---------- */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:0 28px;margin-top:48px}
+@media (max-width:860px){.stats{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.stats{grid-template-columns:1fr}}
+.stat{border-top:2px solid var(--c);padding:22px 0 34px;position:relative}
+.stat::before{content:"";position:absolute;left:0;top:-2px;width:40%;height:40px;background:linear-gradient(color-mix(in srgb,var(--c) 18%,transparent),transparent);pointer-events:none}
+.stat .v{font-weight:300;font-size:clamp(40px,4.6vw,56px);line-height:1;letter-spacing:-.03em;color:var(--ink);margin-bottom:14px;font-variant-numeric:tabular-nums}
+.stat .k{font:500 11px/1.5 "JetBrains Mono",monospace;letter-spacing:.2em;text-transform:uppercase;color:var(--c);margin-bottom:10px}
+.stat p{font-size:14.5px;color:var(--ink3);margin:0}
+
+/* ---------- range ---------- */
+.range{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:48px;perspective:1000px}
+@media (max-width:980px){.range{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:520px){.range{grid-template-columns:1fr}}
+.src{background:linear-gradient(160deg,var(--bg3),var(--bg2));border:1px solid var(--line);border-radius:6px;padding:18px;transition:transform .25s var(--ease),border-color .25s var(--ease);transform-style:preserve-3d}
+.src:hover{border-color:var(--line2)}
+.src .v{font-weight:300;font-size:30px;letter-spacing:-.02em;color:var(--ink);line-height:1.1}
+.src .u{font:500 10.5px "JetBrains Mono",monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--t);margin:6px 0 12px}
+.src p{font-size:14px;color:var(--ink3);margin:0}
+.src.new{border-color:color-mix(in srgb,var(--t) 50%,var(--line))}
+
+/* ---------- where it sits ---------- */
+.sits{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:28px;margin-top:40px;align-items:start}
+@media (max-width:980px){.sits{grid-template-columns:1fr}}
+.tbl{width:100%;border-collapse:collapse;font-size:15px}
+.tbl th{font:500 10.5px "JetBrains Mono",monospace;letter-spacing:.2em;text-transform:uppercase;color:var(--ink4);text-align:left;padding:0 16px 12px 0}
+.tbl td{border-top:1px solid var(--line);padding:16px 16px 16px 0;vertical-align:top;color:var(--ink3)}
+.tbl td:first-child{color:var(--ink);width:24%}
+@media (max-width:700px){.tbl thead{display:none}.tbl tr{display:block;border-top:1px solid var(--line);padding:14px 0}.tbl td{display:block;border:0;padding:3px 0}.tbl td:first-child{width:auto;font-size:16px}}
+.claim{background:linear-gradient(160deg,rgba(207,120,168,.10),var(--bg3) 55%);border:1px solid rgba(207,120,168,.3);border-radius:6px;padding:26px}
+.claim .lab{color:var(--p)}
+.claim ul{list-style:none;padding:0;margin:0 0 18px}
+.claim li{font-weight:300;font-size:22px;line-height:1.35;color:var(--ink);margin:0 0 8px}
+.claim p{font-size:14px;color:var(--ink3);margin:0}
+
+/* ---------- founder ---------- */
+.years{display:grid;grid-template-columns:repeat(6,1fr);gap:18px;margin-top:48px;position:relative}
+.years::before{content:"";position:absolute;left:0;right:0;top:5px;height:1px;background:linear-gradient(90deg,var(--line2),var(--o))}
+@media (max-width:980px){.years{grid-template-columns:repeat(3,1fr)}.years::before{display:none}}
+@media (max-width:560px){.years{grid-template-columns:1fr 1fr}}
+.yr{position:relative;padding-top:24px}
+.yr::before{content:"";position:absolute;left:0;top:0;width:11px;height:11px;border-radius:50%;background:var(--bg);border:1.5px solid var(--ink3)}
+.yr.now::before{background:var(--o);border-color:var(--o);box-shadow:0 0 14px var(--o)}
+.yr .y{font:500 11px "JetBrains Mono",monospace;letter-spacing:.2em;color:var(--ink4)}
+.yr.now .y{color:var(--o)}
+.yr h3{font-size:16px;margin:6px 0 6px}
+.yr p{font-size:13.5px;color:var(--ink3);margin:0}
+
+/* ---------- ask + questions ---------- */
+.asks{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:44px}
+@media (max-width:860px){.asks{grid-template-columns:1fr;gap:22px}}
+.asks>div{border-top:1px solid var(--g);padding-top:16px}
+.asks .n{font:500 11px "JetBrains Mono",monospace;letter-spacing:.2em;color:var(--g);margin-bottom:10px}
+.asks p{font-size:15px;color:var(--ink3)}
+.faq{max-width:860px;margin-top:36px}
+.faq details{border-top:1px solid var(--line)}
+.faq details:last-child{border-bottom:1px solid var(--line)}
+.faq summary{cursor:pointer;list-style:none;padding:20px 40px 20px 0;font-size:19px;color:var(--ink);position:relative}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";position:absolute;right:6px;top:16px;font-size:24px;font-weight:300;color:var(--ink3);transition:transform .2s var(--ease)}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{color:var(--ink3);font-size:16px;margin:0 0 20px}
+
+/* grid children may shrink below their content, so a long code line scrolls instead of widening the page */
+.hero>*,.vs>*,.sits>*,.flow>*,.three>*,.trio>*,.stats>*,.range>*,.asks>*,.years>*,.cuts>*,.pair>*,.strikes>*,.recon>*,.proofs>*{min-width:0}
+
+footer{border-top:1px solid var(--line);padding:36px 0 56px;color:var(--ink4);font-size:13px}
 footer p{max-width:none;margin:0 0 6px}
+
+/* Reduced motion: nothing slides, tilts, spins or marches; fades and the typed question stay. */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .rv{transform:none}
+  .reads .track{animation:none}
+  .rig3d,.rig,.src,.pane{transition:none}
+  .demo .step{transform:none}
+}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="top">
-    <a class="mark" href="/">TalkTask</a>
+    <a class="mark" href="/" aria-label="TalkTask home">
+      <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><rect x="1" y="3" width="20" height="13" rx="2.5" fill="none" stroke="#eef1f4" stroke-width="1.6"/><path d="M6 16v4l4-4" fill="none" stroke="#eef1f4" stroke-width="1.6" stroke-linejoin="round"/><rect x="5" y="7" width="3" height="5" fill="#5c95d6"/><rect x="9.5" y="9" width="3" height="3" fill="#4fb0b0"/><rect x="14" y="6" width="3" height="6" fill="#a882d6"/></svg>
+      TalkTask
+    </a>
     <nav class="nav" aria-label="Sections">
-      <a href="#solves">What it solves</a><a href="#capabilities">What it can do</a><a href="#sources">Your sources</a><a href="#strategy">From question to decision</a><a href="#checks">The checks</a>
+      <a href="#gap">The gap</a><a href="#folder">Your folder</a><a href="#how">How it works</a><a href="#two">Two answers</a><a href="#checks">The checks</a><a href="#dig">It digs</a><a href="#measured">Measured</a><a href="#faq">Questions</a>
     </nav>
     <a class="btn" href="mailto:hello@talktask.si?subject=TalkTask%20trial">Ask for a trial</a>
   </header>
+
+  <div class="hero">
+    <div>
+      <span class="lab">Answers from your data · with receipts</span>
+      <h1>Ask your data anything. Every figure <em>shows its working.</em></h1>
+      <p class="lead">Point TalkTask at a survey, a spreadsheet, a database or a folder of reports, and ask in plain words. It counts every figure itself, shows where each one came from, and says so, out loud, when the data cannot carry the claim.</p>
+      <div class="btns"><a class="btn" href="mailto:hello@talktask.si?subject=TalkTask%20trial">Ask for a trial</a><a class="btn ghost" href="#two">See one answer checked</a></div>
+    </div>
+    <div class="stage3d" id="stage3d">
+      <div class="rig3d" id="rig3d">
+        <div class="sheet xls" aria-hidden="true"><b>SALES.XLSX</b></div>
+        <div class="sheet pdf" aria-hidden="true"><b>REPORT.PDF</b></div>
+        <div class="sheet sav" aria-hidden="true"><b>SURVEY.SAV</b></div>
+        <div class="demo" aria-label="A real question and answer from the room's record">
+          <button class="replay" type="button" id="replay">Replay</button>
+          <div class="step on" id="d1"><span class="lab">The question · General Social Survey</span><p class="typed" id="typed"></p></div>
+          <div class="step" id="d2"><span class="lab" style="color:var(--t)">The plan, in words</span><p class="plan">The change in confidence in medicine ('a great deal') for each group since 1990, and which group fell the most.</p></div>
+          <div class="step" id="d3"><span class="lab" style="color:var(--b)">The answer · room record 3072</span><p class="ans">“'A great deal' of confidence in medicine fell for every group since 1990; the biggest fall was among the 'Never married, no children' group, from <button class="fig" data-v="a" data-box="hrec" aria-pressed="false">51.7%</button> in 1990 to <button class="fig" data-v="b" data-box="hrec" aria-pressed="false">26.8%</button> in 2024.”</p></div>
+          <div class="step" id="d4"><div class="receipt" id="hrec"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
-<section id="solves" style="padding-top:48px">
+<div class="reads" aria-label="What it reads">
+  <div class="track" id="readsTrack"></div>
+</div>
+
+<section id="gap">
   <div class="wrap">
-    <h1>What it solves</h1>
-    <p class="sub">TalkTask answers questions about the data you already hold, in plain words. Every figure is counted by the engine and carries its receipt. Pick a problem, then switch between today and with TalkTask.</p>
-    <div class="solve">
-      <div class="ptabs" role="tablist" aria-label="Problems" id="ptabs"></div>
-      <div class="pstage panel" role="tabpanel" id="pstage">
-        <div class="switch" role="group" aria-label="View">
-          <button type="button" id="sw-today" aria-pressed="true">Today</button>
-          <button type="button" id="sw-with" aria-pressed="false">With TalkTask</button>
+    <span class="lab" style="color:var(--r)">The gap</span>
+    <h2>The data outlives the report. The analysis does not.</h2>
+    <div class="track2">
+      <div class="steps"><span>Collect · clean · table · report · debrief</span><em>Delivered</em></div>
+      <div class="rail"></div>
+      <div class="later">
+        <div class="rings" id="rings"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <p class="small" style="max-width:52ch">The questions that occur to you afterwards. Each one is a new job, quoted and queued, so most of them are never asked.</p>
+      </div>
+    </div>
+    <div class="three">
+      <div class="rv"><div class="n">01</div><h3>A study is delivered, and then it is dead.</h3><p>The wave ships as tables and a deck. Every follow-up question is a new job, or a guess.</p></div>
+      <div class="rv"><div class="n">02</div><h3>The answer is spread across files that never meet.</h3><p>The survey, the sales sheet, the board report, the policy that changed in March. Nothing is ever asked of all of it at once.</p></div>
+      <div class="rv hot"><div class="n">03</div><h3>AI answers instantly, and nothing checks the answer.</h3><p>Confidence without evidence looks exactly like a good answer, and it is your name on the number.</p></div>
+    </div>
+    <p class="closer">TalkTask closes all three, on data you already own.</p>
+  </div>
+</section>
+
+<section id="folder">
+  <div class="wrap">
+    <span class="lab" style="color:var(--t)">One folder, every file <span class="tag">in testing</span></span>
+    <h2>Hand it a folder. It reads each file for what it is.</h2>
+    <p class="lead">Spreadsheets, reports, decks, scans and survey tab books go in together. Each part is sorted by what one row of it is, proved against itself, and catalogued once. Then one question can reach all of it, and every figure still carries its receipt.</p>
+    <div class="isowrap" id="isowrap" aria-label="Files sorted into records, printed tables and text, then into one catalogue">
+      <div class="isofit" id="isofit">
+        <div class="plane" id="plane"></div>
+      </div>
+    </div>
+    <div class="proofs">
+      <div class="rv" style="--c:var(--g)">A totals row is kept only if the rows above it add up to it.</div>
+      <div class="rv" style="--c:var(--t)">A formula is run again on the rows and set beside the figure the file saved.</div>
+      <div class="rv" style="--c:var(--b)">The same report in Word and in PDF is counted once.</div>
+      <div class="rv" style="--c:var(--a)">Versions are dated by what the documents say, never by the file's timestamp.</div>
+      <div class="rv" style="--c:var(--r)">Personal columns are set aside at the door: never read, counted or shown.</div>
+    </div>
+  </div>
+</section>
+
+<section id="agree">
+  <div class="wrap">
+    <span class="lab" style="color:var(--a)">When files disagree <span class="tag">in testing</span></span>
+    <h2>It sets the report beside the records, and says which agree.</h2>
+    <p class="lead">From a test company folder we built with known answers: a board report, in Word and in PDF, and the 720-row sales workbook it should rest on. Asked on 21 October 2026 whether the report's revenue figures match the records. Select a region.</p>
+    <div class="recon">
+      <div class="chartcard">
+        <div class="legend2"><span><svg width="12" height="12"><circle cx="6" cy="6" r="5" fill="#4fb0b0"/></svg>the records, summed by the room</span><span><svg width="12" height="12"><path d="M6 1 11 6 6 11 1 6z" fill="#eef1f4"/></svg>what the board report says</span><span><svg width="18" height="10"><rect width="18" height="10" rx="2" fill="rgba(95,177,127,.25)"/></svg>the report's own rounding</span></div>
+        <svg id="reconSvg" viewBox="0 0 640 330" role="img" aria-label="Board report figures against the sales records for four regions"></svg>
+      </div>
+      <div class="verdict" id="verdict" aria-live="polite"></div>
+    </div>
+    <div class="aside">
+      <div class="x">✕</div>
+      <p><b>“What is the contact email for Brightwater Dental?”</b> The workbook holds one, in a column of customer emails. The room answered that the column is a person's details, set aside at the door, never read, counted or shown, and that it cannot give it.</p>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <span class="lab" style="color:var(--g)">What happens to your question</span>
+    <h2>The model plans and writes. It never counts.</h2>
+    <p class="lead">A language model reads your question and writes a plan. Everything after that is the room's: it checks the plan against your data, does every sum, and reads every sentence before you see it.</p>
+    <div class="legend"><span class="lm">The model: reads and writes</span><span class="lr">The room: counts and checks, the same way every time</span></div>
+    <div class="lanes"><svg id="lanes" viewBox="0 0 1100 330" role="img" aria-label="The path of a question between the model and the room"></svg></div>
+    <div class="flow" id="flowList"></div>
+    <p class="closer">A wrong answer fails a check instead of sounding plausible.</p>
+  </div>
+</section>
+
+<section id="two">
+  <div class="wrap">
+    <span class="lab" style="color:var(--b)">One question, two answers</span>
+    <h2>An AI agent counted right and read it backwards.</h2>
+    <p class="lead">The same question, on 13 September 2026, put to an AI agent that writes and runs Python over the same 65,015 survey rows with the survey's codebook, and to a TalkTask room. Every figure either side stated was recounted from the rows afterwards.</p>
+    <div class="vs">
+      <div class="agent rv">
+        <span class="lab">An AI agent, writing Python</span>
+        <p class="qq">How has confidence in medicine changed for each group since 1990, and which group fell most?</p>
+        <p class="said">“Since 1990, confidence in medicine has <span class="bad">increased</span> for all groups. The ‘Retired and comfortable’ group experienced the smallest increase, with a change of 0.175 in their average confidence score.”</p>
+        <p class="small" style="margin:0 0 6px">Its code, as run:</p>
+        <div class="code">df[df['year'] &gt;= 1990].groupby(['groups', 'year'])['conmedic'].mean()</div>
+        <div class="why">
+          <p>Backwards. The survey codes the answer 1 = a great deal, 2 = only some, 3 = hardly any. The agent averaged the codes, saw the average rise, and read it as more confidence. A higher average means less.</p>
+          <p style="margin:0">The arithmetic was right: 1.585 in 1990 to 1.759 in 2024 for that group. Nothing in the answer could tell you its meaning was wrong. Agent record 3084.</p>
         </div>
-        <div class="flow" id="flow" aria-live="polite"></div>
-        <p class="pnote" id="pnote"></p>
+      </div>
+      <div class="room rv">
+        <span class="lab">TalkTask</span>
+        <p class="qq">Its plan, in words: the change in confidence in medicine ('a great deal') for each group since 1990, and which group fell the most.</p>
+        <p class="said">“'A great deal' of confidence in medicine fell for every group since 1990; the biggest fall was among the 'Never married, no children' group, from <button class="fig" data-v="a" data-box="vrec" aria-pressed="false">51.7%</button> in 1990 to <button class="fig" data-v="b" data-box="vrec" aria-pressed="false">26.8%</button> in 2024, a drop of 24.9 points.”</p>
+        <p class="small">Select a highlighted figure for its receipt: every person behind it.</p>
+        <div class="receipt" id="vrec"></div>
+        <p class="small" style="margin:16px 0 0">The room compares only cells of 100 people or more. Three groups had fewer in 1990, so they start later. One of them, financially strained, would show a fall of 26.3 points on 71 people; the room did not rest a claim on it. Room record 3072.</p>
       </div>
     </div>
-  </div>
-</section>
-
-<section id="capabilities">
-  <div class="wrap">
-    <h2 class="s">What it can do</h2>
-    <p class="sub">One table of 32 operations. The language model reads your question and picks from it; the room checks the choice against your data and does the arithmetic. Select any operation to see a real question that used it.</p>
-    <div class="cap">
-      <div class="fams panel" id="fams"></div>
-      <aside class="cdetail panel" id="cdetail" aria-live="polite"></aside>
-    </div>
-  </div>
-</section>
-
-<section id="sources">
-  <div class="wrap">
-    <h2 class="s">Your sources, in minutes</h2>
-    <p class="sub">Files, folders and databases take the same path. Every column is classified from its own rows, personal data is set aside, and every figure is recounted before the room opens. If the recount fails, the room does not open. Pick a source to replay a real intake from the record.</p>
-    <div class="src">
-      <div class="slist" id="slist"></div>
-      <div>
-        <div class="pipe" id="pipe"></div>
-        <div class="sres panel" id="sres" aria-live="polite"></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="strategy">
-  <div class="wrap">
-    <h2 class="s">From question to decision</h2>
-    <p class="sub">One real conversation with the films room, 30 September 2026, from an open question to what to do next. Every figure was recounted from the file for this page. Step through it.</p>
-    <ol class="steps" id="steps"></ol>
-    <div class="spanel panel" id="spanel" aria-live="polite"></div>
-    <div class="snav"><button type="button" id="sprev">Back</button><button type="button" id="snext">Next</button></div>
+    <p class="tally">Across twelve questions, 100 of the agent's figures could be recounted: 80 were right, 1 was wrong, 4 carried the wrong base, and 15 were averages of answer codes, which mean nothing. 21 of the room's could: 20 right, 1 with the wrong base. <b>The agent was usually right. Nothing told you when it was not.</b></p>
   </div>
 </section>
 
 <section id="checks">
   <div class="wrap">
-    <h2 class="s">The checks</h2>
-    <p class="sub">A language model writes the sentences. Before you see them, the room checks each one against what it counted. A sentence that fails does not reach you.</p>
-    <div class="stop panel">
-      <div>
-        <p class="who">Asked of a public file of 4,803 films, 28 September 2026</p>
-        <p class="qq">what measures do you have to measure how the movie did?</p>
-        <p class="draft">The model's draft: <s>The room does not hold direct measures of movie performance such as box office revenue or audience ratings.</s> However, it can analyze related factors such as production budget and genre…</p>
-      </div>
-      <div class="margin">
-        <p>Wrong. The file holds box office revenue in dollars.</p>
-        <p>The room's check, as recorded: <q>claimed not to hold what this analysis holds … this analysis holds revenue ("box office revenue in dollars")</q></p>
-        <p style="color:var(--ink2)">The person saw: “I will not give you that answer, because it did not pass the checks”, with the reasons. Room record 3876.</p>
-      </div>
+    <span class="lab" style="color:var(--i)">The checks</span>
+    <h2>Every sentence passes eight checks before you see it.</h2>
+    <p class="lead">The model writes the words; the room reads them back against what it counted. Each check looks for one kind of mistake. Select one.</p>
+    <div class="filters" aria-hidden="true">
+      <div class="rig" id="rig"></div>
     </div>
-    <div class="twocol">
-      <div class="panel">
-        <p class="who">Asked of the General Social Survey, 8 October 2026</p>
-        <p class="qq">what are the main differences between people following BASEBALL in US and SOCCER in US</p>
-        <ul class="nh">
-          <li>'following baseball in the US' is not in this data</li>
-          <li>'following soccer in the US' is not in this data</li>
-        </ul>
-        <p class="small">Its plan then said: “The survey holds nothing about following baseball or soccer, so the nearest measurable thing is every question ranked by the largest difference between the survey's own groups.” Room record 4625.</p>
-      </div>
-      <div class="panel">
-        <p class="who">Asked of the General Social Survey, 30 September 2026</p>
-        <p class="qq">Are americans more or less happy as compared to the past</p>
-        <p>'very happy': <button class="fig" id="hfig" aria-pressed="false" aria-controls="hrec">34.3%</button> in 1970s to <button class="fig" id="hfig2" aria-pressed="false" aria-controls="hrec">20.2%</button> in 2020s, 14.1 points down.</p>
-        <p class="small">Select a highlighted figure for its receipt.</p>
-        <div class="receipt" id="hrec"></div>
-      </div>
+    <div class="bands" id="bands" role="group" aria-label="The checks"></div>
+    <p class="bandnote" id="bandnote" aria-live="polite"></p>
+    <div class="strikes">
+      <div><b>ONE STRIKE</b> · the sentence comes out and the answer is written again, once, through every check.</div>
+      <div><b>TWO STRIKES</b> · the room gives what it counted and says plainly what it could not say.</div>
     </div>
-    <p class="ledger">Since 1 August 2026 the rooms have been asked <b>5,305 questions</b>, by the founder, by testers and by an outside benchmark. In <b>1,293</b> of them the room gave no answer, and said so.</p>
+    <div class="pair">
+      <div class="rv"><span class="lab">The unusual one</span><p class="big">Denial</p><p>Everyone polices a model that claims too much. TalkTask also polices one that claims too little: a sentence saying the data does not hold something it does hold is caught and taken out. Underclaiming is the failure nobody else looks for.</p></div>
+      <div class="rv"><span class="lab">The checks, checked</span><p class="big">34 of 35</p><p>Every answer the survey room had given, 526 of them, was re-measured and read against its own table. One check was striking true sentences 34 times in 35. It was retired on that evidence. A check that stops the truth is as bad as one that misses a lie.</p></div>
+    </div>
   </div>
 </section>
 
-<section>
+<section id="dig">
   <div class="wrap">
-    <div class="close">
-      <div class="panel">
-        <h3>Trials run now</h3>
-        <p>On a public data set, or on yours. You ask the questions; the room answers with its receipts. Write and say what data you have.</p>
-      </div>
-      <div class="panel">
-        <h3>Desktop and cloud <span class="soon">(in preparation)</span></h3>
-        <p>A desktop version where your file never leaves your machine: only your question and the counted tables go to the language model. A cloud version at app.talktask.si with a private space for each company.</p>
+    <span class="lab" style="color:var(--b)">It digs like an analyst</span>
+    <h2>Ask why, and it re-measures the finding inside every cut it holds.</h2>
+    <div class="dig">
+      <span class="lab">A finding · bases 10,361 and 6,809</span>
+      <div class="finding">married: 68.2% in the 1970s → 45.7% in the 2020s, −22.5 points</div>
+      <svg class="fan" id="fan" viewBox="0 0 1000 150" aria-hidden="true"></svg>
+      <div class="cuts">
+        <div><h3>age</h3><p>under 30: −35.6<br>60 and over: −7.8</p></div>
+        <div><h3>highest degree</h3><p>no high school: −33.1<br>graduate: −13.2</p></div>
+        <div><h3>the groups</h3><p>new parents: −20.9<br>retired: −1.4</p></div>
+        <div class="dead"><h3>region</h3><p>6.1 points apart<br>no difference</p></div>
+        <div class="dead"><h3>sex</h3><p>2.8 points apart<br>no difference</p></div>
       </div>
     </div>
-    <div class="cta panel">
-      <p class="line">Built in London by Prateek Bahl, after ten years in consumer insights.</p>
-      <a class="btn" href="mailto:hello@talktask.si?subject=TalkTask%20trial">Ask for a trial</a>
+    <p class="closer">36 cuts: 20 held, 16 made no difference, and the dead ends are said out loud, because a cut that made no difference is a finding too. Cuts are associations, never causes. No model is involved in the dig; it is pure counting.</p>
+    <div class="trio">
+      <div class="rv"><span class="lab">Self-test</span><h3>It checks its answer against a simpler one</h3><p>When a regression reports odds with other factors held still, the plain shares are measured too. Where the two point opposite ways, that reversal leads the answer.</p></div>
+      <div class="rv"><span class="lab">Memory</span><h3>What it has said is evidence</h3><p>Earlier figures stay citable. A new figure that contradicts one already given, for the same people and the same base, is stopped.</p></div>
+      <div class="rv"><span class="lab">Reuse</span><h3>A line of questioning is saved and run again</h3><p>Any thread becomes a workflow and runs again on the next wave, through the same checks, saying what changed since last time.</p></div>
     </div>
   </div>
 </section>
 
-<div class="wrap">
-  <footer>
+<section id="measured">
+  <div class="wrap">
+    <span class="lab">What has been measured</span>
+    <h2>Measured, not asserted.</h2>
+    <div class="stats">
+      <div class="stat rv" style="--c:var(--a)"><div class="v" data-to="100" data-fmt="ratio">100 / 100</div><div class="k">Quotes checked letter for letter</div><p>Every quoted span from a set of customer personas built on 24,898 public app reviews and comments, matched to its source record before a reader sees it.</p></div>
+      <div class="stat rv" style="--c:var(--g)"><div class="v" data-to="10" data-fmt="ratio">10 / 10</div><div class="k">Personas found again on two halves</div><p>Split the records at random and rebuild on each half: the same ten emerge in both, across ten random splits.</p></div>
+      <div class="stat rv" style="--c:var(--t)"><div class="v" data-to="5305">5,305</div><div class="k">Questions asked since August</div><p>Put to the rooms from 1 August 2026, by the founder, by testers and by an outside benchmark. Every one written down with its plan and its figures.</p></div>
+      <div class="stat rv" style="--c:var(--r)"><div class="v" data-to="1293">1,293</div><div class="k">Of them refused, with the reason</div><p>The data could not carry the claim, and the room said so, and why, instead of composing an answer.</p></div>
+      <div class="stat rv" style="--c:var(--i)"><div class="v" data-to="272">272</div><div class="k">Drafts stopped by the checks</div><p>Since August, before anyone saw them. The person got the counted figures and the reason instead.</p></div>
+      <div class="stat rv" style="--c:var(--p)"><div class="v" data-to="15" data-fmt="s">15 s</div><div class="k">Half of all answers, within</div><p>2,733 answered questions in September and October 2026, plan, counting, writing and checking included.</p></div>
+    </div>
+    <p class="closer">Every number on this page comes from the room's own record or from the source files, recounted on 22 and 23 October 2026.</p>
+  </div>
+</section>
+
+<section id="range">
+  <div class="wrap">
+    <span class="lab" style="color:var(--t)">One engine, any table</span>
+    <h2>Surveys, logs, reviews, warehouses, folders. The same checks on all of them.</h2>
+    <div class="range">
+      <div class="src rv"><div class="v">75,699</div><div class="u">Survey respondents</div><p>The US General Social Survey, 1972 to 2024: fifty years of the same questions.</p></div>
+      <div class="src rv"><div class="v">5,723,532</div><div class="u">Bike-share trips</div><p>Twelve monthly files of Chicago trips, read as one. The unit is a trip, not a rider, and the room says so.</p></div>
+      <div class="src rv"><div class="v">247,074</div><div class="u">Service requests</div><p>New York City 311 calls, read straight from a BigQuery warehouse table.</p></div>
+      <div class="src rv"><div class="v">4,803</div><div class="u">Films, two tables</div><p>A movies table and a credits table, joined only on a key the rows proved.</p></div>
+      <div class="src rv"><div class="v">24,898</div><div class="u">Reviews and comments</div><p>Public app reviews and video comments about a UK bank: free text, every quote checked.</p></div>
+      <div class="src rv"><div class="v">208,686</div><div class="u">Trending videos</div><p>Where one row is a video in one country, and a count is never double-counted across them.</p></div>
+      <div class="src rv"><div class="v">20,000</div><div class="u">Support tickets</div><p>A plain CSV with no questionnaire. Every column was classified from its own rows.</p></div>
+      <div class="src rv new"><div class="v">21 files</div><div class="u">One company folder · in testing</div><p>Sales workbooks, a board report in Word and PDF, two policy versions, a scanned notice and a survey's tab book, in one catalogue.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="sits">
+  <div class="wrap">
+    <span class="lab" style="color:var(--p)">Where it sits</span>
+    <h2>Everyone summarises. Nobody verifies.</h2>
+    <div class="sits">
+      <table class="tbl">
+        <thead><tr><th>Who</th><th>What they do</th><th>Where it stops</th></tr></thead>
+        <tbody>
+          <tr><td>Context engines for AI</td><td>Prepare documents and data as context for other AI tools and agents.</td><td>The context is prepared; the answer and its figures are left to the model that reads it.</td></tr>
+          <tr><td>AI agents over your files</td><td>Write code over a spreadsheet and answer in seconds.</td><td>Usually right, and nothing tells you when they are not. Above: one trend read backwards, with correct arithmetic.</td></tr>
+          <tr><td>Dashboard analytics</td><td>Unify and summarise feedback: themes, taxonomies, revenue views.</td><td>Nothing can be questioned as a population; nothing is receipted; a person still reads a dashboard.</td></tr>
+          <tr><td>Generated personas and synthetic audiences</td><td>Personas or simulated respondents drawn from a prompt or a snapshot.</td><td>The simulation is allowed to invent; no quote traces to a record.</td></tr>
+          <tr><td>AI-moderated interviews</td><td>Interview fresh respondents at scale.</td><td>Better at what has not happened yet. Every new question needs recruiting and fieldwork.</td></tr>
+        </tbody>
+      </table>
+      <div class="claim">
+        <span class="lab">The claim, precisely</span>
+        <ul><li>counted, not composed</li><li>checked before you see it</li><li>said out loud when it cannot</li></ul>
+        <p>Drop any one of the three and something on the left already does the rest.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="who">
+  <div class="wrap">
+    <span class="lab" style="color:var(--o)">Who is building it</span>
+    <h2>Built by someone who did this work by hand.</h2>
+    <p class="lead">Ten years of segmentations, personas and driver models for brands and banks, on both sides of the agency table. That is what makes the failure modes legible, and most of the checks in TalkTask began as a real mistake, caught in a real answer.</p>
+    <div class="years">
+      <div class="yr"><div class="y">2015</div><h3>Kantar</h3><p>Persona and segmentation programmes for Nestlé, GSK, Dabur, Suzuki, Hyundai.</p></div>
+      <div class="yr"><div class="y">2017</div><h3>Nielsen</h3><p>Regional expert: TURF, marketing mix, regression.</p></div>
+      <div class="yr"><div class="y">2021</div><h3>C Space, London</h3><p>Conjoint, MaxDiff and TURF for Google, Experian, Visa, Liberty Global.</p></div>
+      <div class="yr"><div class="y">2022</div><h3>Evalueserve</h3><p>On site at Mastercard: market-landscape modelling across markets.</p></div>
+      <div class="yr"><div class="y">2023</div><h3>HSBC</h3><p>Global CX and NPS programme across 39 countries.</p></div>
+      <div class="yr now"><div class="y">2026</div><h3>TalkTask</h3><p>Designed, built and run in London, alone.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="ask">
+  <div class="wrap">
+    <span class="lab" style="color:var(--g)">What we are asking for</span>
+    <h2>Bring one study. Judge it yourself.</h2>
+    <div class="asks">
+      <div><div class="n">01</div><h3>One finished study, or one folder</h3><p>A tracker, a wave, a log, or the files behind a report already delivered, so nothing is at risk. Public or anonymised data works perfectly well as a first test.</p></div>
+      <div><div class="n">02</div><h3>Your honest reaction, including where it breaks</h3><p>You know how claims like these usually fall apart. Better to hear it from you than from a client.</p></div>
+      <div><div class="n">03</div><h3>And if it holds up, a pilot</h3><p>Six weeks on your live data and your questions, every answer receipted, and the receipts checked by you.</p></div>
+    </div>
+    <div class="btns" style="margin-top:40px"><a class="btn" href="mailto:hello@talktask.si?subject=TalkTask%20trial">Ask for a trial</a></div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <span class="lab">Questions people ask</span>
+    <h2>Before you ask for a trial.</h2>
+    <div class="faq">
+      <details>
+        <summary>Why not just ask ChatGPT, or an AI agent with Python?</summary>
+        <p>You can, and it will often count correctly. In the test above, 80 of the agent's 100 checkable figures were right. The trouble is the other 20: an average of answer codes, a base that was not the base, a trend read backwards. Each looked exactly like the right ones.</p>
+        <p>In TalkTask the language model never makes a figure. The room counts, and checks every sentence against what it counted before you see it.</p>
+      </details>
+      <details>
+        <summary>Can it read documents, not just tables?</summary>
+        <p>Yes, in testing. PDF reports, Word files, PowerPoint decks and scans are read page by page. A quote must be found on its page; a table inside a report is read cell by cell and its totals are checked; where a report and a spreadsheet state the same figure, the room says whether they agree.</p>
+      </details>
+      <details>
+        <summary>Does it replace analysts?</summary>
+        <p>No. It takes the counting and the checking off them. Every answer shows its plan in words, its bases and what it could not settle, so an analyst can argue with it, take it further, or download the table for Excel.</p>
+      </details>
+      <details>
+        <summary>What happens when the data cannot answer?</summary>
+        <p>It says so, names what is missing, and offers the nearest question the data does hold. Since 1 August 2026, 1,293 of 5,305 questions got no answer, and the room said why.</p>
+      </details>
+      <details>
+        <summary>Where does my data go?</summary>
+        <p>The language model does not receive your file. It sees your question, the names and labels of your columns, and the tables the room counted. Rows you ask to see by name, and passages you ask it to read, go to it too. Personal columns are set aside before anything is read.</p>
+        <p>A desktop version where the file never leaves your machine is in preparation.</p>
+      </details>
+      <details>
+        <summary>How do I try it?</summary>
+        <p>Write to <a href="mailto:hello@talktask.si?subject=TalkTask%20trial">hello@talktask.si</a> and say what data you have. Trials run on a public data set or on yours; you ask the questions.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
     <p>TalkTask, London. <a href="mailto:hello@talktask.si">hello@talktask.si</a></p>
-    <p>Examples come from the rooms' own record and were recounted from the source files on 22 October 2026. Survey data: General Social Survey 1972–2024, NORC at the University of Chicago. Films: the public TMDB 5000 file. Type: Inter and JetBrains Mono, Open Font License. This page sets no cookies and loads nothing from other sites.</p>
-  </footer>
-</div>
+    <p>Examples come from the rooms' own record and were recounted from the source files on 22 and 23 October 2026. The company folder is a test set we built with known answers; its company is not real. Survey data: General Social Survey 1972–2024, NORC at the University of Chicago. Films: the public TMDB 5000 file. Trips: Divvy, Chicago. Service requests: NYC Open Data. Type: Inter and JetBrains Mono, Open Font License. This page sets no cookies and loads nothing from other sites.</p>
+  </div>
+</footer>
 
 <script>
 const $ = s => document.querySelector(s);
 const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-const enter = el => { if (reduce || !el) return; el.classList.remove("enter"); void el.offsetWidth; el.classList.add("enter"); };
-const print = el => { if (reduce) return; el.classList.remove("printing"); void el.offsetWidth; el.classList.add("printing"); };
+const wait = ms => new Promise(r => setTimeout(r, ms));
+const fmt = n => n.toLocaleString("en-GB", {minimumFractionDigits: 2, maximumFractionDigits: 2});
 
-/* ---------- 1. What it solves ---------- */
-const PROBLEMS = [
-  {name: "The study ends at the debrief",
-   today: {nodes: ["Fieldwork", "Tables", "Deck", "Debrief"], brk: "A new question means a new job"}, todayNote: "The data outlives the report. Each follow-up goes back into a queue as a new job, or is never asked.",
-   with: {nodes: ["Your file", "A room on it", "Ask in plain words", "Answer with receipts"], loop: "Ask again"},
-   note: "The room stays open on the file. <b>Half of all answers arrive within 15 seconds</b> (2,733 answered questions, September and October 2026)."},
-  {name: "The data sits in different places",
-   today: {many: ["Survey in SPSS", "Tracker in Excel", "Reviews export", "Support tickets", "Warehouse tables"], nodes: ["Five tools"], brk: "Nobody asks all of it at once"}, todayNote: "Each source has its own tool and its own owner. A question that crosses them needs all of them in one room.",
-   with: {many: ["SPSS, Stata", "Excel, CSV", "Triple-S, JSON", "Postgres", "BigQuery"], nodes: ["One intake", "One room"]},
-   note: "A folder of files becomes one room. <b>Tables are joined only on a key the rows prove</b>, never on a column that merely looks alike."},
-  {name: "AI answers cannot be checked",
-   today: {nodes: ["Question", "Chatbot", "A confident number"], brk: "No base, no source, no check"}, todayNote: "The number arrives without its base or its source, and nobody can tell whether it was counted or composed.",
-   with: {nodes: ["Question", "Model plans", "Room counts", "Model writes", "Room checks every figure"]},
-   note: "The model never produces a figure. <b>Since August the checks stopped 272 drafts</b> before anyone saw them."},
-  {name: "Insight and decision drift apart",
-   today: {nodes: ["Tables", "Deck", "Workshop", "Decision"], brk: "The figure behind the decision is lost"}, todayNote: "By the time a decision is taken, the figure it rests on is three documents away.",
-   with: {nodes: ["Question", "Evidence", "What it does not settle", "What to do, with its figure", "One-page brief"]},
-   note: "Each proposed move carries the figure it rests on. <b>See a real thread below</b>, from an open question to a decision."},
-];
-let pIdx = 0, pMode = "today", pTimers = [];
-function renderFlow() {
-  pTimers.forEach(clearTimeout); pTimers = [];
-  const p = PROBLEMS[pIdx], v = p[pMode], flow = $("#flow"), good = pMode === "with";
-  const parts = [];
-  if (v.many) parts.push(`<div class="node many${good ? " good" : ""}">${v.many.map(m => `<span>${esc(m)}</span>`).join("")}</div>`);
-  v.nodes.forEach((n, i) => { if (parts.length) parts.push('<div class="arrow"></div>'); parts.push(`<div class="node${good && i === v.nodes.length - 1 ? " good" : ""}">${esc(n)}</div>`); });
-  if (v.loop) parts.push(`<div class="arrow"></div><div class="node good">${esc(v.loop)} ↺</div>`);
-  if (v.brk) parts.push(`<div class="brk">${esc(v.brk)}</div>`);
-  flow.innerHTML = parts.join("");
-  [...flow.children].forEach((el, i) => pTimers.push(setTimeout(() => el.classList.add("in"), reduce ? 0 : 70 * i)));
-  $("#pnote").innerHTML = good ? p.note : esc(p.todayNote); enter($("#pnote"));
-  $("#sw-today").setAttribute("aria-pressed", !good); $("#sw-with").setAttribute("aria-pressed", good);
+/* ---------- receipts: every person behind a figure ---------- */
+const V = {a: ["Receipt for 51.7%", "interviewed in 1990", 90, 174], b: ["Receipt for 26.8%", "interviewed in 2024", 59, 220]};
+async function receipt(fig, slow) {
+  const [t, when, k, n] = V[fig.dataset.v], box = $("#" + fig.dataset.box);
+  fig.closest("p").querySelectorAll(".fig").forEach(o => o.setAttribute("aria-pressed", o === fig));
+  box.innerHTML = `<b>${t}</b><div><span class="m">Question:</span> confidence in medicine: a great deal, only some, or hardly any</div>` +
+    `<div><span class="m">Counted:</span> 'a great deal'</div><div><span class="m">Who:</span> never married, no children, ${when}, who answered</div>` +
+    `<div><span class="m">Each square:</span> one person</div>` +
+    `<div class="dots">${Array.from({length: n}, () => "<i></i>").join("")}</div>` +
+    `<div><span class="m">Record:</span> 3072</div><div class="tot">${k} of ${n} = ${(100 * k / n).toFixed(1)}%</div>`;
+  const fr = fig.getBoundingClientRect(), br = box.getBoundingClientRect();
+  box.style.setProperty("--ox", Math.round(fr.left + fr.width / 2 - br.left) + "px");
+  box.classList.remove("opening"); void box.offsetWidth; box.classList.add("opening");
+  const dots = box.querySelectorAll(".dots i");
+  if (!slow) { for (let i = 0; i < k; i++) dots[i].classList.add("y"); return; }
+  for (let i = 0; i < k; i++) { if (!dots[i].isConnected) return; dots[i].classList.add("y"); await wait(14); }
 }
-$("#ptabs").innerHTML = PROBLEMS.map((p, i) => `<button class="ptab" role="tab" type="button" data-i="${i}" aria-selected="${i === 0}">${esc(p.name)}</button>`).join("");
-$("#ptabs").addEventListener("click", e => { const b = e.target.closest(".ptab"); if (!b) return; pIdx = +b.dataset.i; pMode = "today";
-  document.querySelectorAll(".ptab").forEach(t => t.setAttribute("aria-selected", t === b)); renderFlow(); });
-$("#sw-today").onclick = () => { pMode = "today"; renderFlow(); };
-$("#sw-with").onclick = () => { pMode = "with"; renderFlow(); };
-renderFlow();
+document.querySelectorAll(".fig").forEach(f => f.addEventListener("click", () => receipt(f, true)));
 
-/* ---------- 2. Capabilities ---------- */
-const DS = {gss: "the General Social Survey", films: "a public file of 4,803 films", yt: "YouTube trending videos", ed: "US school finance and test scores", mil: "a synthetic survey of 20,000 people", songs: "45,000 songs"};
-const FAMILIES = [
-  {name: "Describe", note: "What is there", items: [
-    {n: "Shares", does: "The share giving each answer to one question, with its base.", ex: ["gss", "What are the groups in this data, and how big is each?", "6 September 2026", 2686, "The groups in the data and their sizes"]},
-    {n: "Averages and statistics", does: "The average, median, sum, minimum, maximum or spread of any number.", ex: ["ed", "What is the average total revenue for education in each state?", "17 October 2026", 8733]},
-    {n: "Rows by name", does: "The rows themselves, each film, state or video by name, sorted by a number.", ex: ["ed", "In 2016 which 5 states spend the most on education", "19 October 2026", 8918, "The 5 states with the highest total expenditure on education in 2016, NATIONAL and DODEA left out."]},
-    {n: "What the data holds", does: "The questionnaire, each question's wording and answers, what the data is and what can be run on it.", ex: ["ed", "what all information do you have on students", "19 October 2026", 8888]},
-  ]},
-  {name: "Break down and compare", note: "Who differs from whom", items: [
-    {n: "Cross-tabs and pivots", does: "One question broken down by another, or by two at once, with a test on every cell.", ex: ["gss", "Do a cross tabulation of income and health and show me the analysis if higher income people are more healthy", "30 September 2026", 4041, "Whether higher income bands report better health, as a health-by-income cross tabulation plus the strength of the link."]},
-    {n: "Compare", does: "The same or different measures for several populations, side by side.", ex: ["yt", "can you show me average number of views and average number of likes for each category", "16 October 2026", 8698]},
-    {n: "Difference", does: "One population minus another, column by column.", ex: ["films", "How has the typical running time of comedies and dramas changed across the decades, and which one has got longer faster?", "5 October 2026", 4374]},
-    {n: "Is it real?", does: "Whether two populations really differ, answer by answer.", ex: ["songs", "do featured artists help a song reach the top band", "5 October 2026", 4338, "The share of tracks that become hits with a featured artist against those without, and whether the gap is real."]},
-    {n: "Gradient", does: "How a share climbs or falls along an ordered question.", ex: ["gss", "is there a relationship between health and feeling exicted", "16 September 2026", 3334, "Measure how feeling excited changes with health."]},
-  ]},
-  {name: "Over time", note: "What moved", items: [
-    {n: "Trends", does: "One question across the periods, each period with its base.", ex: ["gss", "how has confidence in congress changed over the decades", "23 September 2026", 3581]},
-    {n: "What moved most", does: "Every question ranked by its biggest movement, or its biggest gap.", ex: ["ed", "whats the most interesting finding on spends", "19 October 2026", 8814, "The spending columns ranked by how much they have moved over the decades, to say what the most interesting change in school spending is."]},
-    {n: "Forecast", does: "A share or average carried forward, tested against the past before it is shown."},
-  ]},
-  {name: "Explain", note: "What goes with what", items: [
-    {n: "Drivers", does: "What moves the odds of one answer, with the other factors held still.", ex: ["mil", "which of the behavioural and perceptual habits drive being a millionaire", "6 October 2026", 4526]},
-    {n: "Dig", does: "One finding re-measured inside every cut the data holds, to see what it travels with.", ex: ["gss", "why are less people getting married in America", "7 October 2026", 4538, "The fall in the share of Americans who are married, re-measured inside every cut the survey holds (age, education, income, region and the rest), to see what the decline goes with."]},
-    {n: "Correlation", does: "How strongly two measures move together, as one number.", ex: ["films", "Do higher-rated movies actually earn more at the box office", "29 September 2026", 3987]},
-    {n: "Scatter", does: "Two or three measures on the same people or things, as points.", ex: ["films", "a scatter of AVERAGE popularity against Average revenue by genre", "29 September 2026", 4012]},
-    {n: "Investigate", does: "A fixed investigation of one finding: dig into it, set its people against everyone else, then dig into what travels with it."},
-  ]},
-  {name: "Read text", note: "What people wrote", items: [
-    {n: "Search by meaning", does: "The rows whose free text is about something, found by meaning, not only by a word.", ex: ["films", "find films about a boy who travels back in time", "28 September 2026", 3838]},
-    {n: "Themes with quotes", does: "What free text says, sorted into kinds and counted, each kind with a quote checked character for character.", ex: ["yt", "what are some of the tags working well in india", "16 October 2026", 8711]},
-    {n: "Documents", t: 1, does: "Reports, decks and Word files read page by page; every quote is matched to its page."},
-  ]},
-  {name: "Build", note: "Make what is missing", items: [
-    {n: "New measures", does: "A ratio, a band or a combined answer made from what the data holds, kept for the conversation.", ex: ["yt", "i want average likes per views ratio = number of likes/number of views for each category", "16 October 2026", 8697]},
-    {n: "Excel formulas", does: "Formulas over the columns: SUMIFS, AVERAGEIFS, COUNTIFS, CORREL, PERCENTILE and the rest.", ex: ["films", "combine the production countries so that you can make europe as a filter", "30 September 2026", 4093]},
-    {n: "Best set under a limit", does: "The best combination within a constraint, such as a budget.", ex: ["films", "pick the 5 films with the most box office I could make for a total budget of 300m", "1 October 2026", 4104, "The set of up to 5 films whose budgets sum to no more than 300m and which together earn the most box office."]},
-    {n: "Custom analysis", does: "Anything no other operation reaches: the model writes the code, the room checks it before it runs and recounts every claim.", ex: ["gss", "Do a correlation analysis between income and education for Big families at home", "21 September 2026", 3535]},
-    {n: "Saved workflows", does: "A plan saved by name and run again later, step by step, through the same checks."},
-  ]},
-  {name: "Predict", note: "What is likely", items: [
-    {n: "Predict", does: "Which rows are likely to give one answer, scored on rows the model never saw."},
-  ]},
-];
-const ALL = FAMILIES.flatMap(f => f.items);
-$("#fams").innerHTML = FAMILIES.map(f => `<div class="fam"><h3>${esc(f.name)}</h3><p>${esc(f.note)}</p><div class="chips">${f.items.map(it => `<button type="button" class="chip${it.t ? " t" : ""}" aria-pressed="false" data-n="${esc(it.n)}">${esc(it.n)}</button>`).join("")}</div></div>`).join("");
-function showCap(name) {
-  const it = ALL.find(x => x.n === name);
-  document.querySelectorAll(".chip").forEach(c => c.setAttribute("aria-pressed", c.dataset.n === name));
-  let h = `<h3>${esc(it.n)}${it.t ? ' <span class="small">in testing</span>' : ""}</h3><p class="does">${esc(it.does)}</p>`;
-  if (it.ex) {
-    const [ds, q, date, rec, plan] = it.ex;
-    h += `<p class="small" style="margin:18px 0 0">Asked of ${esc(DS[ds])}, ${esc(date)}</p><p class="q">${esc(q)}</p>` +
-         (plan ? `<p class="plan">The plan, in words: ${esc(plan)}</p>` : "") + `<p class="small" style="margin:12px 0 0">Room record ${rec}</p>`;
-  } else {
-    h += `<p class="small" style="margin:18px 0 0">${it.t ? "Built in a test copy of the engine; not yet in the main rooms." : "Built and covered by the free checks."}</p>`;
-  }
-  $("#cdetail").innerHTML = h; enter($("#cdetail"));
+/* ---------- hero: the question, the plan, the answer, the receipt ---------- */
+const Q = "How has confidence in medicine changed for each group since 1990, and which group fell most?";
+let run = 0;
+async function play() {
+  const me = ++run, typed = $("#typed");
+  ["#d2", "#d3", "#d4"].forEach(id => $(id).classList.remove("on"));
+  $("#hrec").innerHTML = ""; typed.classList.remove("done"); typed.textContent = "";
+  for (let i = 1; i <= Q.length; i++) { if (me !== run) return; typed.textContent = Q.slice(0, i); await wait(22); }
+  typed.classList.add("done");
+  for (const id of ["#d2", "#d3", "#d4"]) { await wait(id === "#d4" ? 700 : 500); if (me !== run) return; $(id).classList.add("on"); }
+  receipt(document.querySelector('#d3 .fig[data-v="b"]'), true);
 }
-$("#fams").addEventListener("click", e => { const c = e.target.closest(".chip"); if (c) showCap(c.dataset.n); });
-showCap("Dig");
-
-/* ---------- 3. Sources ---------- */
-const STAGES = [
-  ["Read", "The file, folder or table, as it arrived.", "read"],
-  ["Classify", "Each column from its own rows. Personal data set aside, with the reason.", "stage"],
-  ["Plain labels", "Optional: a model proposes plain names from a summary, never the rows.", "meaning"],
-  ["Recount", "Every figure counted twice. A mismatch keeps the room shut.", "recount"],
-  ["Brief and open", "A page saying what the file holds and what was set aside.", "other"],
-];
-const SOURCES = [
-  {k: "CSV file", s: "Bike-share trips", ex: "One month of Chicago bike-share trips", rows: 103770, q: 10, t: {read: 3.0, stage: 13.4, recount: 7.3}, total: 23.9, rec: 4054, d: "30 September 2026"},
-  {k: "Zip of tables", s: "Two tables, joined", ex: "4,803 films: a movies table and a credits table, joined on a key the rows proved", rows: 4803, q: 44, t: {read: 2.9, stage: 3.2, meaning: 1.4, recount: 2.8}, total: 10.3, rec: 3690, d: "24 September 2026"},
-  {k: "Wide survey", s: "754 questions", ex: "A face-to-face survey with 754 questions", rows: 2623, q: 754, t: {read: 9.6, stage: 12.3, recount: 11.8}, total: 34.0, rec: 3695, d: "24 September 2026"},
-  {k: "Triple-S", s: "Survey standard", ex: "A Triple-S test pack: metadata and data files", rows: 600, q: 20, t: {read: 1.2, stage: 0.1, recount: 1.5}, total: 2.8, rec: 3693, d: "24 September 2026"},
-  {k: "Postgres", s: "A database query", ex: "139,938 review records from a Postgres table", rows: 139938, q: 8, t: {read: 46.3, stage: 14.1, recount: 11.2}, total: 72.0, rec: 4053, d: "30 September 2026"},
-  {k: "BigQuery", s: "A public warehouse", ex: "New York City 311 service requests, from Google's public BigQuery data", rows: 247074, q: 12, t: {read: 63.8, stage: 13.3, meaning: 29.9, recount: 7.6}, total: 115.2, rec: 4080, d: "30 September 2026"},
-  {k: "PDF report", s: "In testing", ex: "An annual report: the figures in its tables and charts, checked against the report's own totals wherever it repeats them", rows: 154, rowsWord: "figures", q: 8, t: {read: 3.3, stage: 0.2, recount: 83.9}, total: 87.4, rec: 5685, d: "10 October 2026"},
-];
-const TCOL = {read: "var(--ink2)", stage: "var(--ink4)", meaning: "var(--acc-hi)", recount: "var(--acc)", other: "var(--hair3)"};
-$("#slist").innerHTML = SOURCES.map((s, i) => `<button type="button" class="sbtn" aria-pressed="false" data-i="${i}">${esc(s.k)}<small>${esc(s.s)}</small></button>`).join("") +
-  `<p class="small" style="margin:8px 0 0">Excel, SPSS, Stata, Parquet and JSON files take the same path.</p>`;
-$("#pipe").innerHTML = STAGES.map(([h, p]) => `<div class="pst"><h4>${h}</h4><p>${p}</p><div class="sec"></div><div class="fill"></div></div>`).join("");
-let sTimers = [];
-function showSrc(i) {
-  sTimers.forEach(clearTimeout); sTimers = [];
-  const s = SOURCES[i], fmt = n => n.toLocaleString("en-GB");
-  document.querySelectorAll(".sbtn").forEach(b => b.setAttribute("aria-pressed", +b.dataset.i === i));
-  const parts = {...s.t}; parts.other = Math.max(0, +(s.total - Object.values(s.t).reduce((a, b) => a + b, 0)).toFixed(1));
-  const pst = document.querySelectorAll(".pst");
-  pst.forEach(el => { el.classList.remove("done", "skip"); el.querySelector(".sec").textContent = ""; });
-  let delay = 0;
-  STAGES.forEach(([h, , key], j) => {
-    const sec = parts[key];
-    const label = sec === undefined ? "not used" : `${sec.toFixed(1)} s`;
-    sTimers.push(setTimeout(() => { pst[j].querySelector(".sec").textContent = label; pst[j].classList.add(sec === undefined ? "skip" : "done"); }, reduce ? 0 : delay));
-    delay += 380;
+$("#replay").onclick = play;
+play();
+// the hero leans toward the pointer
+if (!reduce) {
+  const st = $("#stage3d"), rig = $("#rig3d");
+  st.addEventListener("pointermove", e => {
+    if (innerWidth < 980) return;
+    const r = st.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+    rig.style.transform = `rotateY(${(-11 + x * 10).toFixed(2)}deg) rotateX(${(5 - y * 8).toFixed(2)}deg)`;
   });
-  const keys = ["read", "stage", "meaning", "recount", "other"].filter(k => parts[k]);
-  $("#sres").innerHTML =
-    `<p class="small" style="margin:0 0 4px">Intake record ${s.rec}, ${esc(s.d)}${s.s === "In testing" ? ", in a test copy of the engine" : ""}</p>` +
-    `<p class="big">${fmt(s.rows)} ${s.rowsWord || "rows"} and ${fmt(s.q)} questions, ready in ${s.total.toFixed(1)} seconds</p>` +
-    `<p style="margin:0">${esc(s.ex)}.</p>` +
-    `<div class="tbar">${keys.map(k => `<span style="width:${(100 * parts[k] / s.total).toFixed(1)}%;background:${TCOL[k]}" title="${k}"></span>`).join("")}</div>` +
-    `<div class="tkey">${keys.map(k => `<span><i style="background:${TCOL[k]}"></i>${STAGES.find(x => x[2] === k)[0]} ${parts[k].toFixed(1)} s</span>`).join("")}</div>`;
-  enter($("#sres"));
+  st.addEventListener("pointerleave", () => rig.style.transform = "");
 }
-$("#slist").addEventListener("click", e => { const b = e.target.closest(".sbtn"); if (b) showSrc(+b.dataset.i); });
-showSrc(0);
 
-/* ---------- 4. Strategy ---------- */
-const R4 = {
-  adv: {t: "Receipt for $138.4m", rows: [["Measure", "median box office revenue"], ["Films", "made in the United Kingdom, first-listed genre Adventure, with a box office figure"], ["Record", "4088"]], tot: "72 films; median $138.4m"},
-  act: {t: "Receipt for $112.4m", rows: [["Measure", "median box office revenue"], ["Films", "made in the United Kingdom, first-listed genre Action, with a box office figure"], ["Record", "4088"]], tot: "84 films; median $112.4m"},
-  dra: {t: "Receipt for $34.9m", rows: [["Measure", "median box office revenue"], ["Films", "made in the United Kingdom, first-listed genre Drama, with a box office figure"], ["Record", "4088"]], tot: "130 films; median $34.9m"},
-  lo: {t: "Receipt for $8.7m", rows: [["Measure", "median box office revenue"], ["Films", "made in the United Kingdom, budget above $0 and under $6m, with a box office figure"], ["Record", "4089"]], tot: "62 films; median $8.7m"},
-  hi: {t: "Receipt for $211.7m", rows: [["Measure", "median box office revenue"], ["Films", "made in the United Kingdom, budget $60m or more, with a box office figure"], ["Record", "4089"]], tot: "112 films; median $211.7m"},
-  bAdv: {t: "Receipt for $342.2m", rows: [["Measure", "median box office revenue"], ["Films", "made in the United Kingdom, Adventure among their genres, budget $60m or more"], ["Record", "4090"]], tot: "64 films; median $342.2m, average $427.7m"},
-  bAct: {t: "Receipt for $268.0m", rows: [["Measure", "median box office revenue"], ["Films", "made in the United Kingdom, Action among their genres, budget $60m or more"], ["Record", "4090"]], tot: "63 films; median $268.0m"},
-  roi: {t: "Receipt for 1.29", rows: [["Measure", "median return: (box office − budget) ÷ budget"], ["Films", "made in the United Kingdom, with both figures"], ["Against", "1.3 for all 3,229 films with both figures"], ["Record", "4096"]], tot: "436 films; median 1.29, average 3.43"},
-};
-const fb = (k, txt) => `<button type="button" class="fig" data-r="${k}" aria-pressed="false">${txt}</button>`;
-const barRows = (rows, max) => `<div class="bars">${rows.map(([lab, v, k, hi]) => `<div class="bar"><span>${lab}</span><div class="tr"><div class="v${hi ? " hi" : ""}" data-w="${(100 * v / max).toFixed(1)}"></div><span class="lab${v / max < .32 ? " out" : ""}" style="${v / max < .32 ? `left:calc(${(100 * v / max).toFixed(1)}% + 8px)` : ""}">${k ? fb(k, "$" + v.toFixed(1) + "m") : "$" + v.toFixed(1) + "m"}</span></div></div>`).join("")}</div>`;
-const STEPS = [
-  {n: "Ask", s: "the open question", left: `<p class="who">Asked of a public file of 4,803 films, record 4088</p><p class="q">what kind of movies should i invest in if I want to be successful in UK</p>`,
-   right: `<p class="said">The room's reading starts with what it cannot measure: “The thing asked about is not measured directly: no question records 'successful', so box office revenue, vote rating and popularity stand in.”</p>`},
-  {n: "Evidence", s: "what the films earned", left: `<p class="who">Median box office, films made in the UK, by first-listed genre</p>` + barRows([["Adventure", 138.4, "adv"], ["Action", 112.4, "act"], ["Drama", 34.9, "dra"]], 220),
-   right: `<p class="said">“Adventure and Action earn three to four times what Drama earns, on both the average and the median, so the gap is not a few tentpoles - it is the typical film in each genre.”</p><p class="small">Select a highlighted figure for its receipt.</p>`},
-  {n: "The lever", s: "budget", left: `<p class="who">Median box office by budget, films made in the UK</p>` + barRows([["under $6m", 8.7, "lo"], ["$6m to $16m", 32.6], ["$16m to $30m", 40.5], ["$30m to $60m", 73.8], ["$60m or more", 211.7, "hi", 1]], 220),
-   right: `<p class="said">“Budget is the stronger lever still: the ladder from under 6m to 60m or more is steep at every rung, and it holds on the median as well as the average, so it is not a handful of blockbusters dragging the mean up.”</p>`},
-  {n: "Limits", s: "what it does not settle", left: `<p class="who">Said by the room, records 4089 and 4091</p><p class="said">“What this does not settle is profit. Revenue is gross, and a 60m or more film that returns $341.9m on average may still lose money once its budget is subtracted.”</p>`,
-   right: `<p class="said">“Europe is not in this data. Box office revenue here is one global figure, and the nearest thing held is where a film was produced, not where it earned.”</p>`},
-  {n: "Decide", s: "what to do", left: `<p class="who">Asked next, record 4090</p><p class="q">ask this, what should i do?</p>` + barRows([["Adventure, $60m+", 342.2, "bAdv", 1], ["Action, $60m+", 268.0, "bAct"]], 380),
-   right: `<ul class="moves"><li><span class="do">Put the next pound into a large-budget Adventure film rather than a large-budget Action film.</span><span class="bc">Because large-budget Adventure returns a median of ${fb("bAdv", "$342.2m")} against ${fb("bAct", "$268.0m")} for large-budget Action.</span></li><li><span class="do">Plan against the median, not the average, when sizing the return.</span><span class="bc">Because large-budget Adventure averages $427.7m but its median is $342.2m.</span></li><li><span class="do">Do not commit to a mid-budget Action film on this evidence; the band is too thin to price.</span></li></ul>`},
-  {n: "Check", s: "the return", left: `<p class="who">Asked later in the thread, record 4096</p><p class="q">tell me their average ROI</p><p>The typical UK film's return is ${fb("roi", "1.29")}: box office minus budget, divided by budget.</p>`,
-   right: `<p class="said">“That median, 1.29, is close to the 1.3 typical for all movies, so UK productions look ordinary on return, not exceptional.”</p><p class="said">“The UK is a stand-in for Europe, not Europe.”</p>`},
-  {n: "Brief", s: "one page", left: `<p class="q">The thread becomes a one-page brief.</p><p>Every question in order, every figure with its base, every limit and every refusal with its reason. The person who was not in the room can check each line.</p>`,
-   right: `<p class="said">Nothing in the brief is written fresh: it is assembled from what the room already measured and said.</p>`},
+/* ---------- the formats strip ---------- */
+const READS = ["Excel", "CSV", "SPSS", "Stata", "Parquet", "JSON", "Triple-S", "zips of many tables", "Postgres", "BigQuery", "PDF reports*", "Word*", "PowerPoint*", "scans, by OCR*", "survey tab books*"];
+const one = READS.map(s => `<span${s.endsWith("*") ? ' class="t"' : ""}>${s.replace("*", " · in testing")}</span>`).join("");
+$("#readsTrack").innerHTML = one + one;
+
+/* ---------- the folder, in isometric ---------- */
+const plane = $("#plane");
+const FILES = [
+  ["XLSX", "sales_2025.xlsx", "var(--g)"], ["PDF", "board_report_q4.pdf", "var(--r)"], ["DOCX", "board_report_q4.docx", "var(--b)"],
+  ["DOCX", "policy_v1 and v2", "var(--b)"], ["XLS", "survey tab book", "var(--a)"], ["PDF · OCR", "scan_notice.pdf", "var(--ink3)"],
 ];
-let sIdx = 0;
-$("#steps").innerHTML = STEPS.map((s, i) => `<li><button type="button" class="sbn" data-i="${i}">${esc(s.n)}<small>${esc(s.s)}</small></button></li>`).join("");
-function showStep(i) {
-  sIdx = i;
-  document.querySelectorAll(".sbn").forEach((b, j) => { b.classList.toggle("past", j < i); if (j === i) b.setAttribute("aria-current", "step"); else b.removeAttribute("aria-current"); });
-  const s = STEPS[i];
-  $("#spanel").innerHTML = `<div>${s.left}<div class="receipt" id="srec"></div></div><div>${s.right}</div>`;
-  [...$("#spanel").children].forEach((c, j) => { c.style.animationDelay = (j * 60) + "ms"; enter(c); });
-  requestAnimationFrame(() => requestAnimationFrame(() => document.querySelectorAll("#spanel .v").forEach(v => v.style.width = v.dataset.w + "%")));
-  $("#sprev").disabled = i === 0; $("#snext").disabled = i === STEPS.length - 1;
-}
-function showR(el, k, box) {
-  const r = R4[k];
-  el.closest("section").querySelectorAll(".fig").forEach(f => f.setAttribute("aria-pressed", f.dataset.r === k));
-  box.innerHTML = `<b>${esc(r.t)}</b>` + r.rows.map(([a, b]) => `<div><span class="m">${esc(a)}:</span> ${esc(b)}</div>`).join("") + `<div class="tot">${esc(r.tot)}</div>`;
-  print(box);
-}
-$("#spanel").addEventListener("click", e => { const f = e.target.closest(".fig"); if (f) showR(f, f.dataset.r, $("#srec")); });
-$("#steps").addEventListener("click", e => { const b = e.target.closest(".sbn"); if (b) showStep(+b.dataset.i); });
-$("#sprev").onclick = () => sIdx > 0 && showStep(sIdx - 1);
-$("#snext").onclick = () => sIdx < STEPS.length - 1 && showStep(sIdx + 1);
-showStep(0);
+let iso = "";
+FILES.forEach(([k, n, c], i) => {
+  const col = i % 2, row = Math.floor(i / 2);
+  iso += `<div class="slab file" style="--c:${c};left:${col * 172}px;top:${row * 124 + 20}px;transform:translateZ(${14 + (2 - row) * 6}px)"><i>${k}</i><span>${n}</span></div>`;
+});
+const SHELVES = [
+  ["RECORDS", "rows, one per sale", "var(--g)", 440, 0, "rows"],
+  ["PRINTED TABLES", "cells, with their base", "var(--a)", 440, 220, "cells"],
+  ["TEXT", "passages, with their page", "var(--b)", 440, 440, "text"],
+];
+SHELVES.forEach(([t, s, c, x, y, kind]) => {
+  let inner = "";
+  if (kind === "rows") inner = `<div class="rows">${[0,1,2,3,4,5,6,7].map(j => `<i style="top:${60 + j * 15}px;opacity:${1 - j * .07}"></i>`).join("")}</div>`;
+  if (kind === "cells") inner = `<div class="cells">${Array.from({length: 20}, () => "<i></i>").join("")}</div>`;
+  if (kind === "text") inner = `<div class="text">${[150, 180, 120, 170, 90, 160].map((w, j) => `<i style="top:${62 + j * 19}px;width:${w}px"></i>`).join("")}</div>`;
+  iso += `<div class="slab shelf" style="--c:${c};left:${x}px;top:${y}px;transform:translateZ(22px)"><em>${t}<small>${s}</small></em>${inner}</div>`;
+});
+iso += `<div class="slab disc" style="--c:var(--t);left:730px;top:250px;transform:translateZ(14px);box-shadow:${Array.from({length: 22}, (_, j) => `${j + 1}px ${j + 1}px 0 color-mix(in srgb,var(--t) ${40 - j}%,#0b0e12)`).join(",")},40px 50px 60px rgba(0,0,0,.6)"></div>`;
+iso += `<div class="bill" style="--c:var(--t);left:800px;top:330px;transform:translateZ(70px)"><div><b>One catalogue</b><span>kept current file by file</span></div></div>`;
+iso += `<div class="slab file" style="--c:var(--r);left:100px;top:420px;width:140px;height:70px;transform:translateZ(8px);border-style:dashed;opacity:.85"><i>SET ASIDE</i><span>personal columns</span></div>`;
+// wires lie flat on the plane: files to shelves, shelves to the catalogue
+const wire = (x1, y1, x2, y2, c) => { const l = Math.hypot(x2 - x1, y2 - y1), a = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
+  return `<div class="wire" style="--c:${c};left:${x1}px;top:${y1}px;width:${l}px;transform:rotate(${a}deg) translateZ(2px)"></div>`; };
+iso += wire(340, 80, 440, 95, "var(--g)") + wire(340, 200, 440, 315, "var(--a)") + wire(340, 320, 440, 535, "var(--b)");
+iso += wire(670, 95, 760, 270, "var(--t)") + wire(670, 315, 730, 325, "var(--t)") + wire(670, 535, 760, 380, "var(--t)");
+iso += wire(170, 400, 170, 430, "var(--r)");
+plane.innerHTML = iso;
+// measured: the scene spans x 62..1028 and y -31..392 of its frame; crop to that, 30px around, and fill the width
+function fitIso() { const s = $("#isowrap").clientWidth / 1026; $("#isofit").style.transform = `translate(${-32 * s}px,${61 * s}px) scale(${s})`; }
+fitIso(); addEventListener("resize", fitIso);
 
-/* ---------- the happiness receipt ---------- */
-const H = {
-  hfig: ["Receipt for 34.3%", "respondents interviewed 1972 to 1978", "3,559 of 10,361 = 34.3%"],
-  hfig2: ["Receipt for 20.2%", "respondents interviewed 2021, 2022 and 2024", "1,376 of 6,809 = 20.2%"],
-};
-["hfig", "hfig2"].forEach(id => $("#" + id).addEventListener("click", () => {
-  const [t, who, tot] = H[id];
-  ["hfig", "hfig2"].forEach(o => $("#" + o).setAttribute("aria-pressed", o === id));
-  const box = $("#hrec");
-  box.innerHTML = `<b>${t}</b><div><span class="m">Question:</span> Taken all together, how would you say things are these days--would you say that you are very happy, pretty happy, or not too happy?</div>` +
-    `<div><span class="m">Counted:</span> 'very happy'</div><div><span class="m">Who:</span> ${who}</div>` +
-    `<div><span class="m">The room holds:</span> 65,015 of the survey's 75,699 respondents, those who answered all eleven questions its groups are built from</div>` +
-    `<div><span class="m">Record:</span> 4083</div><div class="tot">${tot}</div>`;
-  print(box);
-}));
+/* ---------- when files disagree ---------- */
+const REG = [
+  {r: "North", rec: 1863461.11, said: 1930000, quote: "North revenue for 2025 was £1.93m, our strongest region.", verdict: "DIFFERS", cls: "d",
+   head: "The report is £66,538.89 above the records.", said2: "3.4% of the stated figure. No file states why, so the room does not guess.",
+   lines: ["<b>ROOM:</b> =SUMIFS(revenue_gbp, region, \"North\") over sales_2025.xlsx · Sales (720 rows) = 1,863,461.11", "<b>LINK:</b> the workbook's own Summary cell B4 is =SUMIFS(Sales!H:H,Sales!B:B,\"North\"); run again on the rows it gives 1,863,461.11; the file saved 1,863,461.11 - agrees", "<b>ONE DOCUMENT IN TWO FORMATS:</b> the .docx and the .pdf hold the same words and figures - counted once"]},
+  {r: "South", rec: 1842430.66, said: 1800000, band: [1750000, 1850000], quote: "South revenue was £1.8m.", verdict: "AGREES", cls: "a",
+   head: "Within the report's own rounding.", said2: "£1.8m stands for 1,750,000 to 1,850,000, and the records' 1,842,430.66 falls inside it.",
+   lines: ["<b>ROOM:</b> =SUMIFS(revenue_gbp, region, \"South\") over sales_2025.xlsx · Sales (720 rows) = 1,842,430.66", "<b>LINK:</b> Summary cell B5, run again on the rows, gives 1,842,430.66; the file saved the same - agrees"]},
+  {r: "West", rec: 1756385.62, net: 1665806.44, said: 1670000, band: [1665000, 1675000], quote: "West revenue was £1.67m, net of returns.", verdict: "AGREES, ONCE RETURNS ARE OUT", cls: "a",
+   head: "The report is net of returns. The records are gross.", said2: "1,756,385.62 gross, less 90,579.18 of West returns, is 1,665,806.44: £1.67m, as the report says.",
+   lines: ["<b>ROOM:</b> =SUMIFS(revenue_gbp, region, \"West\") = 1,756,385.62", "<b>ROOM:</b> =SUMIFS(returns_gbp, region, \"West\") = 90,579.18", "<b>ROOM:</b> the first less the second = 1,665,806.44, over the same 720 rows"]},
+  {r: "East", rec: 2193876.16, said: null, quote: null, verdict: "NOT IN THE REPORT", cls: "n",
+   head: "The report gives no East figure.", said2: "The records hold one: 2,193,876.16. Nothing is set beside it, so there is nothing to agree or differ.",
+   lines: ["<b>ROOM:</b> =SUMIFS(revenue_gbp, region, \"East\") over sales_2025.xlsx · Sales (720 rows) = 2,193,876.16"]},
+];
+const X0 = 1500000, X1 = 2300000, PX = v => 120 + (v - X0) / (X1 - X0) * 490;
+function drawRecon(sel) {
+  let s = "";
+  [1.6, 1.8, 2.0, 2.2].forEach(m => { const x = PX(m * 1e6); s += `<line x1="${x}" y1="18" x2="${x}" y2="300" stroke="#2a2f39"/><text x="${x}" y="322" fill="#5f6774" font-size="13" text-anchor="middle">£${m.toFixed(1)}m</text>`; });
+  REG.forEach((d, i) => {
+    const y = 50 + i * 70, on = i === sel;
+    s += `<g class="rowbtn${on ? " sel" : ""}" data-i="${i}" tabindex="0" role="button" aria-pressed="${on}"><rect class="hit" x="0" y="${y - 30}" width="640" height="60" rx="4"/>`;
+    s += `<text x="12" y="${y + 6}" fill="${on ? "#eef1f4" : "#c5cbd3"}" font-size="17">${d.r}</text>`;
+    s += `<line x1="120" y1="${y}" x2="610" y2="${y}" stroke="#2a2f39" stroke-dasharray="2 4"/>`;
+    if (d.band) s += `<rect x="${PX(d.band[0])}" y="${y - 11}" width="${Math.max(3, PX(d.band[1]) - PX(d.band[0]))}" height="22" rx="3" fill="rgba(95,177,127,.25)"/>`;
+    if (d.net) s += `<line x1="${PX(d.rec)}" y1="${y}" x2="${PX(d.net) + 7}" y2="${y}" stroke="#e0925a" stroke-width="2"/><path d="M${PX(d.net) + 7} ${y - 5} ${PX(d.net)} ${y} ${PX(d.net) + 7} ${y + 5}" fill="none" stroke="#e0925a" stroke-width="2"/><text x="${(PX(d.rec) + PX(d.net)) / 2}" y="${y - 12}" fill="#e0925a" font-size="10.5" text-anchor="middle">less returns</text><circle cx="${PX(d.net)}" cy="${y}" r="5" fill="none" stroke="#4fb0b0" stroke-width="2"/>`;
+    if (d.said && !d.band) s += `<line x1="${PX(d.rec)}" y1="${y}" x2="${PX(d.said)}" y2="${y}" stroke="#e0705f" stroke-width="2"/>`;
+    s += `<circle cx="${PX(d.rec)}" cy="${y}" r="7" fill="#4fb0b0"/>`;
+    if (d.said) s += `<path d="M${PX(d.said)} ${y - 8} ${PX(d.said) + 8} ${y} ${PX(d.said)} ${y + 8} ${PX(d.said) - 8} ${y}z" fill="#eef1f4"/>`;
+    s += `</g>`;
+  });
+  $("#reconSvg").innerHTML = s;
+  const d = REG[sel];
+  $("#verdict").innerHTML = `<span class="chip ${d.cls}">${d.verdict}</span><h3>${d.head}</h3><p class="said">${d.said2}</p>` +
+    (d.quote ? `<p class="small" style="margin:0">The board report: “${d.quote}”</p>` : "") + `<div class="lines">${d.lines.map(l => `<div>${l}</div>`).join("")}</div>`;
+}
+$("#reconSvg").addEventListener("click", e => { const g = e.target.closest(".rowbtn"); if (g) drawRecon(+g.dataset.i); });
+$("#reconSvg").addEventListener("keydown", e => { const g = e.target.closest(".rowbtn"); if (g && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); drawRecon(+g.dataset.i); } });
+drawRecon(0);
+
+/* ---------- how it works: two lanes ---------- */
+const STEPS = [
+  ["model", "Plan", "a fixed set of steps"], ["room", "Check plan", "against the data"], ["room", "Count", "a base on each figure"],
+  ["room", "Gate", "every step came back?"], ["room", "Spot", "what matters, ranked"], ["model", "Write", "from counted tables"],
+  ["room", "Check", "eight checks, below"], ["room", "Show", "receipts on figures"],
+];
+(function lanes() {
+  const top = 90, bot = 230, x = i => 75 + i * 136, y = r => r === "model" ? top : bot, W = 120, H = 58;
+  let s = `<defs><linearGradient id="lg" x1="0" x2="1"><stop offset="0" stop-color="#a882d6"/><stop offset=".5" stop-color="#4fb0b0"/><stop offset="1" stop-color="#5fb17f"/></linearGradient>
+    <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 10 5 0 10z" fill="#d9b04f"/></marker></defs>`;
+  s += `<rect x="0" y="${top - 46}" width="1100" height="92" fill="rgba(168,130,214,.06)"/><rect x="0" y="${bot - 46}" width="1100" height="92" fill="rgba(79,176,176,.06)"/>`;
+  s += `<text x="14" y="${top - 30}" fill="#a882d6" font-size="10.5" letter-spacing="2.4" font-family="JetBrains Mono">THE MODEL</text><text x="14" y="${bot - 30}" fill="#4fb0b0" font-size="10.5" letter-spacing="2.4" font-family="JetBrains Mono">THE ROOM</text>`;
+  let d = `M${x(0)} ${y(STEPS[0][0])}`;
+  for (let i = 1; i < STEPS.length; i++) { const x0 = x(i - 1), y0 = y(STEPS[i - 1][0]), x1 = x(i), y1 = y(STEPS[i][0]); d += ` C${(x0 + x1) / 2} ${y0} ${(x0 + x1) / 2} ${y1} ${x1} ${y1}`; }
+  s += `<path id="lanePath" d="${d}" fill="none" stroke="url(#lg)" stroke-width="2.5" opacity=".8"/>`;
+  s += `<path d="M${x(3)} ${bot + 30} C${x(3)} ${bot + 80} ${x(0)} ${bot + 80} ${x(0)} ${top + 30}" fill="none" stroke="#d9b04f" stroke-width="1.5" stroke-dasharray="5 5" marker-end="url(#ah)"/>`;
+  s += `<text x="${(x(0) + x(3)) / 2}" y="${bot + 76}" fill="#d9b04f" font-size="11.5" text-anchor="middle">gate fails: plan again, once, with the reason</text>`;
+  s += `<path d="M${x(6) + 20} ${bot - 30} C${x(6) + 20} ${top + 60} ${x(5) + 20} ${top + 60} ${x(5) + 20} ${top + 30}" fill="none" stroke="#d9b04f" stroke-width="1.5" stroke-dasharray="5 5" marker-end="url(#ah)"/>`;
+  s += `<text x="${x(6) + 70}" y="${top + 50}" fill="#d9b04f" font-size="11.5">one strike: write again</text>`;
+  s += `<path d="M${x(6)} ${bot + 30} L${x(6)} ${bot + 66}" stroke="#e0705f" stroke-width="1.5"/><text x="${x(6)}" y="${bot + 82}" fill="#e0705f" font-size="11.5" text-anchor="middle">two strikes: it says what it could not say</text>`;
+  STEPS.forEach(([r, t, sub], i) => {
+    const c = r === "model" ? "#a882d6" : "#4fb0b0";
+    s += `<g><rect x="${x(i) - W / 2}" y="${y(r) - H / 2}" width="${W}" height="${H}" rx="6" fill="#20252e" stroke="${c}" stroke-width="1.2"/>
+      <text x="${x(i)}" y="${y(r) - 4}" fill="#eef1f4" font-size="13" text-anchor="middle">${i + 1} · ${t}</text>
+      <text x="${x(i)}" y="${y(r) + 14}" fill="#8d95a1" font-size="10" text-anchor="middle">${sub}</text></g>`;
+  });
+  if (!reduce) s += `<circle r="5" fill="#eef1f4"><animateMotion dur="7s" repeatCount="indefinite" rotate="auto"><mpath href="#lanePath"/></animateMotion></circle>`;
+  $("#lanes").innerHTML = s;
+  $("#flowList").innerHTML = STEPS.map(([r, t, sub], i) => `<div class="box ${r}"><div class="who">${r === "model" ? "The model" : "The room"}</div><h3>${i + 1} · ${t}</h3><p>${sub}</p></div>`).join("");
+})();
+
+/* ---------- the checks: eight glass filters ---------- */
+const CHECKS = [
+  ["numeric", "var(--r)", "A number that is nowhere in what the room counted."],
+  ["binding", "var(--o)", "A right number standing beside the wrong name."],
+  ["scope", "var(--a)", "A number counted for one group, said about another."],
+  ["direction", "var(--y)", "Words that say a figure rose when the count fell."],
+  ["arithmetic", "var(--g)", "A gap or a total that does not follow from its own figures."],
+  ["contradiction", "var(--t)", "A number that disagrees with one already given for the same people and the same base."],
+  ["denial", "var(--b)", "'The data does not hold this', said of something it does hold."],
+  ["register", "var(--v)", "Statistics jargon the reader did not ask for."],
+];
+let rig = `<div class="card2" style="left:0"><b>THE DRAFT</b>“'A great deal' fell from 51.7% to 26.8%…”</div><div class="beam" style="left:190px;width:700px"></div>`;
+CHECKS.forEach(([n, c], i) => rig += `<div class="pane${i % 2 ? " lo" : ""}" data-i="${i}" data-n="${n}" style="--c:${c};left:${232 + i * 72}px"></div>`);
+rig += `<div class="card2 out" style="left:880px"><b>THE ANSWER</b>Every figure found in what the room counted. Ships, with receipts.</div>`;
+$("#rig").innerHTML = rig;
+$("#bands").innerHTML = CHECKS.map(([n, c], i) => `<button type="button" class="band" data-i="${i}" aria-pressed="false"><i style="background:${c}"></i><span>${n}</span></button>`).join("");
+function pick(i) {
+  document.querySelectorAll(".pane").forEach(p => p.classList.toggle("sel", +p.dataset.i === i));
+  document.querySelectorAll(".band").forEach(b => b.setAttribute("aria-pressed", +b.dataset.i === i));
+  $("#bandnote").innerHTML = `<b style="color:${CHECKS[i][1]}">${CHECKS[i][0]}</b>${CHECKS[i][2]}`;
+}
+document.addEventListener("click", e => { const p = e.target.closest(".pane,.band"); if (p) pick(+p.dataset.i); });
+pick(6);
+
+/* ---------- the dig: 36 cuts, 20 held, 16 dead ends ---------- */
+$("#fan").innerHTML = `<defs><filter id="gl"><feGaussianBlur stdDeviation="2.5"/></filter></defs>` + Array.from({length: 36}, (_, i) => {
+  const x = (14 + i * (972 / 35)).toFixed(1), held = i < 20, len = Math.ceil(Math.hypot(x - 500, 132));
+  return `<line x1="500" y1="0" x2="${x}" y2="132" stroke="${held ? "#5c95d6" : "#3a404c"}" stroke-dasharray="${len}" style="--len:${len};--i:${i}"/>` +
+    (held ? `<circle cx="${x}" cy="140" r="7" fill="#5c95d6" opacity=".45" filter="url(#gl)"/>` : "") +
+    `<circle cx="${x}" cy="140" r="5" fill="${held ? "#5c95d6" : "#12151b"}" stroke="${held ? "#5c95d6" : "#5f6774"}" stroke-width="1.4"/>`;
+}).join("");
+
+/* ---------- counting up ---------- */
+function countUp(el) {
+  const to = +el.dataset.to, f = el.dataset.fmt, t0 = performance.now(), dur = 1100;
+  const show = v => el.textContent = f === "ratio" ? `${v} / ${to}` : f === "s" ? `${v} s` : v.toLocaleString("en-GB");
+  (function tick(t) { const p = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - p, 3); show(Math.round(to * e)); if (p < 1) requestAnimationFrame(tick); })(t0);
+}
+
+/* ---------- tilt on the source cards ---------- */
+if (!reduce) document.querySelectorAll(".src").forEach(c => {
+  c.addEventListener("pointermove", e => { const r = c.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+    c.style.transform = `rotateY(${(x * 12).toFixed(1)}deg) rotateX(${(-y * 12).toFixed(1)}deg) translateZ(6px)`; });
+  c.addEventListener("pointerleave", () => c.style.transform = "");
+});
+
+/* ---------- scroll reveals ---------- */
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if (!e.isIntersecting) return;
+  const el = e.target; io.unobserve(el);
+  if (el.id === "fan") { el.classList.remove("pre"); if (!reduce) el.classList.add("draw"); }
+  else if (el.classList.contains("v")) countUp(el);
+  else el.classList.add("in");
+}), {threshold: .2});
+document.querySelectorAll(".rv").forEach((el, i) => { el.style.transitionDelay = (i % 3) * 90 + "ms"; io.observe(el); });
+document.querySelectorAll("#rings i").forEach((r, i) => r.style.transitionDelay = i * 140 + "ms");
+if (!reduce) $("#fan").classList.add("pre");
+["#rings", "#fan"].forEach(id => io.observe($(id)));
+document.querySelectorAll(".stat .v").forEach(v => io.observe(v));
 </script>
 </body>
 </html>
