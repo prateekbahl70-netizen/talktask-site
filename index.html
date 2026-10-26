@@ -386,6 +386,34 @@ footer p{max-width:none;margin:0 0 6px}
   .rig3d,.rig,.src,.pane{transition:none}
   .demo .step{transform:none}
 }
+
+/* ---------- plans ---------- */
+.plans{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:44px}
+@media (max-width:860px){.plans{grid-template-columns:1fr}}
+.plan-c{border:1px solid var(--line2);border-radius:8px;padding:30px 28px 28px;background:var(--bg2);display:flex;flex-direction:column}
+.plan-c.docs{background:linear-gradient(160deg,rgba(168,130,214,.13),var(--bg2) 55%);border-color:rgba(168,130,214,.45)}
+.plan-c .lab{margin-bottom:12px}
+.plan-c h3{font-size:25px;font-weight:300;letter-spacing:-.02em;margin-bottom:6px}
+.plan-c .for{color:var(--ink3);font-size:15px;margin-bottom:20px}
+.price{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:16px 0;margin-bottom:20px}
+.price .amt{font-weight:300;font-size:30px;line-height:1.1;letter-spacing:-.02em;color:var(--ink)}
+.price .per{font-size:14px;color:var(--ink3)}
+.plan-c .fmt{font:500 11px/1.9 "JetBrains Mono",monospace;letter-spacing:.05em;color:var(--ink3);margin:0 0 20px}
+.plan-c ul{list-style:none;padding:0;margin:0 0 26px;flex:1}
+.plan-c li{position:relative;padding-left:24px;margin-bottom:10px;font-size:15px;color:var(--ink2)}
+.plan-c li::before{content:"";position:absolute;left:2px;top:7px;width:9px;height:5px;border-left:1.5px solid var(--g);border-bottom:1.5px solid var(--g);transform:rotate(-45deg)}
+.plan-c.docs li::before{border-color:var(--v)}
+.plan-c li.plus{color:var(--ink);font-weight:500}
+.plan-c .btn{align-self:flex-start}
+.pilot{margin-top:24px;display:flex;gap:20px;align-items:center;justify-content:space-between;flex-wrap:wrap;border:1px dashed var(--line2);border-radius:8px;padding:18px 22px}
+.pilot p{margin:0;color:var(--ink2);max-width:none}
+/* the trial form */
+.trial{display:grid;grid-template-columns:1fr 1fr 2fr auto;gap:12px;margin-top:40px;align-items:end;max-width:1040px}
+@media (max-width:860px){.trial{grid-template-columns:1fr}}
+.trial label{display:block;font:500 10px/1.4 "JetBrains Mono",monospace;letter-spacing:.2em;text-transform:uppercase;color:var(--ink3);margin-bottom:6px}
+.trial input{width:100%;background:var(--bg2);border:1px solid var(--line2);border-radius:4px;color:var(--ink);font:inherit;font-size:15px;padding:10px 12px}
+.trial input::placeholder{color:var(--ink4)}
+.trial .btn{height:44px}
 </style>
 </head>
 <body>
@@ -396,7 +424,7 @@ footer p{max-width:none;margin:0 0 6px}
       TalkTask
     </a>
     <nav class="nav" aria-label="Sections">
-      <a href="#gap">The gap</a><a href="#folder">Your folder</a><a href="#how">How it works</a><a href="#two">Two answers</a><a href="#checks">The checks</a><a href="#dig">It digs</a><a href="#measured">Measured</a><a href="#faq">Questions</a>
+      <a href="#gap">The gap</a><a href="#folder">Your folder</a><a href="#how">How it works</a><a href="#two">Two answers</a><a href="#checks">The checks</a><a href="#dig">It digs</a><a href="#measured">Measured</a><a href="#plans">Plans</a><a href="#faq">Questions</a>
     </nav>
     <a class="btn" href="mailto:hello@talktask.si?subject=TalkTask%20trial">Ask for a trial</a>
   </header>
@@ -650,6 +678,49 @@ footer p{max-width:none;margin:0 0 6px}
   </div>
 </section>
 
+<section id="plans">
+  <div class="wrap">
+    <span class="lab" style="color:var(--v)">Plans</span>
+    <h2>One product. Two plans, by what you bring.</h2>
+    <p class="lead">Both count every figure themselves, show where each one came from, and say so when the data cannot carry the claim. The second also reads the reports.</p>
+    <div class="plans">
+      <div class="plan-c rv">
+        <span class="lab" style="color:var(--g)">Tables</span>
+        <h3>Surveys, spreadsheets and databases.</h3>
+        <p class="for">Every figure counted from your rows, with its receipt.</p>
+        <div class="price"><span class="amt">On request</span><span class="per">per seat, per month</span></div>
+        <p class="fmt">Excel &middot; CSV &middot; SPSS &middot; Stata &middot; Parquet &middot; JSON &middot; Triple-S &middot; zips of many tables &middot; Postgres &middot; BigQuery</p>
+        <ul>
+          <li>The model plans; the room counts every figure</li>
+          <li>A receipt on every figure: who, what, the base</li>
+          <li>Eight checks on every sentence before you see it</li>
+          <li>A refusal, with the reason, when the data cannot answer</li>
+          <li>The dig: a finding re-measured inside every cut</li>
+          <li>A line of questioning saved and run again on the next wave</li>
+        </ul>
+        <a class="btn ghost" href="mailto:hello@talktask.si?subject=TalkTask%20trial%3A%20Tables">Ask for a Tables trial</a>
+      </div>
+      <div class="plan-c docs rv">
+        <span class="lab" style="color:var(--v)">Tables + Documents<span class="tag">in testing</span></span>
+        <h3>A folder: the records and the reports on them.</h3>
+        <p class="for">Everything in Tables, and the reports read page by page.</p>
+        <div class="price"><span class="amt">On request</span><span class="per">per seat, per month</span></div>
+        <p class="fmt">Everything in Tables &middot; PDF reports &middot; Word &middot; PowerPoint &middot; scans, by OCR &middot; survey tab books</p>
+        <ul>
+          <li class="plus">Everything in Tables</li>
+          <li>A quote must be found on its page</li>
+          <li>Tables inside reports read cell by cell, totals checked</li>
+          <li>The report set beside the records, and told which agree</li>
+          <li>The same report in Word and PDF counted once</li>
+          <li>One folder, one catalogue, one question across all of it</li>
+        </ul>
+        <a class="btn" href="mailto:hello@talktask.si?subject=TalkTask%20trial%3A%20Tables%20%2B%20Documents">Ask for a Tables + Documents trial</a>
+      </div>
+    </div>
+    <div class="pilot rv"><p><b>Both start the same way.</b> One study, your honest reaction, then a six-week pilot on your live data at a fixed price, agreed before it starts.</p><a class="btn ghost" href="#ask">Bring one study</a></div>
+  </div>
+</section>
+
 <section id="ask">
   <div class="wrap">
     <span class="lab" style="color:var(--g)">What we are asking for</span>
@@ -659,7 +730,13 @@ footer p{max-width:none;margin:0 0 6px}
       <div><div class="n">02</div><h3>Your honest reaction, including where it breaks</h3><p>You know how claims like these usually fall apart. Better to hear it from you than from a client.</p></div>
       <div><div class="n">03</div><h3>And if it holds up, a pilot</h3><p>Six weeks on your live data and your questions, every answer receipted, and the receipts checked by you.</p></div>
     </div>
-    <div class="btns" style="margin-top:40px"><a class="btn" href="mailto:hello@talktask.si?subject=TalkTask%20trial">Ask for a trial</a></div>
+    <form class="trial" id="trial" aria-label="Ask for a trial">
+      <div><label for="tn">Your name</label><input id="tn" name="name" autocomplete="name" required></div>
+      <div><label for="tc">Company</label><input id="tc" name="company" autocomplete="organization"></div>
+      <div><label for="td">Your data, in one line</label><input id="td" name="data" placeholder="e.g. a quarterly tracker in SPSS, twelve waves"></div>
+      <button class="btn" type="submit">Ask for a trial</button>
+    </form>
+    <p class="small" style="margin-top:12px">Opens your own email with this filled in, addressed to hello@talktask.si. This page sends and stores nothing.</p>
   </div>
 </section>
 
@@ -927,6 +1004,14 @@ document.querySelectorAll("#rings i").forEach((r, i) => r.style.transitionDelay 
 if (!reduce) $("#fan").classList.add("pre");
 ["#rings", "#fan"].forEach(id => io.observe($(id)));
 document.querySelectorAll(".stat .v").forEach(v => io.observe(v));
+
+/* ---------- the trial form: builds an email, sends nothing itself ---------- */
+$("#trial").addEventListener("submit", e => {
+  e.preventDefault();
+  const f = e.target, v = n => f.elements[n].value.trim();
+  const body = "Name: " + v("name") + "\nCompany: " + v("company") + "\nData: " + v("data");
+  location.href = "mailto:hello@talktask.si?subject=" + encodeURIComponent("TalkTask trial: " + (v("company") || v("name"))) + "&body=" + encodeURIComponent(body);
+});
 </script>
 </body>
 </html>
