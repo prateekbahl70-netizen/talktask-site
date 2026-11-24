@@ -63,10 +63,10 @@ h3{font-weight:400;font-size:19px;line-height:1.35;color:var(--ink);margin:0 0 8
 .top{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:22px 0}
 .mark{display:flex;align-items:center;gap:10px;font-weight:500;font-size:18px;letter-spacing:-.3px;text-decoration:none;color:var(--ink)}
 .mark svg{display:block}
-.nav{display:flex;gap:24px;font-size:14px}
+.nav{display:flex;gap:20px;font-size:14px;white-space:nowrap}
 .nav a{text-decoration:none;color:var(--ink3);transition:color .15s var(--ease)}
 .nav a:hover{color:var(--ink)}
-@media (max-width:1040px){.nav{display:none}}
+@media (max-width:1180px){.nav{display:none}}
 
 /* sections */
 section{padding:112px 0 96px;border-top:1px solid var(--line);position:relative}
@@ -328,6 +328,13 @@ section{padding:112px 0 96px;border-top:1px solid var(--line);position:relative}
 .src .v{font-weight:300;font-size:30px;letter-spacing:-.02em;color:var(--ink);line-height:1.1}
 .src .u{font:500 10.5px "JetBrains Mono",monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--t);margin:6px 0 12px}
 .src p{font-size:14px;color:var(--ink3);margin:0}
+.uses h3{font-size:19px;line-height:1.25;margin:0 0 10px}
+.mit{border:1px solid var(--line2);border-radius:6px;background:var(--bg2);margin:0 0 28px;max-width:46ch}
+.mit summary{cursor:pointer;padding:12px 16px;font-size:19px;color:var(--ink);list-style:none;display:flex;justify-content:space-between;gap:14px}
+.mit summary::-webkit-details-marker{display:none}
+.mit summary::after{content:"+";color:var(--g);font-size:22px;line-height:1}
+.mit[open] summary::after{content:"\2212"}
+.mit p{font-size:15px;color:var(--ink3);margin:0;padding:0 16px 14px}
 .src.new{border-color:color-mix(in srgb,var(--t) 50%,var(--line))}
 
 /* ---------- where it sits ---------- */
@@ -424,13 +431,18 @@ footer p{max-width:none;margin:0 0 6px}
       TalkTask
     </a>
     <nav class="nav" aria-label="Sections">
-      <a href="#gap">The gap</a><a href="#folder">Your folder</a><a href="#how">How it works</a><a href="#two">Two answers</a><a href="#checks">The checks</a><a href="#dig">It digs</a><a href="#measured">Measured</a><a href="#plans">Plans</a><a href="#faq">Questions</a>
+      <a href="#uses">Uses</a><a href="#folder">Your folder</a><a href="#how">How it works</a><a href="#two">Two answers</a><a href="#checks">The checks</a><a href="#dig">It digs</a><a href="#measured">Measured</a><a href="#plans">Plans</a><a href="#faq">Questions</a>
     </nav>
     <a class="btn" href="mailto:hello@talktask.si?subject=TalkTask%20trial">Ask for a trial</a>
   </header>
 
   <div class="hero">
     <div>
+      <details class="mit">
+        <summary><span><span aria-hidden="true">🥈</span> <b>Silver</b> on the MIT benchmark</span></summary>
+        <p>It measures whether a system can do a data scientist's job end to end: find the right files, clean them, combine them, analyse them, and reach the right answer with no help.</p>
+        <p><a href="kramabench.html">KramaBench: the scores, and how they were made</a>. Second place on public tasks, as listed on 24 November 2026.</p>
+      </details>
       <span class="lab">Answers from your data · with receipts</span>
       <h1>Ask your data anything. Every figure <em>shows its working.</em></h1>
       <p class="lead">Point TalkTask at a survey, a spreadsheet, a database or a folder of reports, and ask in plain words. It counts every figure itself, shows where each one came from, and says so, out loud, when the data cannot carry the claim.</p>
@@ -456,6 +468,21 @@ footer p{max-width:none;margin:0 0 6px}
 <div class="reads" aria-label="What it reads">
   <div class="track" id="readsTrack"></div>
 </div>
+
+<section id="uses">
+  <div class="wrap">
+    <span class="lab" style="color:var(--g)">What people use it for</span>
+    <h2>For anyone who has to stand behind a number.</h2>
+    <p class="lead">Research and insight teams, analysts, and the people who have to act on what they report.</p>
+    <div class="range uses">
+      <div class="src rv"><h3 style="color:var(--g)">The question after the report</h3><p>A study is delivered, then someone asks one more thing. Ask it of the rows and get a counted answer, with its base.</p></div>
+      <div class="src rv"><h3 style="color:var(--b)">Check a number before it goes out</h3><p>Ask for the figure in a deck or a press line. See the people, the filter and the count behind it, or be told the data cannot carry it.</p></div>
+      <div class="src rv"><h3 style="color:var(--t)">One question, several tables</h3><p>Tables are joined only on a key the rows prove. The answer names the files it used.</p></div>
+      <div class="src rv"><h3 style="color:var(--a)">Does the report match the records?</h3><p>A report and the data it rests on, read together: which figures agree, and which do not. <b>In testing.</b></p></div>
+    </div>
+    <p class="closer">It does the counting and the checking. The judgement stays with you.</p>
+  </div>
+</section>
 
 <section id="gap">
   <div class="wrap">
@@ -493,7 +520,7 @@ footer p{max-width:none;margin:0 0 6px}
       <div class="rv" style="--c:var(--t)">A formula is run again on the rows and set beside the figure the file saved.</div>
       <div class="rv" style="--c:var(--b)">The same report in Word and in PDF is counted once.</div>
       <div class="rv" style="--c:var(--a)">Versions are dated by what the documents say, never by the file's timestamp.</div>
-      <div class="rv" style="--c:var(--r)">Personal columns are set aside at the door: never read, counted or shown.</div>
+      <div class="rv" style="--c:var(--r)">Columns that look personal are flagged, and stay out when you say hide.</div>
     </div>
   </div>
 </section>
@@ -509,10 +536,6 @@ footer p{max-width:none;margin:0 0 6px}
         <svg id="reconSvg" viewBox="0 0 640 330" role="img" aria-label="Board report figures against the sales records for four regions"></svg>
       </div>
       <div class="verdict" id="verdict" aria-live="polite"></div>
-    </div>
-    <div class="aside">
-      <div class="x">✕</div>
-      <p><b>“What is the contact email for Brightwater Dental?”</b> The workbook holds one, in a column of customer emails. The room answered that the column is a person's details, set aside at the door, never read, counted or shown, and that it cannot give it.</p>
     </div>
   </div>
 </section>
@@ -617,7 +640,10 @@ footer p{max-width:none;margin:0 0 6px}
       <div class="stat rv" style="--c:var(--i)"><div class="v" data-to="272">272</div><div class="k">Drafts stopped by the checks</div><p>Since August, before anyone saw them. The person got the counted figures and the reason instead.</p></div>
       <div class="stat rv" style="--c:var(--p)"><div class="v" data-to="15" data-fmt="s">15 s</div><div class="k">Half of all answers, within</div><p>2,733 answered questions in September and October 2026, plan, counting, writing and checking included.</p></div>
     </div>
-    <p class="closer">Every number on this page comes from the room's own record or from the source files, recounted on 22 and 23 October 2026.</p>
+    <h3 class="kbh" style="margin:34px 0 0;font-size:26px;font-weight:300"><span aria-hidden="true">🥈</span> <b>Silver</b> on the MIT benchmark, KramaBench.</h3>
+    <p class="lead" style="margin-top:10px">It measures whether a system can do a data scientist's job end to end: find the right files, clean them, combine them, analyse them, and reach the right answer with no help. Second place on public tasks, as listed on 24 November 2026.</p>
+    <p><a href="kramabench.html">The scores, and how they were made</a> · <a href="https://kramabench.org/#leaderboard">kramabench.org</a></p>
+    <p class="closer">Every other number on this page comes from the room's own record or from the source files, recounted on 22 and 23 October 2026.</p>
   </div>
 </section>
 
@@ -764,7 +790,7 @@ footer p{max-width:none;margin:0 0 6px}
       </details>
       <details>
         <summary>Where does my data go?</summary>
-        <p>The language model does not receive your file. It sees your question, the names and labels of your columns, and the tables the room counted. Rows you ask to see by name, and passages you ask it to read, go to it too. Personal columns are set aside before anything is read.</p>
+        <p>The language model does not receive your file. It sees your question, the names and labels of your columns, sample values from them, and the tables the room counted. Rows you ask to see by name, and passages you ask it to read, go to it too. Columns that look personal are flagged and read like the others unless you hide them, so their values can reach the model's provider too.</p>
         <p>A desktop version where the file never leaves your machine is in preparation.</p>
       </details>
       <details>
@@ -862,7 +888,7 @@ SHELVES.forEach(([t, s, c, x, y, kind]) => {
 });
 iso += `<div class="slab disc" style="--c:var(--t);left:730px;top:250px;transform:translateZ(14px);box-shadow:${Array.from({length: 22}, (_, j) => `${j + 1}px ${j + 1}px 0 color-mix(in srgb,var(--t) ${40 - j}%,#0b0e12)`).join(",")},40px 50px 60px rgba(0,0,0,.6)"></div>`;
 iso += `<div class="bill" style="--c:var(--t);left:800px;top:330px;transform:translateZ(70px)"><div><b>One catalogue</b><span>kept current file by file</span></div></div>`;
-iso += `<div class="slab file" style="--c:var(--r);left:100px;top:420px;width:140px;height:70px;transform:translateZ(8px);border-style:dashed;opacity:.85"><i>SET ASIDE</i><span>personal columns</span></div>`;
+iso += `<div class="slab file" style="--c:var(--r);left:100px;top:420px;width:140px;height:70px;transform:translateZ(8px);border-style:dashed;opacity:.85"><i>FLAGGED</i><span>personal columns</span></div>`;
 // wires lie flat on the plane: files to shelves, shelves to the catalogue
 const wire = (x1, y1, x2, y2, c) => { const l = Math.hypot(x2 - x1, y2 - y1), a = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
   return `<div class="wire" style="--c:${c};left:${x1}px;top:${y1}px;width:${l}px;transform:rotate(${a}deg) translateZ(2px)"></div>`; };
@@ -1003,7 +1029,7 @@ document.querySelectorAll(".rv").forEach((el, i) => { el.style.transitionDelay =
 document.querySelectorAll("#rings i").forEach((r, i) => r.style.transitionDelay = i * 140 + "ms");
 if (!reduce) $("#fan").classList.add("pre");
 ["#rings", "#fan"].forEach(id => io.observe($(id)));
-document.querySelectorAll(".stat .v").forEach(v => io.observe(v));
+document.querySelectorAll(".stat .v[data-to]").forEach(v => io.observe(v));
 
 /* ---------- the trial form: builds an email, sends nothing itself ---------- */
 $("#trial").addEventListener("submit", e => {

@@ -1,0 +1,34 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TalkTask on KramaBench</title><link rel="icon" href="favicon.svg" type="image/svg+xml">
+<style>
+@font-face{font-family:Inter;src:url(fonts/inter.woff2) format("woff2");font-display:swap}
+:root{--bg:#12151b;--line:#2a2f39;--ink:#eef1f4;--mute:#9aa3ad;--t:#4fb0b0}
+*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Inter,system-ui,sans-serif}
+main{max-width:880px;margin:0 auto;padding:48px max(16px,env(safe-area-inset-left,0px)) 64px}
+a{color:var(--t)} h1{font-size:clamp(28px,5vw,40px);line-height:1.15;margin:0 0 8px;text-wrap:balance}
+.lede{color:var(--mute);margin:0 0 28px;max-width:65ch} .big{font-size:56px;font-weight:700;color:var(--t);margin:8px 0 0}
+.wrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px}
+table{border-collapse:collapse;width:100%;min-width:520px} th,td{padding:10px 14px;border-bottom:1px solid var(--line);text-align:left}
+th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute)} .num{text-align:right;font-variant-numeric:tabular-nums}
+tr.tt td{background:rgba(79,176,176,.12);font-weight:600} .tag{font-size:11px;font-weight:600;letter-spacing:.04em;color:var(--bg);background:var(--t);border-radius:6px;padding:2px 6px;margin-left:6px}
+.note{color:var(--mute);font-size:14px;margin-top:20px;max-width:70ch}
+</style></head><body><main>
+<p><a href="./">TalkTask</a></p>
+<h1>TalkTask on KramaBench</h1>
+<p class="lede">KramaBench (MIT) tests whether a system can go from a plain question and a folder of raw files to the right
+answer, with no human help: 104 tasks in six domains. Its team lists TalkTask twice.</p>
+<p class="big">56.74%</p><p class="lede">public tasks, one run on 12 November 2026, 06:56:41 in all; second on the list on 24 November 2026</p>
+<p class="big">44.95%</p><p class="lede">obscured tasks, where names and values are swapped so that memory does not help</p>
+<div class="wrap"><table><thead><tr><th>#</th><th>System</th><th>Model</th><th class="num">Overall</th></tr></thead><tbody><tr><td>1</td><td>RADAR</td><td>DeepSeek-V4-Flash</td><td class="num">73.70%</td></tr><tr class=tt><td>2</td><td>TalkTask (public)</td><td>Not supplied</td><td class="num">56.74%</td></tr><tr><td>3</td><td>smolagents DR</td><td>Claude-3-7</td><td class="num">55.83% ± 3.41%</td></tr><tr class=tt><td>4</td><td>TalkTask (obscured, 103 tasks)</td><td>Not supplied</td><td class="num">44.95%</td></tr><tr><td>5</td><td>smolagents Reflexion</td><td>Claude-3-7</td><td class="num">36.91% ± 26.25%</td></tr><tr><td>6</td><td>DS-Guru few-shot</td><td>GPT-6 Luna</td><td class="num">34.42%</td></tr><tr><td>7</td><td>smolagents Reflexion</td><td>GPT-o3</td><td class="num">30.53% ± 10.79%</td></tr><tr><td>8</td><td>smolagents DR</td><td>GPT-o3</td><td class="num">28.07% ± 8.80%</td></tr><tr><td>9</td><td>DS-Guru few-shot</td><td>GPT-6.1 Sol</td><td class="num">27.93%</td></tr><tr><td>10</td><td>DS-Guru few-shot</td><td>GPT-o3</td><td class="num">24.98% ± 1.25%</td></tr><tr><td>11</td><td>DS-Guru few-shot</td><td>GPT-5.6 Luna</td><td class="num">22.58%</td></tr><tr><td>12</td><td>DeepAnalyze (obscured, 103 tasks)</td><td>Not supplied</td><td class="num">22.13%</td></tr><tr><td>13</td><td>DS-Guru one-shot</td><td>GPT-6 Luna</td><td class="num">21.55%</td></tr><tr><td>14</td><td>DS-Guru one-shot</td><td>GPT-6.1 Sol</td><td class="num">17.92%</td></tr><tr><td>15</td><td>DS-Guru one-shot</td><td>GPT-o3</td><td class="num">16.67% ± 2.93%</td></tr><tr><td>16</td><td>smolagents PDT</td><td>Claude-3-7</td><td class="num">12.01% ± 1.03%</td></tr><tr><td>17</td><td>DS-Guru one-shot</td><td>GPT-5.6 Luna</td><td class="num">11.93%</td></tr><tr><td>18</td><td>DS-Guru few-shot</td><td>GPT-4o</td><td class="num">8.67% ± 1.48%</td></tr><tr><td>19</td><td>DS-Guru few-shot</td><td>Llama3-3Instruct</td><td class="num">8.40% ± 1.01%</td></tr><tr><td>20</td><td>DS-Guru few-shot</td><td>Claude-3-7</td><td class="num">8.29% ± 1.12%</td></tr><tr><td>21</td><td>smolagents PDT</td><td>GPT-o3</td><td class="num">7.57% ± 1.28%</td></tr><tr><td>22</td><td>DS-Guru one-shot</td><td>GPT-4o</td><td class="num">6.08% ± 1.25%</td></tr><tr><td>23</td><td>DS-Guru no-context</td><td>GPT-o3</td><td class="num">5.87% ± 0.71%</td></tr><tr><td>24</td><td>DS-Guru one-shot</td><td>Llama3-3Instruct</td><td class="num">3.42% ± 0.37%</td></tr><tr><td>25</td><td>DS-Guru no-context</td><td>Claude-3-7</td><td class="num">1.88% ± 0.81%</td></tr><tr><td>26</td><td>DS-Guru one-shot</td><td>Claude-3-7</td><td class="num">1.31% ± 1.22%</td></tr><tr><td>27</td><td>DS-Guru no-context</td><td>Llama3-3Instruct</td><td class="num">0.33% ± 0.46%</td></tr><tr><td>28</td><td>DS-Guru no-context</td><td>DeepSeek-R1</td><td class="num">0.33% ± 0.46%</td></tr><tr><td>29</td><td>DS-Guru few-shot</td><td>DeepSeek-R1</td><td class="num">0.33% ± 0.46%</td></tr><tr><td>30</td><td>DS-Guru no-context</td><td>GPT-4o</td><td class="num">0.00% ± 0.00%</td></tr><tr><td>31</td><td>DS-Guru one-shot</td><td>DeepSeek-R1</td><td class="num">0.00% ± 0.00%</td></tr></tbody></table></div>
+<p class="note"><b>The two TalkTask rows are not the same setup.</b> The public row is one run. Each obscured answer is the value
+two or three of three runs agreed on; where none agreed, mostly the third run's. All three took 19:43:54. We changed the
+engine between those runs after reading earlier answers, without an answer key. The gap between the rows is therefore not a clean
+measure of memory.</p>
+<p class="note"><b>Earlier work on the public tasks.</b> We developed TalkTask against public KramaBench tasks before the
+run of 12 November, so the public row is not a first-sight score.</p>
+<p class="note"><b>Source:</b> scores as published in
+<a href="https://kramabench.org/data/benchmark_results.csv">kramabench.org/data/benchmark_results.csv</a>, read on 24 November 2026; ±
+is the standard deviation over a team's runs. Ranks are ours, by the Overall column. The official leaderboard is at
+<a href="https://kramabench.org/#leaderboard">kramabench.org</a>; human baseline 76.75% from the
+<a href="https://arxiv.org/abs/2506.06541">paper</a>.</p>
+</main></body></html>
