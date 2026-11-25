@@ -12,7 +12,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preload" href="fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
-<meta name="theme-color" content="#12151b">
+<meta name="theme-color" content="#050608">
 <style>
 @font-face{font-family:"Inter";src:url(fonts/inter.woff2) format("woff2");font-weight:100 900;font-display:swap}
 @font-face{font-family:"JetBrains Mono";src:url(fonts/jbmono.woff2) format("woff2");font-weight:100 800;font-display:swap}
@@ -20,7 +20,7 @@
 :root{
   --bg:#12151b; --bg2:#191d24; --bg3:#20252e; --line:#2a2f39; --line2:#3a404c;
   --ink:#eef1f4; --ink2:#c5cbd3; --ink3:#8d95a1; --ink4:#5f6774;
-  --r:#e0705f; --o:#e0925a; --a:#d9b04f; --y:#a5bf5a; --g:#5fb17f; --t:#4fb0b0; --b:#5c95d6; --i:#7f84d8; --v:#a882d6; --p:#cf78a8;
+  --r:#e0705f; --o:#e0925a; --a:#d9b04f; --y:#a5bf5a; --g:#5b76ff; --t:#5b76ff; --b:#5b76ff; --i:#5b76ff; --v:#c3ccff; --p:#cf78a8;
   --paper:#f4f5f6; --paper-ink:#0b0d10; --paper-mute:#5c6066; --paper-line:#cfd3d8;
   --ease:cubic-bezier(.2,.8,.2,1);
   color-scheme:dark;
@@ -74,41 +74,6 @@ section{padding:112px 0 96px;border-top:1px solid var(--line);position:relative}
 .rv{opacity:0;transform:translateY(16px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
 .rv.in{opacity:1;transform:none}
 
-/* ---------- hero ---------- */
-.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:48px;align-items:center;padding:48px 0 96px;position:relative}
-.hero::before{content:"";position:absolute;right:0;top:-10%;width:65%;height:110%;pointer-events:none;z-index:-1;
-  background:radial-gradient(closest-side at 30% 40%,rgba(92,149,214,.22),transparent),radial-gradient(closest-side at 70% 60%,rgba(168,130,214,.18),transparent),radial-gradient(closest-side at 55% 85%,rgba(207,120,168,.12),transparent);filter:blur(10px)}
-@media (max-width:980px){.hero{grid-template-columns:1fr;gap:40px;padding:24px 0 72px}}
-.hero .lead{margin-bottom:30px}
-.btns{display:flex;gap:10px;flex-wrap:wrap}
-.stage3d{position:relative;perspective:1500px;min-height:640px}
-@media (max-width:980px){.stage3d{perspective:none;min-height:0}}
-.rig3d{position:relative;transform-style:preserve-3d;transform:rotateY(-11deg) rotateX(5deg);transition:transform .5s var(--ease)}
-@media (max-width:980px){.rig3d{transform:none}}
-.sheet{position:absolute;border-radius:6px;border:1px solid var(--line2);box-shadow:0 30px 60px -20px rgba(0,0,0,.7);overflow:hidden}
-.sheet b{position:absolute;left:12px;top:9px;font:500 10px "JetBrains Mono",monospace;letter-spacing:.18em;color:var(--ink3)}
-.sheet.xls{width:300px;height:220px;left:-120px;top:60px;transform:translateZ(-180px) rotateZ(-4deg);background:#1a2a24;
-  background-image:linear-gradient(rgba(95,177,127,.35) 1px,transparent 1px),linear-gradient(90deg,rgba(95,177,127,.35) 1px,transparent 1px);background-size:50px 22px;background-position:0 30px}
-.sheet.pdf{width:240px;height:300px;right:-50px;top:-20px;transform:translateZ(-260px) rotateZ(5deg);background:#2a2024;
-  background-image:repeating-linear-gradient(transparent 0 16px,rgba(224,112,95,.28) 16px 18px);background-position:20px 44px;background-size:calc(100% - 40px) 100%;background-repeat:no-repeat}
-.sheet.sav{width:280px;height:170px;left:30px;bottom:-30px;transform:translateZ(-120px) rotateZ(2deg);background:#202537;
-  background-image:linear-gradient(90deg,rgba(127,132,216,.55) 0 30%,transparent 30%),repeating-linear-gradient(transparent 0 20px,rgba(127,132,216,.25) 20px 21px);background-size:100% 100%,100% 100%;background-position:0 34px,0 34px}
-@media (max-width:980px){.sheet{display:none}}
-.demo{position:relative;background:rgba(25,29,36,.92);backdrop-filter:blur(6px);border:1px solid var(--line2);border-radius:8px;padding:26px 26px 4px;min-height:600px;transform:translateZ(0);
-  box-shadow:0 50px 100px -30px rgba(0,0,0,.8),0 0 0 1px rgba(255,255,255,.02) inset}
-@media (max-width:700px){.demo{padding:18px 16px 4px;min-height:640px}}
-.demo .step{opacity:0;transform:translateY(6px);transition:opacity .45s var(--ease),transform .45s var(--ease);margin-bottom:18px}
-.demo .step.on{opacity:1;transform:none}
-.demo .lab{margin-bottom:6px;letter-spacing:.2em}
-.typed{font-size:18px;color:var(--ink);margin:0;min-height:3.2em}
-.typed::after{content:"";display:inline-block;width:2px;height:1.05em;background:var(--ink2);vertical-align:-3px;margin-left:2px;animation:blink 1s steps(1) infinite}
-.typed.done::after{display:none}
-@keyframes blink{50%{opacity:0}}
-.demo .plan{font-size:14px;color:var(--ink3);border-left:2px solid var(--t);padding-left:12px;margin:0}
-.demo .ans{font-size:16px;color:var(--ink);margin:0}
-.replay{position:absolute;top:18px;right:18px;background:none;border:1px solid var(--line2);border-radius:3px;color:var(--ink3);font:500 10px "JetBrains Mono",monospace;letter-spacing:.2em;text-transform:uppercase;padding:5px 8px;cursor:pointer;z-index:2}
-.replay:hover{color:var(--ink)}
-
 /* reads: the formats strip */
 .reads{border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;padding:18px 0;-webkit-mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
 .reads .track{display:flex;gap:12px;width:max-content;animation:slide 48s linear infinite}
@@ -117,8 +82,8 @@ section{padding:112px 0 96px;border-top:1px solid var(--line);position:relative}
 @keyframes slide{to{transform:translateX(-50%)}}
 
 /* figures and receipts */
-.fig{font:inherit;font-weight:500;color:var(--ink);background:rgba(92,149,214,.16);border:0;border-bottom:1px solid rgba(92,149,214,.7);padding:0 4px;margin:0 -1px;cursor:pointer;border-radius:3px;transition:background-color .15s var(--ease)}
-.fig:hover{background:rgba(92,149,214,.3)}
+.fig{font:inherit;font-weight:500;color:var(--ink);background:rgba(76,104,255,.16);border:0;border-bottom:1px solid rgba(76,104,255,.7);padding:0 4px;margin:0 -1px;cursor:pointer;border-radius:3px;transition:background-color .15s var(--ease)}
+.fig:hover{background:rgba(76,104,255,.3)}
 .fig[aria-pressed=true]{background:var(--b);color:#fff;border-bottom-color:var(--b)}
 .receipt{background:var(--paper);color:var(--paper-ink);font:400 12.5px/1.6 "JetBrains Mono",ui-monospace,monospace;padding:16px 18px 26px;border-radius:4px 4px 0 0;
   -webkit-mask:conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) 50%/14px 100%;
@@ -201,7 +166,7 @@ section{padding:112px 0 96px;border-top:1px solid var(--line);position:relative}
 .verdict{background:var(--bg2);border:1px solid var(--line);border-radius:6px;padding:22px}
 .chip{display:inline-block;font:600 11px "JetBrains Mono",monospace;letter-spacing:.18em;padding:4px 10px;border-radius:3px;margin-bottom:12px}
 .chip.d{background:rgba(224,112,95,.16);color:var(--r)}
-.chip.a{background:rgba(95,177,127,.16);color:var(--g)}
+.chip.a{background:rgba(76,104,255,.16);color:var(--g)}
 .chip.n{background:rgba(141,149,161,.14);color:var(--ink3)}
 .verdict h3{font-size:22px;font-weight:300}
 .verdict .said{font-size:15px;color:var(--ink2)}
@@ -279,7 +244,7 @@ section{padding:112px 0 96px;border-top:1px solid var(--line);position:relative}
 @media (max-width:760px){.strikes{grid-template-columns:1fr}}
 .strikes b{font-weight:500;letter-spacing:.14em;color:var(--a)}
 .strikes div+div b{color:var(--r)}
-.pair{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--i);border-radius:6px;margin-top:44px;background:linear-gradient(135deg,rgba(127,132,216,.06),transparent 60%)}
+.pair{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--i);border-radius:6px;margin-top:44px;background:linear-gradient(135deg,rgba(76,104,255,.06),transparent 60%)}
 @media (max-width:760px){.pair{grid-template-columns:1fr}}
 .pair>div{padding:26px 28px}
 .pair>div+div{border-left:1px solid var(--line)}
@@ -291,7 +256,7 @@ section{padding:112px 0 96px;border-top:1px solid var(--line);position:relative}
 /* ---------- the dig ---------- */
 .dig{text-align:center;margin-top:48px}
 .dig .lab{color:var(--b);margin-bottom:12px}
-.finding{display:inline-block;border:1px solid var(--b);border-radius:4px;padding:14px 26px;font-size:19px;color:var(--ink);background:var(--bg);box-shadow:0 0 50px rgba(92,149,214,.25)}
+.finding{display:inline-block;border:1px solid var(--b);border-radius:4px;padding:14px 26px;font-size:19px;color:var(--ink);background:var(--bg);box-shadow:0 0 50px rgba(76,104,255,.25)}
 .fan{display:block;width:100%;height:auto;margin-top:-1px;overflow:visible}
 .fan line{stroke-width:1}
 .fan.pre line{stroke-dashoffset:var(--len)}
@@ -345,7 +310,7 @@ section{padding:112px 0 96px;border-top:1px solid var(--line);position:relative}
 .tbl td{border-top:1px solid var(--line);padding:16px 16px 16px 0;vertical-align:top;color:var(--ink3)}
 .tbl td:first-child{color:var(--ink);width:24%}
 @media (max-width:700px){.tbl thead{display:none}.tbl tr{display:block;border-top:1px solid var(--line);padding:14px 0}.tbl td{display:block;border:0;padding:3px 0}.tbl td:first-child{width:auto;font-size:16px}}
-.claim{background:linear-gradient(160deg,rgba(207,120,168,.10),var(--bg3) 55%);border:1px solid rgba(207,120,168,.3);border-radius:6px;padding:26px}
+.claim{background:linear-gradient(160deg,rgba(76,104,255,.10),var(--bg3) 55%);border:1px solid rgba(76,104,255,.3);border-radius:6px;padding:26px}
 .claim .lab{color:var(--p)}
 .claim ul{list-style:none;padding:0;margin:0 0 18px}
 .claim li{font-weight:300;font-size:22px;line-height:1.35;color:var(--ink);margin:0 0 8px}
@@ -385,20 +350,11 @@ section{padding:112px 0 96px;border-top:1px solid var(--line);position:relative}
 footer{border-top:1px solid var(--line);padding:36px 0 56px;color:var(--ink4);font-size:13px}
 footer p{max-width:none;margin:0 0 6px}
 
-/* Reduced motion: nothing slides, tilts, spins or marches; fades and the typed question stay. */
-@media (prefers-reduced-motion:reduce){
-  html{scroll-behavior:auto}
-  .rv{transform:none}
-  .reads .track{animation:none}
-  .rig3d,.rig,.src,.pane{transition:none}
-  .demo .step{transform:none}
-}
-
 /* ---------- plans ---------- */
 .plans{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:44px}
 @media (max-width:860px){.plans{grid-template-columns:1fr}}
 .plan-c{border:1px solid var(--line2);border-radius:8px;padding:30px 28px 28px;background:var(--bg2);display:flex;flex-direction:column}
-.plan-c.docs{background:linear-gradient(160deg,rgba(168,130,214,.13),var(--bg2) 55%);border-color:rgba(168,130,214,.45)}
+.plan-c.docs{background:linear-gradient(160deg,rgba(150,165,255,.13),var(--bg2) 55%);border-color:rgba(150,165,255,.45)}
 .plan-c .lab{margin-bottom:12px}
 .plan-c h3{font-size:25px;font-weight:300;letter-spacing:-.02em;margin-bottom:6px}
 .plan-c .for{color:var(--ink3);font-size:15px;margin-bottom:20px}
@@ -421,98 +377,435 @@ footer p{max-width:none;margin:0 0 6px}
 .trial input{width:100%;background:var(--bg2);border:1px solid var(--line2);border-radius:4px;color:var(--ink);font:inherit;font-size:15px;padding:10px 12px}
 .trial input::placeholder{color:var(--ink4)}
 .trial .btn{height:44px}
+
+/* ================= v5: heavy type, dark and light bands in turn, one colour ================= */
+:root,.dark{--bg:#050608;--bg2:#12141b;--bg3:#1a1d27;--line:#232733;--line2:#363b4b;--ink:#f6f7f9;--ink2:#c8ccd6;--ink3:#9096a6;--ink4:#636a7c;--acc:#4c68ff;--acct:#93a4ff;--r:#ff6f61;--a:#f2b84b}
+.light{--bg:#0c0e14;--bg2:#141720;--bg3:#1b1f2a;--line:#252a38;--line2:#3a4054;--ink:#f6f7f9;--ink2:#c8ccd6;--ink3:#9096a6;--ink4:#636a7c;--acc:#4c68ff;--acct:#93a4ff;--r:#ff6f61;--a:#f2b84b}
+:root,.dark,.light{--b:var(--acct);--g:var(--acct);--t:var(--acct);--i:var(--acct);--v:var(--acct);--y:var(--acct);--p:var(--acct);--o:var(--acct)}
+.dark,.light{color:var(--ink2)}
+body{background:#050608}
+body::before{display:none}
+.wrap{max-width:1160px;padding:0 32px}
+@media (max-width:700px){.wrap{padding:0 18px}}
+section{border-top:0;scroll-margin-top:56px;padding:0}
+.sect{background:var(--bg);padding:clamp(60px,8.5vw,124px) 0;position:relative}
+.panel{background:#050608;border-radius:22px;padding:clamp(12px,2.4vw,30px);margin-top:30px;overflow:hidden}
+.sub{margin-top:clamp(56px,7vw,96px);scroll-margin-top:70px}
+
+/* type: heavy, short, close */
+h1,h2{font-weight:700;letter-spacing:-.038em}
+h2{font-size:clamp(28px,4.3vw,54px);line-height:1.04;max-width:21ch;margin-bottom:18px}
+.h2b{font-size:clamp(23px,3vw,38px);max-width:24ch}
+h3{font-weight:600;letter-spacing:-.015em}
+.lab{color:var(--acct);letter-spacing:.2em;margin-bottom:16px}
+.lead{font-size:clamp(16px,1.5vw,19px);line-height:1.55}
+.verb{font-weight:800;font-size:clamp(76px,13.5vw,176px);line-height:1.04;letter-spacing:-.065em;color:var(--acct);margin:-.1em 0 .1em -.045em;user-select:none}
+.closer{font-weight:500;color:var(--ink)}
+.btn{background:var(--acc);border-color:var(--acc);color:#fff;border-radius:10px;padding:12px 20px;font-weight:600;font-size:14.5px;transition:background-color .18s var(--ease),color .18s var(--ease),transform .18s var(--ease)}
+.btn:hover{background:transparent;color:var(--ink);transform:translateY(-1px)}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line2)}
+.btn.ghost:hover{border-color:var(--ink)}
+.btns{display:flex;gap:10px;flex-wrap:wrap}
+
+/* the bar */
+.bar{position:sticky;top:0;z-index:20;background:rgba(5,6,8,.88);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.07)}
+.bar .top{padding:9px 0}
+.bar .btn{padding:9px 16px}
+.nav{gap:26px}
+.nav a.on{color:var(--ink)}
+@media (min-width:821px){.nav{display:flex}}
+@media (max-width:820px){.nav{display:none}}
+.prog{position:absolute;left:0;bottom:-1px;height:2px;width:100%;transform-origin:0 50%;transform:scaleX(0);background:var(--acc)}
+
+/* ---------- first screen: fits a window 393 high ---------- */
+.hero3{position:relative;overflow:hidden;text-align:center;background:#050608;padding:clamp(14px,2.3vw,56px) 0 clamp(36px,5.4vw,84px)}
+#field{position:absolute;inset:0;width:100%;height:100%;-webkit-mask:radial-gradient(ellipse 58% 72% at 50% 44%,rgba(0,0,0,.14) 34%,#000 92%);mask:radial-gradient(ellipse 58% 72% at 50% 44%,rgba(0,0,0,.14) 34%,#000 92%)}
+.hero3::after{content:"";position:absolute;left:50%;bottom:-46%;width:min(1100px,96%);aspect-ratio:2.4;transform:translateX(-50%);pointer-events:none;background:radial-gradient(closest-side,rgba(76,104,255,.42),transparent)}
+.hero3 .wrap{position:relative;z-index:1}
+.pill{display:inline-flex;gap:8px;align-items:center;border:1px solid var(--line2);border-radius:999px;padding:5px 15px 5px 11px;font-size:13.5px;color:var(--ink2);text-decoration:none;background:rgba(18,20,27,.8);margin-bottom:clamp(10px,1.2vw,20px);transition:border-color .18s var(--ease)}
+.pill b{color:var(--ink);font-weight:600}
+.pill:hover{border-color:var(--acct)}
+.hero3 h1{font-size:clamp(33px,5.3vw,66px);line-height:.99;letter-spacing:-.048em;max-width:none;margin:0 auto clamp(10px,1.2vw,20px)}
+.hero3 h1 span{display:block}
+h1 em{font-style:normal;background:none;-webkit-background-clip:border-box;background-clip:border-box;color:var(--acct)}
+.hero3 .lead{max-width:74ch;margin:0 auto clamp(14px,1.6vw,26px);font-size:clamp(15px,1.45vw,18.5px);line-height:1.5}
+.hero3 .btns{justify-content:center}
+.rise{opacity:0;transform:translateY(20px);animation:rise .85s var(--ease) forwards;animation-delay:calc(var(--d,0) * 95ms)}
+@keyframes rise{to{opacity:1;transform:none}}
+
+/* what it reads */
+.strip{background:var(--bg);padding:20px 0 0}
+.strip .lab{text-align:center;margin:0 0 14px;color:var(--ink3)}
+.strip .reads{border-top:0;border-bottom:1px solid var(--line);padding:0 0 22px}
+
+/* ---------- the gap, and what people use it for ---------- */
+.gapgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.08fr);gap:56px;align-items:start}
+@media (max-width:900px){.gapgrid{grid-template-columns:1fr;gap:36px}}
+.gaplist{list-style:none;padding:0;margin:30px 0 0}
+.gaplist li{display:flex;gap:16px;border-top:1px solid var(--line);padding:15px 0;font-size:17.5px;line-height:1.35;font-weight:500;color:var(--ink)}
+.gaplist li:last-child{border-bottom:1px solid var(--line)}
+.gaplist span{flex:0 0 auto;font:500 11px/2.1 "JetBrains Mono",monospace;letter-spacing:.2em;color:var(--ink4)}
+.gaplist .hot span{color:var(--r)}
+.usegrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:520px){.usegrid{grid-template-columns:1fr}}
+.ucard{background:var(--bg2);border:1px solid var(--line);border-radius:18px;padding:22px 22px 24px;transition:transform .25s var(--ease),box-shadow .25s var(--ease),border-color .25s var(--ease)}
+.ucard:hover{transform:translateY(-5px);box-shadow:0 22px 44px -24px rgba(11,12,16,.4);border-color:var(--acc)}
+.ucard .n{font:500 11px "JetBrains Mono",monospace;letter-spacing:.2em;color:var(--acct);margin-bottom:26px}
+.ucard h3{font-size:18.5px;line-height:1.18;margin:0 0 8px}
+.ucard p{font-size:14.5px;line-height:1.5;color:var(--ink3);margin:0}
+
+/* ---------- Ask: the product as a card ---------- */
+.askgrid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(28px,4vw,56px);align-items:start}
+@media (max-width:900px){.askgrid{grid-template-columns:1fr}}
+.h2s{font-size:clamp(22px,2.7vw,33px);line-height:1.1;margin:0 0 12px;max-width:17ch}
+.atabs{margin-top:26px}
+.atab{position:relative;display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--line);padding:14px 0;cursor:pointer}
+.atab:last-child{border-bottom:1px solid var(--line)}
+.atab b{display:block;font-size:17.5px;font-weight:600;color:var(--ink3);transition:color .2s var(--ease)}
+.atab span{display:block;font-size:14.5px;line-height:1.45;color:var(--ink3);max-height:0;overflow:hidden;opacity:0;transition:max-height .35s var(--ease),opacity .35s var(--ease),margin .35s var(--ease)}
+.atab:hover b,.atab[aria-pressed=true] b{color:var(--ink)}
+.atab[aria-pressed=true] span{max-height:4.4em;opacity:1;margin-top:5px}
+.atab i{position:absolute;left:0;top:-1px;height:2px;width:0;background:var(--acct)}
+.atab[aria-pressed=true] i{width:100%}
+.atab.run i{animation:fill 6.5s linear forwards}
+@keyframes fill{from{width:0}to{width:100%}}
+.acard{position:relative;border:1px solid var(--line2);border-radius:22px;padding:18px 22px 20px;background:linear-gradient(180deg,#161924,#0f1117);box-shadow:0 60px 110px -50px #000,0 0 130px -44px rgba(76,104,255,.55)}
+@media (max-width:700px){.acard{padding:16px 15px}}
+.ahead{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:13px;color:var(--ink3);padding-bottom:14px;border-bottom:1px solid var(--line);margin-bottom:16px}
+.ahead b{color:var(--ink);font-weight:600;font-size:14px}
+.ahead svg{display:block}
+.pq{margin:0 0 16px auto;max-width:88%;width:fit-content;background:var(--bg3);border:1px solid var(--line2);border-radius:16px 16px 4px 16px;padding:12px 16px;font-size:16px;line-height:1.42;color:var(--ink)}
+.pbody{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:22px;align-items:center}
+@media (max-width:560px){.pbody{grid-template-columns:1fr}}
+.pnum{font-weight:700;font-size:clamp(54px,7.4vw,98px);line-height:.9;letter-spacing:-.055em;color:var(--ink);font-variant-numeric:tabular-nums}
+.pnum.no,.pnum.nil{font-size:clamp(30px,3.7vw,46px);line-height:1.02;letter-spacing:-.04em;padding:6px 0}
+.pnum.no{color:var(--a)}
+.pnum.nil{color:var(--ink3)}
+.pbase{font-size:14.5px;line-height:1.5;color:var(--ink3);margin:12px 0 0}
+.receipt{--b:#2b44ff}
+.prec{font-size:12px;transform:rotate(1.3deg);box-shadow:0 24px 50px -24px #000}
+@media (max-width:560px){.prec{transform:none}}
+.prec canvas{display:block;width:100%;margin:10px 0 6px}
+#pTrend{display:block;width:100%;height:auto;margin-top:14px;cursor:ew-resize;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+#pTrend text{font:500 10.5px "JetBrains Mono",monospace;fill:#636a7c}
+#pTrend .tl{filter:drop-shadow(0 0 7px rgba(76,104,255,.8))}
+.pkey{display:flex;flex-wrap:wrap;gap:4px 16px;font-size:12px;color:var(--ink3)}
+.pkey span{display:inline-flex;align-items:center;gap:7px}
+.pick{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr) auto;gap:12px;margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}
+@media (max-width:700px){.pick{grid-template-columns:1fr}}
+.pick label,.pick .fld{display:block;font:500 10px/1.4 "JetBrains Mono",monospace;letter-spacing:.2em;text-transform:uppercase;color:var(--ink3)}
+.pick select{display:block;width:100%;margin-top:6px;-webkit-appearance:none;appearance:none;border:1px solid var(--line2);border-radius:10px;color:var(--ink);font:500 14.5px/1.3 "Inter",system-ui,sans-serif;letter-spacing:0;text-transform:none;padding:10px 34px 10px 12px;cursor:pointer;text-overflow:ellipsis;
+  background:#050608 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%239096a6' stroke-width='1.6'/%3E%3C/svg%3E") no-repeat right 12px center;transition:border-color .15s var(--ease)}
+.pick select:hover{border-color:var(--acct)}
+.stepper{display:flex;align-items:center;gap:6px;margin-top:6px}
+.stepper button{width:38px;height:40px;background:#050608;border:1px solid var(--line2);border-radius:10px;color:var(--ink2);font-size:15px;cursor:pointer;transition:border-color .15s var(--ease)}
+.stepper button:hover:not(:disabled){border-color:var(--acct);color:var(--ink)}
+.stepper button:disabled{opacity:.35;cursor:default}
+.stepper output{min-width:66px;text-align:center;font:700 22px/1 "Inter",sans-serif;letter-spacing:-.03em;text-transform:none;color:var(--ink);font-variant-numeric:tabular-nums}
+.pfoot{margin:26px 0 0;max-width:92ch;color:var(--ink4)}
+
+/* ---------- parts kept from the live page, in the new dress ---------- */
+.lanes{border-radius:18px;padding:14px 14px 4px;margin-top:36px}
+.vs>div{border-radius:18px}
+.tally{font-size:clamp(17px,1.7vw,21px);color:var(--ink2)}
+.pair{border-radius:18px;border-color:var(--line2);background:var(--bg2)}
+.pair .big{font-weight:700;letter-spacing:-.035em}
+.src .v{font-weight:700;letter-spacing:-.04em}
+.verdict h3{font-weight:600;letter-spacing:-.02em}
+.finding{border-radius:12px;font-weight:600;border-color:var(--acct)}
+.cuts>div{cursor:pointer;border:1px solid transparent;border-radius:12px;padding:10px 8px;transition:border-color .15s var(--ease),background-color .15s var(--ease)}
+.cuts>div:hover{border-color:var(--line2)}
+.cuts>div[aria-pressed=true]{border-color:var(--acct);background:rgba(76,104,255,.12)}
+.cutview{max-width:640px;margin:22px auto 0;text-align:left;background:var(--bg2);border:1px solid var(--line);border-radius:16px;padding:18px 20px;min-height:132px}
+.cutview b{display:block;font:500 11px "JetBrains Mono",monospace;letter-spacing:.22em;text-transform:uppercase;color:var(--acct);margin-bottom:12px}
+.cutview p{margin:0;color:var(--ink2);font-size:16px}
+.cbar{display:grid;grid-template-columns:118px minmax(0,1fr) 112px;gap:12px;align-items:center;font-size:14px;color:var(--ink2);margin-bottom:9px}
+.cbar i{display:block;height:12px;border-radius:3px;background:var(--acc);transition:width .6s var(--ease)}
+.cbar.all{color:var(--ink3)}
+.cbar.all i{background:var(--ink4)}
+.cbar em{font:400 12.5px "JetBrains Mono",monospace;font-style:normal;text-align:right}
+.proofs div{border-radius:14px;border:1px solid var(--line);border-top:2px solid var(--acc);padding:16px}
+.chartcard,.verdict{border-radius:18px}
+/* the measured numbers, as a board of cards */
+.stats{grid-template-columns:repeat(4,1fr);gap:14px}
+@media (max-width:860px){.stats{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.stats{grid-template-columns:1fr}}
+.stat{background:var(--bg2);border:1px solid var(--line);border-radius:18px;padding:24px 24px 26px}
+.stat::before{display:none}
+@media (min-width:861px){.stat:nth-child(1),.stat:nth-child(6){grid-column:span 2}}
+.stat .v{font-weight:700;font-size:clamp(40px,5.2vw,68px);letter-spacing:-.05em}
+.stat .k{color:var(--acct)}
+.silver{margin-top:14px;border-radius:18px;padding:clamp(22px,3vw,34px);border:1px solid rgba(147,164,255,.4);background:radial-gradient(120% 160% at 0% 0%,rgba(76,104,255,.5),rgba(76,104,255,.08) 55%,transparent),var(--bg2);scroll-margin-top:80px}
+.silver h3{font-size:clamp(22px,2.8vw,34px);font-weight:700;letter-spacing:-.03em;margin:0 0 10px}
+.silver .lead{color:var(--ink2);margin:0 0 12px}
+.silver p{margin:0}
+.src{border-radius:16px}
+.claim{border-radius:18px;border-color:var(--acc);background:var(--bg2)}
+.claim li{font-weight:700;letter-spacing:-.03em}
+.claim .lab{color:var(--acct)}
+.plan-c{border-radius:20px}
+.plan-c h3{font-weight:700}
+.price .amt{font-weight:700}
+.pilot{border-radius:16px}
+.trial input{border-radius:10px}
+.faq summary{font-weight:500}
+footer{background:#050608;border-top:1px solid #232733}
+.still{background:none;border:1px solid var(--line2);border-radius:999px;color:var(--ink3);font-size:12.5px;padding:5px 12px;cursor:pointer}
+.still:hover{color:var(--ink)}
+html.still .reads .track,html.still .atab.run i{animation-play-state:paused}
+
+/* ================= the finish: product cards from real answers, icons, larger type, hover ================= */
+b,strong{font-weight:600}
+h1 b,h2 b,h3 b{font-weight:inherit}
+.ico{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;display:block}
+.ibox{display:grid;place-items:center;width:42px;height:42px;border-radius:12px;background:color-mix(in srgb,var(--acc) 14%,transparent);color:var(--acct);margin-bottom:16px;transition:transform .3s var(--ease),background-color .3s var(--ease)}
+.ucard:hover .ibox,.src:hover .ibox,.trio>div:hover .ibox{transform:scale(1.08) rotate(-4deg);background:var(--acc);color:#fff}
+
+/* a product card */
+.pcard{position:relative;border:1px solid var(--line2);border-radius:20px;overflow:hidden;background:linear-gradient(180deg,#161924,#0f1117);box-shadow:0 50px 100px -50px rgba(0,0,0,.85),0 0 120px -50px rgba(76,104,255,.5);text-align:left}
+
+.phead{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:13px 20px;border-bottom:1px solid var(--line);font-size:13.5px;color:var(--ink3)}
+.phead b{color:var(--ink);font-size:14.5px}
+.phead .real{margin-left:auto;font:500 12px "JetBrains Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--acct);border:1px solid rgba(147,164,255,.4);border-radius:999px;padding:3px 10px;white-space:nowrap}
+.pbd{padding:18px 20px 22px}
+@media (max-width:700px){.pbd{padding:16px 15px 18px}.phead{padding:12px 15px}}
+.qb{margin:0 0 16px auto;max-width:90%;width:fit-content;background:var(--bg3);border:1px solid var(--line2);border-radius:16px 16px 4px 16px;padding:12px 16px;font-size:16.5px;line-height:1.4;color:var(--ink)}
+.qb.big{font-size:clamp(19px,2.2vw,26px);font-weight:500;letter-spacing:-.015em;padding:18px 22px;margin-top:8px}
+.rlab{display:block;font:500 12px "JetBrains Mono",monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--acct);margin:0 0 10px}
+.rline{margin:0 0 10px;padding-left:14px;border-left:2px solid var(--line2);font-size:15.5px;line-height:1.5;color:var(--ink);max-width:none}
+.rline+.rlab,.rline+.chipx{margin-top:18px}
+.nb{white-space:nowrap}
+b.n{font-weight:600;color:#fff;background:rgba(76,104,255,.3);border-radius:4px;padding:0 4px;white-space:nowrap}
+.rmore{font-size:13.5px;color:var(--ink3);margin:0;padding-left:16px}
+.rhead{font-size:15px;line-height:1.5;color:var(--ink2);margin:0 0 12px;max-width:none}
+.rchart{background:#0c0e13;border:1px solid var(--line);border-radius:12px;padding:8px 8px 4px}
+.rchart svg{display:block;width:100%;height:auto}
+.rleg{display:flex;flex-wrap:wrap;gap:6px 18px;padding:8px 10px 8px;font-size:13.5px;color:#c8ccd6}
+.rleg span{display:inline-flex;align-items:center;white-space:nowrap}
+.rleg i{width:10px;height:10px;border-radius:2px;margin-right:7px}
+.read{display:grid;grid-template-columns:auto 1fr;gap:12px 16px;align-items:baseline;margin:0}
+.read dt{font:500 12px "JetBrains Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--acct);white-space:nowrap}
+.read dd{margin:0;font-size:15px;line-height:1.5;color:var(--ink)}
+@media (max-width:560px){.read{grid-template-columns:1fr;gap:4px 0}.read dd{margin-bottom:10px}}
+.plansay{font-size:clamp(18px,1.9vw,23px);line-height:1.35;font-weight:500;letter-spacing:-.012em;color:var(--ink);margin:0 0 22px;max-width:none}
+.chips2{display:flex;flex-wrap:wrap;gap:8px}
+.chips2 span{border:1px solid var(--line2);border-radius:999px;padding:6px 13px;font-size:14px;color:var(--ink2)}
+.ticks{list-style:none;margin:0;padding:0}
+.ticks li{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-top:1px solid var(--line);font-size:15.5px;line-height:1.45;color:var(--ink)}
+.ticks li:first-child{border-top:0;padding-top:2px}
+.ticks .ico{flex:0 0 auto;width:21px;height:21px;color:var(--acct)}
+.cites2{display:grid;grid-template-columns:1fr 1fr;gap:7px 18px;font:400 13px/1.45 "JetBrains Mono",monospace;color:var(--ink2)}
+@media (max-width:560px){.cites2{grid-template-columns:1fr}}
+.cav{margin:16px 0 0;font-size:14px;line-height:1.5;color:var(--ink3);max-width:none}
+.cav b{color:var(--ink2)}
+.chipx{display:inline-block;font:600 12px "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;padding:4px 10px;border-radius:6px;margin:0 0 12px}
+.chipx.a{background:rgba(242,184,75,.16);color:#f2b84b}
+.chipx.n{background:rgba(144,150,166,.18);color:#c8ccd6}
+.herocard{max-width:940px;margin:clamp(26px,3.6vw,54px) auto 0}
+/* one pane at a time; the card is as tall as its tallest pane, so nothing jumps */
+.stage{display:grid}
+.spane{grid-area:1/1;min-width:0;opacity:0;visibility:hidden;transform:translateY(12px);transition:opacity .45s var(--ease),transform .45s var(--ease),visibility 0s .45s}
+.spane.on{opacity:1;visibility:visible;transform:none;transition:opacity .45s var(--ease),transform .45s var(--ease)}
+.spane:first-child{align-self:center}
+.spane:first-child .qb{margin:0 auto;max-width:none}
+.spane.on .ticks li{animation:rise .55s var(--ease) both;animation-delay:calc(var(--i) * 170ms)}
+#steps .atab.run i{animation-duration:5.5s}
+.nogrid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:36px;align-items:start}
+.diggrid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:20px;margin-top:36px;align-items:start}
+@media (max-width:900px){.nogrid,.diggrid{grid-template-columns:1fr}}
+.cutrow{border-top:1px solid var(--line);padding:15px 0 6px}
+.cutrow h4{margin:0 0 10px;font-size:15.5px;font-weight:600;color:var(--ink);display:flex;justify-content:space-between;gap:12px;align-items:baseline}
+.cutrow h4 span{font:500 12.5px "JetBrains Mono",monospace;color:var(--acct);white-space:nowrap}
+.cbar2{display:grid;grid-template-columns:minmax(0,1.1fr) 118px minmax(0,1fr) 50px;gap:10px;align-items:center;font-size:14.5px;color:var(--ink2);margin-bottom:8px}
+.cbar2 small{font-size:13.5px;color:var(--ink3);font-variant-numeric:tabular-nums;white-space:nowrap}
+.cbar2 i{display:block;height:12px;border-radius:3px;background:var(--acc);transform-origin:0 50%;transition:transform 1s var(--ease) .15s}
+html.anim .cutrow:not(.in) .cbar2 i{transform:scaleX(0)}
+.cbar2 em{font:500 13.5px "JetBrains Mono",monospace;font-style:normal;text-align:right;color:var(--ink)}
+@media (max-width:560px){.cbar2{grid-template-columns:1fr 104px 46px}.cbar2 i{display:none}}
+
+/* headings that sit over a full-width part stand in the middle */
+.ctr>.wrap>.lab,.ctr>.wrap>h2,.ctr>.wrap>.lead,.ctr .sub>.lab,.ctr .sub>h2,.ctr .sub>.lead{text-align:center;margin-left:auto;margin-right:auto}
+.ctr>.wrap>h2,.ctr .sub>h2{max-width:24ch}
+.ctr .faq{margin-left:auto;margin-right:auto}
+
+/* type: nothing a visitor must read is under 12.5 px */
+.lab{font-size:12.5px}
+.small{font-size:14px}
+.src .u,.stat .k,.yr .y,.asks .n,.plan-c .fmt,.ucard .n{font-size:12.5px;letter-spacing:.14em}
+.stat p,.src p,.yr p,.trio p,.asks p,.proofs div{font-size:15px;line-height:1.5}
+.tbl{font-size:15.5px}
+.tbl th,.trial label{font-size:12px}
+.strikes,.lines,.code,.receipt{font-size:13px}
+.legend2{font-size:14px}
+.chip{font-size:12px}
+.pane::after{font-size:12.5px}
+.card2{font-size:14px}
+.card2 b{font-size:11.5px}
+.pkey{font-size:13px}
+.pick label,.pick .fld{font-size:12px}
+.atab span{font-size:15px}
+footer{font-size:13.5px}
+.gaplist span,.cuts p{font-size:12.5px}
+
+/* hover: every card answers the pointer */
+.stat,.proofs div,.plan-c,.silver,.pair,.pcard,.chartcard,.verdict,.yr,.trio>div,.asks>div{transition:transform .3s var(--ease),box-shadow .3s var(--ease),border-color .3s var(--ease)}
+.stat:hover,.proofs div:hover,.plan-c:hover,.silver:hover{transform:translateY(-5px);border-color:var(--acct)}
+.yr:hover,.trio>div:hover,.asks>div:hover{transform:translateY(-4px)}
+.faq summary{transition:color .2s var(--ease),padding-left .25s var(--ease)}
+.faq summary:hover{color:var(--acct);padding-left:8px}
+.tbl tbody tr{transition:background-color .2s var(--ease)}
+.tbl tbody tr:hover{background:color-mix(in srgb,var(--acc) 9%,transparent)}
+.nav a{position:relative;padding:6px 0}
+.nav a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--acct);transform:scaleX(0);transform-origin:0 50%;transition:transform .25s var(--ease)}
+.nav a:hover::after,.nav a.on::after{transform:none}
+.btn:active{transform:translateY(1px)}
+.chips2 span,.reads span{transition:border-color .2s var(--ease),color .2s var(--ease)}
+.chips2 span:hover,.reads span:hover{border-color:var(--acct);color:var(--ink)}
+
+/* fewer words in view */
+.claim{max-width:560px;margin:34px auto 0}
+.more{max-width:920px;margin:26px auto 0;border:1px solid var(--line);border-radius:16px;background:var(--bg2)}
+.more>summary{cursor:pointer;list-style:none;padding:16px 22px;font-size:16.5px;font-weight:500;color:var(--ink);display:flex;justify-content:space-between;gap:14px;transition:color .2s var(--ease)}
+.more>summary::-webkit-details-marker{display:none}
+.more>summary::after{content:"+";color:var(--acct);font-size:22px;line-height:1}
+.more[open]>summary::after{content:"\2212"}
+.more>summary:hover{color:var(--acct)}
+.more .tbl{margin:0 22px 18px;width:calc(100% - 44px)}
+.asks h3{margin:0}
+@media (hover:hover){
+  .range:not(.uses) .src p{max-height:0;opacity:0;overflow:hidden;transition:max-height .4s var(--ease),opacity .3s var(--ease)}
+  .range:not(.uses) .src:hover p,.range:not(.uses) .src:focus-visible p{max-height:9em;opacity:1}
+  .range:not(.uses) .src .u{margin-bottom:0}
+  .range:not(.uses) .src:hover .u,.range:not(.uses) .src:focus-visible .u{margin-bottom:12px}
+}
+
+/* parts come in on scroll only where the page is in view and its scripts run; anywhere else they simply stand */
+.rv{opacity:1;transform:none}
+html.anim .rv:not(.in){opacity:0;transform:translateY(16px)}
+
+/* five small faults */
+.stat .v{white-space:nowrap;font-size:clamp(34px,4.4vw,62px)}          /* '10 / 10' broke over two lines */
+.silver h3 b{font-weight:800}                                           /* 'Silver' was lighter than the words beside it */
+.code{scrollbar-width:none}                                             /* a grey scroll bar sat under the agent's code */
+.code::-webkit-scrollbar{display:none}
+.trio>div,.asks>div{border-top:0;padding-top:0}                         /* text blocks with a hairline became cards with an icon or a number */
+.trio>div{background:var(--bg2);border:1px solid var(--line);border-radius:16px;padding:20px}
+
+/* ---------- what it reads: every format a line into the one catalogue, and what comes back (D-797) ---------- */
+#folder{padding-top:clamp(40px,5vw,72px)}
+.rflow{position:relative;display:grid;grid-template-columns:minmax(0,1.15fr) clamp(70px,11vw,132px) minmax(0,1.05fr) clamp(50px,7vw,84px) minmax(0,.9fr);align-items:center;margin-top:clamp(26px,3.4vw,46px);text-align:left}
+.fsrc{grid-column:1}.feng{grid-column:3}.fout{grid-column:5}
+.fsrc,.feng,.fout{position:relative;z-index:1}
+.rflow .lab{margin:0 0 10px;color:var(--ink3);letter-spacing:.12em}
+#folder .proofs{margin-top:clamp(30px,4vw,48px)}
+#folder>.wrap>.lab,#folder>.wrap>h2,#folder>.wrap>.lead,#folder .proofs{position:relative;z-index:2}
+.fwires{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;z-index:0}
+.fpills{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:4px}
+.fp{display:inline-flex;align-items:center;gap:7px;height:25px;padding:0 11px 0 8px;border:1px solid var(--line2);border-radius:8px;background:var(--bg2);font:500 13px/1 "Inter",system-ui,sans-serif;color:var(--ink2);white-space:nowrap;cursor:default;transition:border-color .3s var(--ease),color .3s var(--ease),box-shadow .3s var(--ease)}
+.fp svg{flex:0 0 auto;width:13px;height:13px;fill:none;stroke:var(--acct);stroke-width:1.7;stroke-linejoin:round}
+.fp.t{border-style:dashed;color:var(--ink3)}
+.fp.hot,.fp:hover,.fp:focus-visible{border-color:var(--acct);color:var(--ink);box-shadow:0 0 0 3px rgba(76,104,255,.2);outline:0}
+.fkey{display:flex;align-items:center;gap:9px;margin:12px 0 0;font-size:12.5px;color:var(--ink3);max-width:none}
+.fkey i{width:24px;height:0;border-top:1px dashed var(--ink3)}
+.feng{border-radius:18px;padding:22px 20px 6px;text-align:center;color:#fff;background:linear-gradient(165deg,#5873ff,#3048de 62%,#2638bd);border:1px solid rgba(255,255,255,.24);box-shadow:0 40px 90px -40px #000,0 0 150px -24px rgba(76,104,255,.8)}
+.fname{font-weight:800;font-size:clamp(26px,2.9vw,34px);letter-spacing:-.045em;line-height:1}
+.fsub{font:500 12px/1.5 "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.84);margin:8px 0 14px}
+.feng ul{list-style:none;margin:0;padding:0}
+.feng li{border-top:1px solid rgba(255,255,255,.36);padding:10px 0 11px;font-size:14.5px;line-height:1.3;color:rgba(255,255,255,.88)}
+.feng li b{display:block;font-size:19px;font-weight:600;letter-spacing:-.02em;color:#fff}
+.fkinds{display:flex;justify-content:center;flex-wrap:wrap;gap:4px;margin-top:8px}
+.fkinds i{font:500 12.5px/1 "Inter",system-ui,sans-serif;font-style:normal;border:1px solid rgba(255,255,255,.5);border-radius:999px;padding:3px 7px;color:#fff}
+.fout{display:grid;gap:8px}
+.fout .lab{margin-bottom:2px}
+.fo{display:grid;grid-template-columns:auto minmax(0,1fr);gap:1px 11px;align-items:center;padding:8px 12px;border:1px solid var(--line2);border-radius:14px;background:var(--bg2);text-decoration:none;transition:transform .25s var(--ease),border-color .25s var(--ease),box-shadow .25s var(--ease)}
+.fo .ibox{grid-row:1/3;margin:0;width:34px;height:34px;border-radius:10px}
+.fo b{font-size:15px;font-weight:600;line-height:1.25;color:var(--ink)}
+.fo span{grid-column:2;font-size:13px;line-height:1.35;color:var(--ink3)}
+.fo.t{border-style:dashed}
+.fo:hover,.fo:focus-visible{transform:translateX(5px);border-color:var(--acct);box-shadow:0 0 0 3px rgba(76,104,255,.18);outline:0}
+.fo:hover .ibox{background:var(--acc);color:#fff}
+.fw{fill:none;stroke:rgba(147,164,255,.42);stroke-width:1.2;transition:stroke .35s var(--ease),opacity .35s var(--ease)}
+.fw.t{stroke-dasharray:3 4}
+.fw.hot{stroke:#aab7ff;stroke-width:1.9}
+.rflow.pick .fw[data-i]:not(.hot){opacity:.5}
+.fsq{fill:#93a4ff}
+.fsq.w{fill:#fff}
+.fcell{fill:#4c68ff}
+.fcell.tw{animation:twk 4s ease-in-out infinite}
+@keyframes twk{0%,100%{opacity:var(--o)}50%{opacity:calc(var(--o)*3.2)}}
+html.still .fcell.tw{animation-play-state:paused}
+.sect>.wrap>.sub:first-child{margin-top:0}                               /* 'When files disagree' now stands as its own band */
+@media (max-width:900px){
+  .rflow{grid-template-columns:1fr;row-gap:24px}
+  .fsrc,.feng,.fout{grid-column:1}
+  .fpills{flex-direction:row;flex-wrap:wrap;gap:8px}
+  .fp{height:30px}
+  .fwires{display:none}
+}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header class="top">
-    <a class="mark" href="/" aria-label="TalkTask home">
-      <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><rect x="1" y="3" width="20" height="13" rx="2.5" fill="none" stroke="#eef1f4" stroke-width="1.6"/><path d="M6 16v4l4-4" fill="none" stroke="#eef1f4" stroke-width="1.6" stroke-linejoin="round"/><rect x="5" y="7" width="3" height="5" fill="#5c95d6"/><rect x="9.5" y="9" width="3" height="3" fill="#4fb0b0"/><rect x="14" y="6" width="3" height="6" fill="#a882d6"/></svg>
+
+<header class="bar dark">
+  <div class="wrap">
+    <div class="top">
+      <a class="mark" href="/" aria-label="TalkTask home">
+      <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><rect x="1" y="3" width="20" height="13" rx="2.5" fill="none" stroke="#eef1f4" stroke-width="1.6"/><path d="M6 16v4l4-4" fill="none" stroke="#eef1f4" stroke-width="1.6" stroke-linejoin="round"/><rect x="5" y="7" width="3" height="5" fill="#5b76ff"/><rect x="9.5" y="9" width="3" height="3" fill="#5b76ff"/><rect x="14" y="6" width="3" height="6" fill="#c3ccff"/></svg>
       TalkTask
     </a>
     <nav class="nav" aria-label="Sections">
-      <a href="#uses">Uses</a><a href="#folder">Your folder</a><a href="#how">How it works</a><a href="#two">Two answers</a><a href="#checks">The checks</a><a href="#dig">It digs</a><a href="#measured">Measured</a><a href="#plans">Plans</a><a href="#faq">Questions</a>
-    </nav>
-    <a class="btn" href="mailto:hello@talktask.si?subject=TalkTask%20trial">Ask for a trial</a>
-  </header>
-
-  <div class="hero">
-    <div>
-      <details class="mit">
-        <summary><span><span aria-hidden="true">🥈</span> <b>Silver</b> on the MIT benchmark</span></summary>
-        <p>It measures whether a system can do a data scientist's job end to end: find the right files, clean them, combine them, analyse them, and reach the right answer with no help.</p>
-        <p><a href="kramabench.html">KramaBench: the scores, and how they were made</a>. Second place on public tasks, as listed on 24 November 2026.</p>
-      </details>
-      <span class="lab">Answers from your data · with receipts</span>
-      <h1>Ask your data anything. Every figure <em>shows its working.</em></h1>
-      <p class="lead">Point TalkTask at a survey, a spreadsheet, a database or a folder of reports, and ask in plain words. It counts every figure itself, shows where each one came from, and says so, out loud, when the data cannot carry the claim.</p>
-      <div class="btns"><a class="btn" href="mailto:hello@talktask.si?subject=TalkTask%20trial">Ask for a trial</a><a class="btn ghost" href="#two">See one answer checked</a></div>
+        <a href="#folder">Folders</a><a href="#how">How it works</a><a href="#try">Ask</a><a href="#checks">Check</a><a href="#dig">Dig</a><a href="#measured">Proof</a><a href="#plans">Plans</a><a href="#faq">Questions</a>
+      </nav>
+      <a class="btn" href="mailto:hello@talktask.si?subject=TalkTask%20trial">Ask for a trial</a>
     </div>
-    <div class="stage3d" id="stage3d">
-      <div class="rig3d" id="rig3d">
-        <div class="sheet xls" aria-hidden="true"><b>SALES.XLSX</b></div>
-        <div class="sheet pdf" aria-hidden="true"><b>REPORT.PDF</b></div>
-        <div class="sheet sav" aria-hidden="true"><b>SURVEY.SAV</b></div>
-        <div class="demo" aria-label="A real question and answer from the room's record">
-          <button class="replay" type="button" id="replay">Replay</button>
-          <div class="step on" id="d1"><span class="lab">The question · General Social Survey</span><p class="typed" id="typed"></p></div>
-          <div class="step" id="d2"><span class="lab" style="color:var(--t)">The plan, in words</span><p class="plan">The change in confidence in medicine ('a great deal') for each group since 1990, and which group fell the most.</p></div>
-          <div class="step" id="d3"><span class="lab" style="color:var(--b)">The answer · room record 3072</span><p class="ans">“'A great deal' of confidence in medicine fell for every group since 1990; the biggest fall was among the 'Never married, no children' group, from <button class="fig" data-v="a" data-box="hrec" aria-pressed="false">51.7%</button> in 1990 to <button class="fig" data-v="b" data-box="hrec" aria-pressed="false">26.8%</button> in 2024.”</p></div>
-          <div class="step" id="d4"><div class="receipt" id="hrec"></div></div>
-        </div>
+  </div>
+  <div class="prog" id="prog" aria-hidden="true"></div>
+</header>
+
+<section class="hero3 dark" id="top">
+  <canvas id="field" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <a class="pill rise" href="#silver"><span aria-hidden="true">🥈</span><span><b>Silver</b> on the MIT benchmark</span></a>
+    <h1><span class="rise" style="--d:1">Ask your data anything.</span> <span class="rise" style="--d:2">Every figure <em>shows its working.</em></span></h1>
+    <p class="lead rise" style="--d:3">Point it at a survey, a spreadsheet, a database or a folder of reports. It counts every figure itself, and says so when the data cannot carry the claim.</p>
+    <div class="btns rise" style="--d:4"><a class="btn" href="mailto:hello@talktask.si?subject=TalkTask%20trial">Ask for a trial</a><a class="btn ghost" href="#how">See it answer</a></div>
+    <div class="pcard dark herocard rise" style="--d:5">
+      <div class="phead"><svg width="20" height="20" viewBox="0 0 22 22" aria-hidden="true"><rect x="1" y="3" width="20" height="13" rx="2.5" fill="none" stroke="#f6f7f9" stroke-width="1.6"/><path d="M6 16v4l4-4" fill="none" stroke="#f6f7f9" stroke-width="1.6" stroke-linejoin="round"/><rect x="5" y="7" width="3" height="5" fill="#5b76ff"/><rect x="9.5" y="9" width="3" height="3" fill="#5b76ff"/><rect x="14" y="6" width="3" height="6" fill="#c3ccff"/></svg><b>TalkTask</b><span>General Social Survey · 65,015 people</span><span class="real">Real answer · 24 Nov 2026</span></div>
+      <div class="pbd">
+        <p class="qb">How has confidence in medicine changed for each group since 1990, and which group fell most?</p>
+        <p class="rhead">'a great deal': every population fell; the biggest fall Never married, no children and from 1990 <b class="n">51.7%</b> in 1990 <span class="nb">-&gt;</span> <b class="n">26.8%</b> in 2024 (-24.9)</p>
+        <div class="rchart"><svg viewBox="0 0 680 298" width="100%" font-family="Segoe UI,system-ui,sans-serif" font-size="12" fill="#b9c0c6" xmlns="http://www.w3.org/2000/svg"><text x="18" y="20" font-size="13.5" font-weight="600" fill="#e7e9ea">confidence in medicine — share answering 'a great deal'</text><text x="18" y="36" font-size="10.5" fill="#8b9299">one line per population · year · hover a point for its base</text><line x1="56" y1="264.0" x2="626" y2="264.0" stroke="#242d36"></line><text x="50" y="268.0" text-anchor="end" font-size="10.5">0%</text><line x1="56" y1="201.9" x2="626" y2="201.9" stroke="#242d36"></line><text x="50" y="205.9" text-anchor="end" font-size="10.5">20%</text><line x1="56" y1="139.7" x2="626" y2="139.7" stroke="#242d36"></line><text x="50" y="143.7" text-anchor="end" font-size="10.5">40%</text><line x1="56" y1="77.6" x2="626" y2="77.6" stroke="#242d36"></line><text x="50" y="81.6" text-anchor="end" font-size="10.5">60%</text><text x="56.0" y="282" text-anchor="middle" font-size="10.5">1990</text><text x="117.1" y="282" text-anchor="middle" font-size="10.5">1993</text><text x="178.2" y="282" text-anchor="middle" font-size="10.5">1996</text><text x="239.3" y="282" text-anchor="middle" font-size="10.5">2000</text><text x="300.4" y="282" text-anchor="middle" font-size="10.5">2004</text><text x="361.6" y="282" text-anchor="middle" font-size="10.5">2008</text><text x="422.7" y="282" text-anchor="middle" font-size="10.5">2012</text><text x="483.8" y="282" text-anchor="middle" font-size="10.5">2016</text><text x="544.9" y="282" text-anchor="middle" font-size="10.5">2021</text><text x="606.0" y="282" text-anchor="middle" font-size="10.5">2024</text><circle cx="86.6" cy="141.9" r="2.5" fill="#7FA9D6"><title>Big families at home and from 1990 · 1991: 39.3% (base 117)</title></circle><circle cx="117.1" cy="137.3" r="2.5" fill="#7FA9D6"><title>Big families at home and from 1990 · 1993: 40.8% (base 130)</title></circle><circle cx="147.7" cy="126.1" r="2.5" fill="#7FA9D6"><title>Big families at home and from 1990 · 1994: 44.4% (base 225)</title></circle><circle cx="178.2" cy="139.4" r="2.5" fill="#7FA9D6"><title>Big families at home and from 1990 · 1996: 40.1% (base 187)</title></circle><circle cx="208.8" cy="120.5" r="2.5" fill="#7FA9D6"><title>Big families at home and from 1990 · 1998: 46.2% (base 195)</title></circle><circle cx="239.3" cy="133.8" r="2.5" fill="#7FA9D6"><title>Big families at home and from 1990 · 2000: 41.9% (base 215)</title></circle><circle cx="331.0" cy="135.4" r="2.5" fill="#7FA9D6"><title>Big families at home and from 1990 · 2006: 41.4% (base 162)</title></circle><circle cx="361.6" cy="146.0" r="2.5" fill="#7FA9D6"><title>Big families at home and from 1990 · 2008: 38% (base 121)</title></circle><circle cx="392.1" cy="152.8" r="2.5" fill="#7FA9D6"><title>Big families at home and from 1990 · 2010: 35.8% (base 109)</title></circle><circle cx="422.7" cy="138.8" r="2.5" fill="#7FA9D6"><title>Big families at home and from 1990 · 2012: 40.3% (base 119)</title></circle><circle cx="453.2" cy="155.6" r="2.5" fill="#7FA9D6"><title>Big families at home and from 1990 · 2014: 34.9% (base 126)</title></circle><circle cx="483.8" cy="158.7" r="2.5" fill="#7FA9D6"><title>Big families at home and from 1990 · 2016: 33.9% (base 127)</title></circle><circle cx="544.9" cy="159.3" r="2.5" fill="#7FA9D6"><title>Big families at home and from 1990 · 2021: 33.7% (base 184)</title></circle><path d="M86.6,141.9 L117.1,137.3 L147.7,126.1 L178.2,139.4 L208.8,120.5 L239.3,133.8 L331.0,135.4 L361.6,146.0 L392.1,152.8 L422.7,138.8 L453.2,155.6 L483.8,158.7 L544.9,159.3" fill="none" stroke="#7FA9D6" stroke-width="1.6"></path><circle cx="56.0" cy="106.2" r="2.5" fill="#5CB39B"><title>Retired and comfortable and from 1990 · 1990: 50.8% (base 183)</title></circle><circle cx="86.6" cy="126.4" r="2.5" fill="#5CB39B"><title>Retired and comfortable and from 1990 · 1991: 44.3% (base 194)</title></circle><circle cx="117.1" cy="170.2" r="2.5" fill="#5CB39B"><title>Retired and comfortable and from 1990 · 1993: 30.2% (base 199)</title></circle><circle cx="147.7" cy="137.3" r="2.5" fill="#5CB39B"><title>Retired and comfortable and from 1990 · 1994: 40.8% (base 368)</title></circle><circle cx="178.2" cy="119.9" r="2.5" fill="#5CB39B"><title>Retired and comfortable and from 1990 · 1996: 46.4% (base 295)</title></circle><circle cx="208.8" cy="118.9" r="2.5" fill="#5CB39B"><title>Retired and comfortable and from 1990 · 1998: 46.7% (base 330)</title></circle><circle cx="239.3" cy="138.5" r="2.5" fill="#5CB39B"><title>Retired and comfortable and from 1990 · 2000: 40.4% (base 292)</title></circle><circle cx="269.9" cy="148.8" r="2.5" fill="#5CB39B"><title>Retired and comfortable and from 1990 · 2002: 37.1% (base 159)</title></circle><circle cx="300.4" cy="163.4" r="2.5" fill="#5CB39B"><title>Retired and comfortable and from 1990 · 2004: 32.4% (base 142)</title></circle><circle cx="331.0" cy="134.5" r="2.5" fill="#5CB39B"><title>Retired and comfortable and from 1990 · 2006: 41.7% (base 372)</title></circle><circle cx="361.6" cy="138.2" r="2.5" fill="#5CB39B"><title>Retired and comfortable and from 1990 · 2008: 40.5% (base 262)</title></circle><circle cx="392.1" cy="130.1" r="2.5" fill="#5CB39B"><title>Retired and comfortable and from 1990 · 2010: 43.1% (base 269)</title></circle><circle cx="422.7" cy="140.4" r="2.5" fill="#5CB39B"><title>Retired and comfortable and from 1990 · 2012: 39.8% (base 274)</title></circle><circle cx="453.2" cy="136.0" r="2.5" fill="#5CB39B"><title>Retired and comfortable and from 1990 · 2014: 41.2% (base 335)</title></circle><circle cx="483.8" cy="150.9" r="2.5" fill="#5CB39B"><title>Retired and comfortable and from 1990 · 2016: 36.4% (base 404)</title></circle><circle cx="514.3" cy="156.2" r="2.5" fill="#5CB39B"><title>Retired and comfortable and from 1990 · 2018: 34.7% (base 329)</title></circle><circle cx="544.9" cy="111.8" r="2.5" fill="#5CB39B"><title>Retired and comfortable and from 1990 · 2021: 49% (base 649)</title></circle><circle cx="575.4" cy="136.3" r="2.5" fill="#5CB39B"><title>Retired and comfortable and from 1990 · 2022: 41.1% (base 292)</title></circle><circle cx="606.0" cy="153.1" r="2.5" fill="#5CB39B"><title>Retired and comfortable and from 1990 · 2024: 35.7% (base 266)</title></circle><path d="M56.0,106.2 L86.6,126.4 L117.1,170.2 L147.7,137.3 L178.2,119.9 L208.8,118.9 L239.3,138.5 L269.9,148.8 L300.4,163.4 L331.0,134.5 L361.6,138.2 L392.1,130.1 L422.7,140.4 L453.2,136.0 L483.8,150.9 L514.3,156.2 L544.9,111.8 L575.4,136.3 L606.0,153.1" fill="none" stroke="#5CB39B" stroke-width="1.6"></path><circle cx="56.0" cy="138.2" r="2.5" fill="#D2886B"><title>Working married, no children at home and from 1990 · 1990: 40.5% (base 153)</title></circle><circle cx="86.6" cy="112.7" r="2.5" fill="#D2886B"><title>Working married, no children at home and from 1990 · 1991: 48.7% (base 154)</title></circle><circle cx="117.1" cy="149.7" r="2.5" fill="#D2886B"><title>Working married, no children at home and from 1990 · 1993: 36.8% (base 174)</title></circle><circle cx="147.7" cy="150.3" r="2.5" fill="#D2886B"><title>Working married, no children at home and from 1990 · 1994: 36.6% (base 385)</title></circle><circle cx="178.2" cy="132.3" r="2.5" fill="#D2886B"><title>Working married, no children at home and from 1990 · 1996: 42.4% (base 349)</title></circle><circle cx="208.8" cy="121.7" r="2.5" fill="#D2886B"><title>Working married, no children at home and from 1990 · 1998: 45.8% (base 371)</title></circle><circle cx="239.3" cy="140.4" r="2.5" fill="#D2886B"><title>Working married, no children at home and from 1990 · 2000: 39.8% (base 352)</title></circle><circle cx="269.9" cy="153.7" r="2.5" fill="#D2886B"><title>Working married, no children at home and from 1990 · 2002: 35.5% (base 203)</title></circle><circle cx="300.4" cy="152.2" r="2.5" fill="#D2886B"><title>Working married, no children at home and from 1990 · 2004: 36% (base 211)</title></circle><circle cx="331.0" cy="160.9" r="2.5" fill="#D2886B"><title>Working married, no children at home and from 1990 · 2006: 33.2% (base 391)</title></circle><circle cx="361.6" cy="144.7" r="2.5" fill="#D2886B"><title>Working married, no children at home and from 1990 · 2008: 38.4% (base 271)</title></circle><circle cx="392.1" cy="149.7" r="2.5" fill="#D2886B"><title>Working married, no children at home and from 1990 · 2010: 36.8% (base 250)</title></circle><circle cx="422.7" cy="145.0" r="2.5" fill="#D2886B"><title>Working married, no children at home and from 1990 · 2012: 38.3% (base 248)</title></circle><circle cx="453.2" cy="147.2" r="2.5" fill="#D2886B"><title>Working married, no children at home and from 1990 · 2014: 37.6% (base 383)</title></circle><circle cx="483.8" cy="159.6" r="2.5" fill="#D2886B"><title>Working married, no children at home and from 1990 · 2016: 33.6% (base 369)</title></circle><circle cx="514.3" cy="142.9" r="2.5" fill="#D2886B"><title>Working married, no children at home and from 1990 · 2018: 39% (base 333)</title></circle><circle cx="544.9" cy="132.3" r="2.5" fill="#D2886B"><title>Working married, no children at home and from 1990 · 2021: 42.4% (base 441)</title></circle><circle cx="575.4" cy="151.2" r="2.5" fill="#D2886B"><title>Working married, no children at home and from 1990 · 2022: 36.3% (base 171)</title></circle><circle cx="606.0" cy="195.0" r="2.5" fill="#D2886B"><title>Working married, no children at home and from 1990 · 2024: 22.2% (base 158)</title></circle><path d="M56.0,138.2 L86.6,112.7 L117.1,149.7 L147.7,150.3 L178.2,132.3 L208.8,121.7 L239.3,140.4 L269.9,153.7 L300.4,152.2 L331.0,160.9 L361.6,144.7 L392.1,149.7 L422.7,145.0 L453.2,147.2 L483.8,159.6 L514.3,142.9 L544.9,132.3 L575.4,151.2 L606.0,195.0" fill="none" stroke="#D2886B" stroke-width="1.6"></path><circle cx="86.6" cy="103.7" r="2.5" fill="#C9A85C"><title>New parents and from 1990 · 1991: 51.6% (base 122)</title></circle><circle cx="117.1" cy="140.4" r="2.5" fill="#C9A85C"><title>New parents and from 1990 · 1993: 39.8% (base 113)</title></circle><circle cx="147.7" cy="134.5" r="2.5" fill="#C9A85C"><title>New parents and from 1990 · 1994: 41.7% (base 230)</title></circle><circle cx="178.2" cy="100.0" r="2.5" fill="#C9A85C"><title>New parents and from 1990 · 1996: 52.8% (base 193)</title></circle><circle cx="208.8" cy="131.0" r="2.5" fill="#C9A85C"><title>New parents and from 1990 · 1998: 42.8% (base 166)</title></circle><circle cx="239.3" cy="100.0" r="2.5" fill="#C9A85C"><title>New parents and from 1990 · 2000: 52.8% (base 163)</title></circle><circle cx="331.0" cy="122.0" r="2.5" fill="#C9A85C"><title>New parents and from 1990 · 2006: 45.7% (base 173)</title></circle><circle cx="361.6" cy="140.4" r="2.5" fill="#C9A85C"><title>New parents and from 1990 · 2008: 39.8% (base 113)</title></circle><circle cx="392.1" cy="127.3" r="2.5" fill="#C9A85C"><title>New parents and from 1990 · 2010: 44% (base 100)</title></circle><circle cx="422.7" cy="133.2" r="2.5" fill="#C9A85C"><title>New parents and from 1990 · 2012: 42.1% (base 107)</title></circle><circle cx="453.2" cy="139.7" r="2.5" fill="#C9A85C"><title>New parents and from 1990 · 2014: 40% (base 110)</title></circle><circle cx="483.8" cy="157.1" r="2.5" fill="#C9A85C"><title>New parents and from 1990 · 2016: 34.4% (base 131)</title></circle><circle cx="514.3" cy="145.3" r="2.5" fill="#C9A85C"><title>New parents and from 1990 · 2018: 38.2% (base 102)</title></circle><circle cx="544.9" cy="130.7" r="2.5" fill="#C9A85C"><title>New parents and from 1990 · 2021: 42.9% (base 140)</title></circle><path d="M86.6,103.7 L117.1,140.4 L147.7,134.5 L178.2,100.0 L208.8,131.0 L239.3,100.0 L331.0,122.0 L361.6,140.4 L392.1,127.3 L422.7,133.2 L453.2,139.7 L483.8,157.1 L514.3,145.3 L544.9,130.7" fill="none" stroke="#C9A85C" stroke-width="1.6"></path><circle cx="56.0" cy="103.4" r="2.5" fill="#9C8AD6"><title>Never married, no children and from 1990 · 1990: 51.7% (base 174)</title></circle><circle cx="86.6" cy="90.7" r="2.5" fill="#9C8AD6"><title>Never married, no children and from 1990 · 1991: 55.8% (base 197)</title></circle><circle cx="117.1" cy="122.7" r="2.5" fill="#9C8AD6"><title>Never married, no children and from 1990 · 1993: 45.5% (base 211)</title></circle><circle cx="147.7" cy="111.5" r="2.5" fill="#9C8AD6"><title>Never married, no children and from 1990 · 1994: 49.1% (base 393)</title></circle><circle cx="178.2" cy="111.8" r="2.5" fill="#9C8AD6"><title>Never married, no children and from 1990 · 1996: 49% (base 408)</title></circle><circle cx="208.8" cy="107.8" r="2.5" fill="#9C8AD6"><title>Never married, no children and from 1990 · 1998: 50.3% (base 398)</title></circle><circle cx="239.3" cy="93.2" r="2.5" fill="#9C8AD6"><title>Never married, no children and from 1990 · 2000: 55% (base 398)</title></circle><circle cx="269.9" cy="139.4" r="2.5" fill="#9C8AD6"><title>Never married, no children and from 1990 · 2002: 40.1% (base 192)</title></circle><circle cx="300.4" cy="114.0" r="2.5" fill="#9C8AD6"><title>Never married, no children and from 1990 · 2004: 48.3% (base 176)</title></circle><circle cx="331.0" cy="122.7" r="2.5" fill="#9C8AD6"><title>Never married, no children and from 1990 · 2006: 45.5% (base 400)</title></circle><circle cx="361.6" cy="142.2" r="2.5" fill="#9C8AD6"><title>Never married, no children and from 1990 · 2008: 39.2% (base 255)</title></circle><circle cx="392.1" cy="100.6" r="2.5" fill="#9C8AD6"><title>Never married, no children and from 1990 · 2010: 52.6% (base 272)</title></circle><circle cx="422.7" cy="130.7" r="2.5" fill="#9C8AD6"><title>Never married, no children and from 1990 · 2012: 42.9% (base 245)</title></circle><circle cx="453.2" cy="131.7" r="2.5" fill="#9C8AD6"><title>Never married, no children and from 1990 · 2014: 42.6% (base 324)</title></circle><circle cx="483.8" cy="125.5" r="2.5" fill="#9C8AD6"><title>Never married, no children and from 1990 · 2016: 44.6% (base 406)</title></circle><circle cx="514.3" cy="146.0" r="2.5" fill="#9C8AD6"><title>Never married, no children and from 1990 · 2018: 38% (base 347)</title></circle><circle cx="544.9" cy="129.8" r="2.5" fill="#9C8AD6"><title>Never married, no children and from 1990 · 2021: 43.2% (base 449)</title></circle><circle cx="575.4" cy="168.9" r="2.5" fill="#9C8AD6"><title>Never married, no children and from 1990 · 2022: 30.6% (base 222)</title></circle><circle cx="606.0" cy="180.8" r="2.5" fill="#9C8AD6"><title>Never married, no children and from 1990 · 2024: 26.8% (base 220)</title></circle><path d="M56.0,103.4 L86.6,90.7 L117.1,122.7 L147.7,111.5 L178.2,111.8 L208.8,107.8 L239.3,93.2 L269.9,139.4 L300.4,114.0 L331.0,122.7 L361.6,142.2 L392.1,100.6 L422.7,130.7 L453.2,131.7 L483.8,125.5 L514.3,146.0 L544.9,129.8 L575.4,168.9 L606.0,180.8" fill="none" stroke="#9C8AD6" stroke-width="1.6"></path><circle cx="147.7" cy="153.7" r="2.5" fill="#D67F9E"><title>Financially strained, often divorced and from 1990 · 1994: 35.5% (base 155)</title></circle><circle cx="178.2" cy="134.5" r="2.5" fill="#D67F9E"><title>Financially strained, often divorced and from 1990 · 1996: 41.7% (base 163)</title></circle><circle cx="208.8" cy="156.5" r="2.5" fill="#D67F9E"><title>Financially strained, often divorced and from 1990 · 1998: 34.6% (base 159)</title></circle><circle cx="239.3" cy="149.1" r="2.5" fill="#D67F9E"><title>Financially strained, often divorced and from 1990 · 2000: 37% (base 138)</title></circle><circle cx="269.9" cy="171.1" r="2.5" fill="#D67F9E"><title>Financially strained, often divorced and from 1990 · 2002: 29.9% (base 117)</title></circle><circle cx="331.0" cy="163.0" r="2.5" fill="#D67F9E"><title>Financially strained, often divorced and from 1990 · 2006: 32.5% (base 234)</title></circle><circle cx="361.6" cy="183.9" r="2.5" fill="#D67F9E"><title>Financially strained, often divorced and from 1990 · 2008: 25.8% (base 159)</title></circle><circle cx="392.1" cy="159.3" r="2.5" fill="#D67F9E"><title>Financially strained, often divorced and from 1990 · 2010: 33.7% (base 199)</title></circle><circle cx="422.7" cy="156.5" r="2.5" fill="#D67F9E"><title>Financially strained, often divorced and from 1990 · 2012: 34.6% (base 179)</title></circle><circle cx="453.2" cy="166.8" r="2.5" fill="#D67F9E"><title>Financially strained, often divorced and from 1990 · 2014: 31.3% (base 201)</title></circle><circle cx="483.8" cy="186.7" r="2.5" fill="#D67F9E"><title>Financially strained, often divorced and from 1990 · 2016: 24.9% (base 257)</title></circle><circle cx="514.3" cy="168.9" r="2.5" fill="#D67F9E"><title>Financially strained, often divorced and from 1990 · 2018: 30.6% (base 173)</title></circle><circle cx="544.9" cy="188.2" r="2.5" fill="#D67F9E"><title>Financially strained, often divorced and from 1990 · 2021: 24.4% (base 307)</title></circle><circle cx="575.4" cy="177.6" r="2.5" fill="#D67F9E"><title>Financially strained, often divorced and from 1990 · 2022: 27.8% (base 151)</title></circle><circle cx="606.0" cy="209.9" r="2.5" fill="#D67F9E"><title>Financially strained, often divorced and from 1990 · 2024: 17.4% (base 161)</title></circle><path d="M147.7,153.7 L178.2,134.5 L208.8,156.5 L239.3,149.1 L269.9,171.1 L331.0,163.0 L361.6,183.9 L392.1,159.3 L422.7,156.5 L453.2,166.8 L483.8,186.7 L514.3,168.9 L544.9,188.2 L575.4,177.6 L606.0,209.9" fill="none" stroke="#D67F9E" stroke-width="1.6"></path><text x="550.9" y="134.7" text-anchor="start" font-size="10.5" fill="#C9A85C">42.9%</text><text x="612.0" y="157.1" text-anchor="start" font-size="10.5" fill="#5CB39B">35.7%</text><text x="550.9" y="169.1" text-anchor="start" font-size="10.5" fill="#7FA9D6">33.7%</text><text x="612.0" y="184.8" text-anchor="start" font-size="10.5" fill="#9C8AD6">26.8%</text><text x="612.0" y="199.0" text-anchor="start" font-size="10.5" fill="#D2886B">22.2%</text><text x="612.0" y="213.9" text-anchor="start" font-size="10.5" fill="#D67F9E">17.4%</text></svg><div class="rleg"><span><i style="background:#7FA9D6"></i>Big families at home</span><span><i style="background:#5CB39B"></i>Retired and comfortable</span><span><i style="background:#D2886B"></i>Working married, no children at home</span><span><i style="background:#C9A85C"></i>New parents</span><span><i style="background:#9C8AD6"></i>Never married, no children</span><span><i style="background:#D67F9E"></i>Financially strained, often divorced</span></div></div>
       </div>
     </div>
   </div>
-</div>
-
-<div class="reads" aria-label="What it reads">
-  <div class="track" id="readsTrack"></div>
-</div>
-
-<section id="uses">
-  <div class="wrap">
-    <span class="lab" style="color:var(--g)">What people use it for</span>
-    <h2>For anyone who has to stand behind a number.</h2>
-    <p class="lead">Research and insight teams, analysts, and the people who have to act on what they report.</p>
-    <div class="range uses">
-      <div class="src rv"><h3 style="color:var(--g)">The question after the report</h3><p>A study is delivered, then someone asks one more thing. Ask it of the rows and get a counted answer, with its base.</p></div>
-      <div class="src rv"><h3 style="color:var(--b)">Check a number before it goes out</h3><p>Ask for the figure in a deck or a press line. See the people, the filter and the count behind it, or be told the data cannot carry it.</p></div>
-      <div class="src rv"><h3 style="color:var(--t)">One question, several tables</h3><p>Tables are joined only on a key the rows prove. The answer names the files it used.</p></div>
-      <div class="src rv"><h3 style="color:var(--a)">Does the report match the records?</h3><p>A report and the data it rests on, read together: which figures agree, and which do not. <b>In testing.</b></p></div>
-    </div>
-    <p class="closer">It does the counting and the checking. The judgement stays with you.</p>
-  </div>
 </section>
 
-<section id="gap">
-  <div class="wrap">
-    <span class="lab" style="color:var(--r)">The gap</span>
-    <h2>The data outlives the report. The analysis does not.</h2>
-    <div class="track2">
-      <div class="steps"><span>Collect · clean · table · report · debrief</span><em>Delivered</em></div>
-      <div class="rail"></div>
-      <div class="later">
-        <div class="rings" id="rings"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-        <p class="small" style="max-width:52ch">The questions that occur to you afterwards. Each one is a new job, quoted and queued, so most of them are never asked.</p>
-      </div>
-    </div>
-    <div class="three">
-      <div class="rv"><div class="n">01</div><h3>A study is delivered, and then it is dead.</h3><p>The wave ships as tables and a deck. Every follow-up question is a new job, or a guess.</p></div>
-      <div class="rv"><div class="n">02</div><h3>The answer is spread across files that never meet.</h3><p>The survey, the sales sheet, the board report, the policy that changed in March. Nothing is ever asked of all of it at once.</p></div>
-      <div class="rv hot"><div class="n">03</div><h3>AI answers instantly, and nothing checks the answer.</h3><p>Confidence without evidence looks exactly like a good answer, and it is your name on the number.</p></div>
-    </div>
-    <p class="closer">TalkTask closes all three, on data you already own.</p>
-  </div>
-</section>
-
-<section id="folder">
+<section class="sect dark ctr" id="folder">
   <div class="wrap">
     <span class="lab" style="color:var(--t)">One folder, every file <span class="tag">in testing</span></span>
     <h2>Hand it a folder. It reads each file for what it is.</h2>
-    <p class="lead">Spreadsheets, reports, decks, scans and survey tab books go in together. Each part is sorted by what one row of it is, proved against itself, and catalogued once. Then one question can reach all of it, and every figure still carries its receipt.</p>
-    <div class="isowrap" id="isowrap" aria-label="Files sorted into records, printed tables and text, then into one catalogue">
-      <div class="isofit" id="isofit">
-        <div class="plane" id="plane"></div>
+    <p class="lead">Spreadsheets, reports, decks, scans and survey tab books go in together.</p>
+    <div class="rflow rv" id="flow">
+      <svg class="fwires" id="fwires" aria-hidden="true"></svg>
+      <div class="fsrc">
+        <span class="lab">It reads what you already have</span>
+        <div class="fpills" id="fpills" aria-label="What it reads"></div>
+        <p class="fkey"><i></i>A dashed line: in testing</p>
+      </div>
+      <div class="feng" id="feng">
+        <div class="fname">TalkTask</div>
+        <div class="fsub">One catalogue</div>
+        <ul>
+          <li><b>Sorted</b>by what one row of it is<span class="fkinds"><i>records</i><i>printed tables</i><i>text</i></span></li>
+          <li><b>Proved</b>against itself</li>
+          <li><b>Catalogued</b>once, kept current file by file</li>
+        </ul>
+      </div>
+      <div class="fout">
+        <span class="lab">Then one question can reach all of it</span>
+        <a class="fo" href="#try"><div class="ibox"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l7 2.6v5.2c0 4.2-2.9 7.6-7 9.2-4.1-1.6-7-5-7-9.2V6.1z"/><path d="M8.8 12.2l2.2 2.2 4.2-4.6"/></svg></div><b>A counted answer</b><span>Every figure still carries its receipt.</span></a>
+        <a class="fo" href="#no"><div class="ibox"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M6.2 6.2l11.6 11.6"/></svg></div><b>A refusal, with the reason</b><span>When the data cannot carry the claim.</span></a>
+        <a class="fo t" href="#agree"><div class="ibox"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5h7l4 4V20.5H6z"/><path d="M13 3.5v4h4M8.8 13.6l2 2 4-4.2"/></svg></div><b>Which files agree</b><span>The report set beside the records. In testing.</span></a>
       </div>
     </div>
     <div class="proofs">
@@ -525,65 +818,106 @@ footer p{max-width:none;margin:0 0 6px}
   </div>
 </section>
 
-<section id="agree">
+<section class="sect light" id="why">
   <div class="wrap">
-    <span class="lab" style="color:var(--a)">When files disagree <span class="tag">in testing</span></span>
-    <h2>It sets the report beside the records, and says which agree.</h2>
-    <p class="lead">From a test company folder we built with known answers: a board report, in Word and in PDF, and the 720-row sales workbook it should rest on. Asked on 21 October 2026 whether the report's revenue figures match the records. Select a region.</p>
-    <div class="recon">
-      <div class="chartcard">
-        <div class="legend2"><span><svg width="12" height="12"><circle cx="6" cy="6" r="5" fill="#4fb0b0"/></svg>the records, summed by the room</span><span><svg width="12" height="12"><path d="M6 1 11 6 6 11 1 6z" fill="#eef1f4"/></svg>what the board report says</span><span><svg width="18" height="10"><rect width="18" height="10" rx="2" fill="rgba(95,177,127,.25)"/></svg>the report's own rounding</span></div>
-        <svg id="reconSvg" viewBox="0 0 640 330" role="img" aria-label="Board report figures against the sales records for four regions"></svg>
+    <div class="gapgrid">
+      <div>
+        <span class="lab" style="color:var(--r)">The gap</span>
+        <h2>The data outlives the report. The analysis does not.</h2>
+        <ol class="gaplist">
+          <li class="rv"><span>01</span>A study is delivered, and then it is dead.</li>
+          <li class="rv"><span>02</span>The answer is spread across files that never meet.</li>
+          <li class="rv hot"><span>03</span>AI answers instantly, and nothing checks the answer.</li>
+        </ol>
       </div>
-      <div class="verdict" id="verdict" aria-live="polite"></div>
+      <div>
+        <span class="lab">What people use it for</span>
+        <div class="usegrid">
+          <div class="ucard rv"><div class="ibox"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></div><h3>The question after the report</h3><p>A study is delivered, then someone asks one more thing. Ask it of the rows and get a counted answer, with its base.</p></div>
+          <div class="ucard rv"><div class="ibox"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l7 2.6v5.2c0 4.2-2.9 7.6-7 9.2-4.1-1.6-7-5-7-9.2V6.1z"/><path d="M8.8 12.2l2.2 2.2 4.2-4.6"/></svg></div><h3>Check a number before it goes out</h3><p>Ask for the figure in a deck or a press line. See the people, the filter and the count behind it, or be told the data cannot carry it.</p></div>
+          <div class="ucard rv"><div class="ibox"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="7" height="14" rx="1.5"/><rect x="13.5" y="5" width="7" height="14" rx="1.5"/><path d="M10.5 12h3M3.5 9.5h7M13.5 9.5h7"/></svg></div><h3>One question, several tables</h3><p>Tables are joined only on a key the rows prove. The answer names the files it used.</p></div>
+          <div class="ucard rv"><div class="ibox"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5h7l4 4V20.5H6z"/><path d="M13 3.5v4h4M8.8 13.6l2 2 4-4.2"/></svg></div><h3>Does the report match the records?</h3><p>A report and the data it rests on, read together: which figures agree, and which do not. <b>In testing.</b></p></div>
+        </div>
+      </div>
     </div>
+    <p class="closer">TalkTask closes all three, on data you already own. It does the counting and the checking. The judgement stays with you.</p>
   </div>
 </section>
 
-<section id="how">
+<section class="sect dark" id="how">
   <div class="wrap">
-    <span class="lab" style="color:var(--g)">What happens to your question</span>
-    <h2>The model plans and writes. It never counts.</h2>
-    <p class="lead">A language model reads your question and writes a plan. Everything after that is the room's: it checks the plan against your data, does every sum, and reads every sentence before you see it.</p>
-    <div class="legend"><span class="lm">The model: reads and writes</span><span class="lr">The room: counts and checks, the same way every time</span></div>
-    <div class="lanes"><svg id="lanes" viewBox="0 0 1100 330" role="img" aria-label="The path of a question between the model and the room"></svg></div>
-    <div class="flow" id="flowList"></div>
+    <div class="askgrid">
+      <div>
+        <span class="lab">What happens to your question</span>
+        <h2>The model plans and writes. It never counts.</h2>
+        <div class="atabs" id="steps" role="group" aria-label="The steps of one real answer">
+          <button type="button" class="atab" aria-pressed="true"><i></i><b>1 · You ask</b><span>In plain words. This question was put to the room on 24 November 2026.</span></button>
+          <button type="button" class="atab" aria-pressed="false"><i></i><b>2 · It plans</b><span>The model writes a plan from a fixed set of steps. You see the plan before any number.</span></button>
+          <button type="button" class="atab" aria-pressed="false"><i></i><b>3 · It counts and checks</b><span>The room does every sum from the rows, and checks each step.</span></button>
+          <button type="button" class="atab" aria-pressed="false"><i></i><b>4 · It answers</b><span>Each line carries figures that the room counted.</span></button>
+          <button type="button" class="atab" aria-pressed="false"><i></i><b>5 · It reads the result</b><span>A reading, marked as the room’s own. It says what it cannot explain.</span></button>
+          <button type="button" class="atab" aria-pressed="false"><i></i><b>6 · It draws</b><span>The room draws the chart from the same counts.</span></button>
+          <button type="button" class="atab" aria-pressed="false"><i></i><b>7 · It shows its sources</b><span>Every figure is listed. Small bases are named.</span></button>
+        </div>
+      </div>
+      <div class="pcard dark rv">
+        <div class="phead"><svg width="20" height="20" viewBox="0 0 22 22" aria-hidden="true"><rect x="1" y="3" width="20" height="13" rx="2.5" fill="none" stroke="#f6f7f9" stroke-width="1.6"/><path d="M6 16v4l4-4" fill="none" stroke="#f6f7f9" stroke-width="1.6" stroke-linejoin="round"/><rect x="5" y="7" width="3" height="5" fill="#5b76ff"/><rect x="9.5" y="9" width="3" height="3" fill="#5b76ff"/><rect x="14" y="6" width="3" height="6" fill="#c3ccff"/></svg><b>TalkTask</b><span>General Social Survey · 65,015 people</span><span class="real">Real answer · 24 Nov 2026</span></div>
+        <div class="pbd stage" id="stage">
+          <div class="spane on"><p class="qb big">How has confidence in medicine changed for each group since 1990, and which group fell most?</p></div>
+          <div class="spane"><span class="rlab">Plan, in words</span><p class="plansay">Measure how the share saying 'a great deal' of confidence in medicine has moved for each group since 1990, and order the groups on it.</p><span class="rlab">It read your question as</span><div class="chips2"><span>confidence in medicine</span><span>from 1990, each group</span><span>by year</span><span>trend</span></div></div>
+          <div class="spane"><span class="rlab">What the room did</span><ul class="ticks"><li style="--i:0"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12.3l2.7 2.7L16 9.6"/></svg><span>reading the conversation and composing a plan</span></li><li style="--i:1"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12.3l2.7 2.7L16 9.6"/></svg><span>share saying 'a great deal' of confidence in medicine, one line per group, year by year from 1990 on</span></li><li style="--i:2"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12.3l2.7 2.7L16 9.6"/></svg><span>writing the answer from the results</span></li><li style="--i:3"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12.3l2.7 2.7L16 9.6"/></svg><span>checks passed</span></li></ul></div>
+          <div class="spane"><span class="rlab">Observations — what the data shows</span><p class="rline">'a great deal' among Never married, no children and from 1990: <b class="n">51.7%</b> in 1990 to <b class="n">26.8%</b> in 2024, 24.9 points down.</p><p class="rline">'a great deal' among Working married, no children at home and from 1990: <b class="n">40.5%</b> in 1990 to <b class="n">22.2%</b> in 2024, 18.3 points down.</p><p class="rline">'a great deal' among Financially strained, often divorced and from 1990: <b class="n">35.5%</b> in 1994 (base 155) <span class="nb">-&gt;</span> <b class="n">17.4%</b> in 2024 (base 161), -18.1 points.</p><p class="rline">'a great deal' among Retired and comfortable and from 1990: <b class="n">50.8%</b> in 1990 to <b class="n">35.7%</b> in 2024, 15.1 points down.</p><p class="rline">'a great deal' among New parents and from 1990: <b class="n">51.6%</b> in 1991 to <b class="n">42.9%</b> in 2021, 8.7 points down.</p><p class="rline">'a great deal' among Big families at home and from 1990: <b class="n">39.3%</b> in 1991 to <b class="n">33.7%</b> in 2021, 5.6 points down.</p><p class="rmore">and 2 more lines</p></div>
+          <div class="spane"><span class="rlab">Insight — the room's reading, not the data's</span><dl class="read"><dt>Finding</dt><dd>the fall is not one story: the groups that started lowest or least settled lost the most, while new parents and big families held most of their confidence.</dd><dt>Because</dt><dd>the drop goes with the 2020s: Never married, no children and Working married, no children both fall hardest in the last two readings, 2022 and 2024, after sitting near <b class="n">40%</b> through the 2010s.</dd><dt>Not explained</dt><dd>the data dates the fall but cannot say what caused it, and the 2024 cells rest on 158 to 220 people, so the last step is the least certain.</dd><dt>Next</dt><dd>look at whether the 2022-2024 drop holds across the other answers, 'only some' and 'hardly any', before treating it as a turn.</dd></dl></div>
+          <div class="spane"><p class="rhead">'a great deal': every population fell; the biggest fall Never married, no children and from 1990 <b class="n">51.7%</b> in 1990 <span class="nb">-&gt;</span> <b class="n">26.8%</b> in 2024 (-24.9)</p><div class="rchart"><svg viewBox="0 0 680 298" width="100%" font-family="Segoe UI,system-ui,sans-serif" font-size="12" fill="#b9c0c6" xmlns="http://www.w3.org/2000/svg"><text x="18" y="20" font-size="13.5" font-weight="600" fill="#e7e9ea">confidence in medicine — share answering 'a great deal'</text><text x="18" y="36" font-size="10.5" fill="#8b9299">one line per population · year · hover a point for its base</text><line x1="56" y1="264.0" x2="626" y2="264.0" stroke="#242d36"></line><text x="50" y="268.0" text-anchor="end" font-size="10.5">0%</text><line x1="56" y1="201.9" x2="626" y2="201.9" stroke="#242d36"></line><text x="50" y="205.9" text-anchor="end" font-size="10.5">20%</text><line x1="56" y1="139.7" x2="626" y2="139.7" stroke="#242d36"></line><text x="50" y="143.7" text-anchor="end" font-size="10.5">40%</text><line x1="56" y1="77.6" x2="626" y2="77.6" stroke="#242d36"></line><text x="50" y="81.6" text-anchor="end" font-size="10.5">60%</text><text x="56.0" y="282" text-anchor="middle" font-size="10.5">1990</text><text x="117.1" y="282" text-anchor="middle" font-size="10.5">1993</text><text x="178.2" y="282" text-anchor="middle" font-size="10.5">1996</text><text x="239.3" y="282" text-anchor="middle" font-size="10.5">2000</text><text x="300.4" y="282" text-anchor="middle" font-size="10.5">2004</text><text x="361.6" y="282" text-anchor="middle" font-size="10.5">2008</text><text x="422.7" y="282" text-anchor="middle" font-size="10.5">2012</text><text x="483.8" y="282" text-anchor="middle" font-size="10.5">2016</text><text x="544.9" y="282" text-anchor="middle" font-size="10.5">2021</text><text x="606.0" y="282" text-anchor="middle" font-size="10.5">2024</text><circle cx="86.6" cy="141.9" r="2.5" fill="#7FA9D6"><title>Big families at home and from 1990 · 1991: 39.3% (base 117)</title></circle><circle cx="117.1" cy="137.3" r="2.5" fill="#7FA9D6"><title>Big families at home and from 1990 · 1993: 40.8% (base 130)</title></circle><circle cx="147.7" cy="126.1" r="2.5" fill="#7FA9D6"><title>Big families at home and from 1990 · 1994: 44.4% (base 225)</title></circle><circle cx="178.2" cy="139.4" r="2.5" fill="#7FA9D6"><title>Big families at home and from 1990 · 1996: 40.1% (base 187)</title></circle><circle cx="208.8" cy="120.5" r="2.5" fill="#7FA9D6"><title>Big families at home and from 1990 · 1998: 46.2% (base 195)</title></circle><circle cx="239.3" cy="133.8" r="2.5" fill="#7FA9D6"><title>Big families at home and from 1990 · 2000: 41.9% (base 215)</title></circle><circle cx="331.0" cy="135.4" r="2.5" fill="#7FA9D6"><title>Big families at home and from 1990 · 2006: 41.4% (base 162)</title></circle><circle cx="361.6" cy="146.0" r="2.5" fill="#7FA9D6"><title>Big families at home and from 1990 · 2008: 38% (base 121)</title></circle><circle cx="392.1" cy="152.8" r="2.5" fill="#7FA9D6"><title>Big families at home and from 1990 · 2010: 35.8% (base 109)</title></circle><circle cx="422.7" cy="138.8" r="2.5" fill="#7FA9D6"><title>Big families at home and from 1990 · 2012: 40.3% (base 119)</title></circle><circle cx="453.2" cy="155.6" r="2.5" fill="#7FA9D6"><title>Big families at home and from 1990 · 2014: 34.9% (base 126)</title></circle><circle cx="483.8" cy="158.7" r="2.5" fill="#7FA9D6"><title>Big families at home and from 1990 · 2016: 33.9% (base 127)</title></circle><circle cx="544.9" cy="159.3" r="2.5" fill="#7FA9D6"><title>Big families at home and from 1990 · 2021: 33.7% (base 184)</title></circle><path d="M86.6,141.9 L117.1,137.3 L147.7,126.1 L178.2,139.4 L208.8,120.5 L239.3,133.8 L331.0,135.4 L361.6,146.0 L392.1,152.8 L422.7,138.8 L453.2,155.6 L483.8,158.7 L544.9,159.3" fill="none" stroke="#7FA9D6" stroke-width="1.6"></path><circle cx="56.0" cy="106.2" r="2.5" fill="#5CB39B"><title>Retired and comfortable and from 1990 · 1990: 50.8% (base 183)</title></circle><circle cx="86.6" cy="126.4" r="2.5" fill="#5CB39B"><title>Retired and comfortable and from 1990 · 1991: 44.3% (base 194)</title></circle><circle cx="117.1" cy="170.2" r="2.5" fill="#5CB39B"><title>Retired and comfortable and from 1990 · 1993: 30.2% (base 199)</title></circle><circle cx="147.7" cy="137.3" r="2.5" fill="#5CB39B"><title>Retired and comfortable and from 1990 · 1994: 40.8% (base 368)</title></circle><circle cx="178.2" cy="119.9" r="2.5" fill="#5CB39B"><title>Retired and comfortable and from 1990 · 1996: 46.4% (base 295)</title></circle><circle cx="208.8" cy="118.9" r="2.5" fill="#5CB39B"><title>Retired and comfortable and from 1990 · 1998: 46.7% (base 330)</title></circle><circle cx="239.3" cy="138.5" r="2.5" fill="#5CB39B"><title>Retired and comfortable and from 1990 · 2000: 40.4% (base 292)</title></circle><circle cx="269.9" cy="148.8" r="2.5" fill="#5CB39B"><title>Retired and comfortable and from 1990 · 2002: 37.1% (base 159)</title></circle><circle cx="300.4" cy="163.4" r="2.5" fill="#5CB39B"><title>Retired and comfortable and from 1990 · 2004: 32.4% (base 142)</title></circle><circle cx="331.0" cy="134.5" r="2.5" fill="#5CB39B"><title>Retired and comfortable and from 1990 · 2006: 41.7% (base 372)</title></circle><circle cx="361.6" cy="138.2" r="2.5" fill="#5CB39B"><title>Retired and comfortable and from 1990 · 2008: 40.5% (base 262)</title></circle><circle cx="392.1" cy="130.1" r="2.5" fill="#5CB39B"><title>Retired and comfortable and from 1990 · 2010: 43.1% (base 269)</title></circle><circle cx="422.7" cy="140.4" r="2.5" fill="#5CB39B"><title>Retired and comfortable and from 1990 · 2012: 39.8% (base 274)</title></circle><circle cx="453.2" cy="136.0" r="2.5" fill="#5CB39B"><title>Retired and comfortable and from 1990 · 2014: 41.2% (base 335)</title></circle><circle cx="483.8" cy="150.9" r="2.5" fill="#5CB39B"><title>Retired and comfortable and from 1990 · 2016: 36.4% (base 404)</title></circle><circle cx="514.3" cy="156.2" r="2.5" fill="#5CB39B"><title>Retired and comfortable and from 1990 · 2018: 34.7% (base 329)</title></circle><circle cx="544.9" cy="111.8" r="2.5" fill="#5CB39B"><title>Retired and comfortable and from 1990 · 2021: 49% (base 649)</title></circle><circle cx="575.4" cy="136.3" r="2.5" fill="#5CB39B"><title>Retired and comfortable and from 1990 · 2022: 41.1% (base 292)</title></circle><circle cx="606.0" cy="153.1" r="2.5" fill="#5CB39B"><title>Retired and comfortable and from 1990 · 2024: 35.7% (base 266)</title></circle><path d="M56.0,106.2 L86.6,126.4 L117.1,170.2 L147.7,137.3 L178.2,119.9 L208.8,118.9 L239.3,138.5 L269.9,148.8 L300.4,163.4 L331.0,134.5 L361.6,138.2 L392.1,130.1 L422.7,140.4 L453.2,136.0 L483.8,150.9 L514.3,156.2 L544.9,111.8 L575.4,136.3 L606.0,153.1" fill="none" stroke="#5CB39B" stroke-width="1.6"></path><circle cx="56.0" cy="138.2" r="2.5" fill="#D2886B"><title>Working married, no children at home and from 1990 · 1990: 40.5% (base 153)</title></circle><circle cx="86.6" cy="112.7" r="2.5" fill="#D2886B"><title>Working married, no children at home and from 1990 · 1991: 48.7% (base 154)</title></circle><circle cx="117.1" cy="149.7" r="2.5" fill="#D2886B"><title>Working married, no children at home and from 1990 · 1993: 36.8% (base 174)</title></circle><circle cx="147.7" cy="150.3" r="2.5" fill="#D2886B"><title>Working married, no children at home and from 1990 · 1994: 36.6% (base 385)</title></circle><circle cx="178.2" cy="132.3" r="2.5" fill="#D2886B"><title>Working married, no children at home and from 1990 · 1996: 42.4% (base 349)</title></circle><circle cx="208.8" cy="121.7" r="2.5" fill="#D2886B"><title>Working married, no children at home and from 1990 · 1998: 45.8% (base 371)</title></circle><circle cx="239.3" cy="140.4" r="2.5" fill="#D2886B"><title>Working married, no children at home and from 1990 · 2000: 39.8% (base 352)</title></circle><circle cx="269.9" cy="153.7" r="2.5" fill="#D2886B"><title>Working married, no children at home and from 1990 · 2002: 35.5% (base 203)</title></circle><circle cx="300.4" cy="152.2" r="2.5" fill="#D2886B"><title>Working married, no children at home and from 1990 · 2004: 36% (base 211)</title></circle><circle cx="331.0" cy="160.9" r="2.5" fill="#D2886B"><title>Working married, no children at home and from 1990 · 2006: 33.2% (base 391)</title></circle><circle cx="361.6" cy="144.7" r="2.5" fill="#D2886B"><title>Working married, no children at home and from 1990 · 2008: 38.4% (base 271)</title></circle><circle cx="392.1" cy="149.7" r="2.5" fill="#D2886B"><title>Working married, no children at home and from 1990 · 2010: 36.8% (base 250)</title></circle><circle cx="422.7" cy="145.0" r="2.5" fill="#D2886B"><title>Working married, no children at home and from 1990 · 2012: 38.3% (base 248)</title></circle><circle cx="453.2" cy="147.2" r="2.5" fill="#D2886B"><title>Working married, no children at home and from 1990 · 2014: 37.6% (base 383)</title></circle><circle cx="483.8" cy="159.6" r="2.5" fill="#D2886B"><title>Working married, no children at home and from 1990 · 2016: 33.6% (base 369)</title></circle><circle cx="514.3" cy="142.9" r="2.5" fill="#D2886B"><title>Working married, no children at home and from 1990 · 2018: 39% (base 333)</title></circle><circle cx="544.9" cy="132.3" r="2.5" fill="#D2886B"><title>Working married, no children at home and from 1990 · 2021: 42.4% (base 441)</title></circle><circle cx="575.4" cy="151.2" r="2.5" fill="#D2886B"><title>Working married, no children at home and from 1990 · 2022: 36.3% (base 171)</title></circle><circle cx="606.0" cy="195.0" r="2.5" fill="#D2886B"><title>Working married, no children at home and from 1990 · 2024: 22.2% (base 158)</title></circle><path d="M56.0,138.2 L86.6,112.7 L117.1,149.7 L147.7,150.3 L178.2,132.3 L208.8,121.7 L239.3,140.4 L269.9,153.7 L300.4,152.2 L331.0,160.9 L361.6,144.7 L392.1,149.7 L422.7,145.0 L453.2,147.2 L483.8,159.6 L514.3,142.9 L544.9,132.3 L575.4,151.2 L606.0,195.0" fill="none" stroke="#D2886B" stroke-width="1.6"></path><circle cx="86.6" cy="103.7" r="2.5" fill="#C9A85C"><title>New parents and from 1990 · 1991: 51.6% (base 122)</title></circle><circle cx="117.1" cy="140.4" r="2.5" fill="#C9A85C"><title>New parents and from 1990 · 1993: 39.8% (base 113)</title></circle><circle cx="147.7" cy="134.5" r="2.5" fill="#C9A85C"><title>New parents and from 1990 · 1994: 41.7% (base 230)</title></circle><circle cx="178.2" cy="100.0" r="2.5" fill="#C9A85C"><title>New parents and from 1990 · 1996: 52.8% (base 193)</title></circle><circle cx="208.8" cy="131.0" r="2.5" fill="#C9A85C"><title>New parents and from 1990 · 1998: 42.8% (base 166)</title></circle><circle cx="239.3" cy="100.0" r="2.5" fill="#C9A85C"><title>New parents and from 1990 · 2000: 52.8% (base 163)</title></circle><circle cx="331.0" cy="122.0" r="2.5" fill="#C9A85C"><title>New parents and from 1990 · 2006: 45.7% (base 173)</title></circle><circle cx="361.6" cy="140.4" r="2.5" fill="#C9A85C"><title>New parents and from 1990 · 2008: 39.8% (base 113)</title></circle><circle cx="392.1" cy="127.3" r="2.5" fill="#C9A85C"><title>New parents and from 1990 · 2010: 44% (base 100)</title></circle><circle cx="422.7" cy="133.2" r="2.5" fill="#C9A85C"><title>New parents and from 1990 · 2012: 42.1% (base 107)</title></circle><circle cx="453.2" cy="139.7" r="2.5" fill="#C9A85C"><title>New parents and from 1990 · 2014: 40% (base 110)</title></circle><circle cx="483.8" cy="157.1" r="2.5" fill="#C9A85C"><title>New parents and from 1990 · 2016: 34.4% (base 131)</title></circle><circle cx="514.3" cy="145.3" r="2.5" fill="#C9A85C"><title>New parents and from 1990 · 2018: 38.2% (base 102)</title></circle><circle cx="544.9" cy="130.7" r="2.5" fill="#C9A85C"><title>New parents and from 1990 · 2021: 42.9% (base 140)</title></circle><path d="M86.6,103.7 L117.1,140.4 L147.7,134.5 L178.2,100.0 L208.8,131.0 L239.3,100.0 L331.0,122.0 L361.6,140.4 L392.1,127.3 L422.7,133.2 L453.2,139.7 L483.8,157.1 L514.3,145.3 L544.9,130.7" fill="none" stroke="#C9A85C" stroke-width="1.6"></path><circle cx="56.0" cy="103.4" r="2.5" fill="#9C8AD6"><title>Never married, no children and from 1990 · 1990: 51.7% (base 174)</title></circle><circle cx="86.6" cy="90.7" r="2.5" fill="#9C8AD6"><title>Never married, no children and from 1990 · 1991: 55.8% (base 197)</title></circle><circle cx="117.1" cy="122.7" r="2.5" fill="#9C8AD6"><title>Never married, no children and from 1990 · 1993: 45.5% (base 211)</title></circle><circle cx="147.7" cy="111.5" r="2.5" fill="#9C8AD6"><title>Never married, no children and from 1990 · 1994: 49.1% (base 393)</title></circle><circle cx="178.2" cy="111.8" r="2.5" fill="#9C8AD6"><title>Never married, no children and from 1990 · 1996: 49% (base 408)</title></circle><circle cx="208.8" cy="107.8" r="2.5" fill="#9C8AD6"><title>Never married, no children and from 1990 · 1998: 50.3% (base 398)</title></circle><circle cx="239.3" cy="93.2" r="2.5" fill="#9C8AD6"><title>Never married, no children and from 1990 · 2000: 55% (base 398)</title></circle><circle cx="269.9" cy="139.4" r="2.5" fill="#9C8AD6"><title>Never married, no children and from 1990 · 2002: 40.1% (base 192)</title></circle><circle cx="300.4" cy="114.0" r="2.5" fill="#9C8AD6"><title>Never married, no children and from 1990 · 2004: 48.3% (base 176)</title></circle><circle cx="331.0" cy="122.7" r="2.5" fill="#9C8AD6"><title>Never married, no children and from 1990 · 2006: 45.5% (base 400)</title></circle><circle cx="361.6" cy="142.2" r="2.5" fill="#9C8AD6"><title>Never married, no children and from 1990 · 2008: 39.2% (base 255)</title></circle><circle cx="392.1" cy="100.6" r="2.5" fill="#9C8AD6"><title>Never married, no children and from 1990 · 2010: 52.6% (base 272)</title></circle><circle cx="422.7" cy="130.7" r="2.5" fill="#9C8AD6"><title>Never married, no children and from 1990 · 2012: 42.9% (base 245)</title></circle><circle cx="453.2" cy="131.7" r="2.5" fill="#9C8AD6"><title>Never married, no children and from 1990 · 2014: 42.6% (base 324)</title></circle><circle cx="483.8" cy="125.5" r="2.5" fill="#9C8AD6"><title>Never married, no children and from 1990 · 2016: 44.6% (base 406)</title></circle><circle cx="514.3" cy="146.0" r="2.5" fill="#9C8AD6"><title>Never married, no children and from 1990 · 2018: 38% (base 347)</title></circle><circle cx="544.9" cy="129.8" r="2.5" fill="#9C8AD6"><title>Never married, no children and from 1990 · 2021: 43.2% (base 449)</title></circle><circle cx="575.4" cy="168.9" r="2.5" fill="#9C8AD6"><title>Never married, no children and from 1990 · 2022: 30.6% (base 222)</title></circle><circle cx="606.0" cy="180.8" r="2.5" fill="#9C8AD6"><title>Never married, no children and from 1990 · 2024: 26.8% (base 220)</title></circle><path d="M56.0,103.4 L86.6,90.7 L117.1,122.7 L147.7,111.5 L178.2,111.8 L208.8,107.8 L239.3,93.2 L269.9,139.4 L300.4,114.0 L331.0,122.7 L361.6,142.2 L392.1,100.6 L422.7,130.7 L453.2,131.7 L483.8,125.5 L514.3,146.0 L544.9,129.8 L575.4,168.9 L606.0,180.8" fill="none" stroke="#9C8AD6" stroke-width="1.6"></path><circle cx="147.7" cy="153.7" r="2.5" fill="#D67F9E"><title>Financially strained, often divorced and from 1990 · 1994: 35.5% (base 155)</title></circle><circle cx="178.2" cy="134.5" r="2.5" fill="#D67F9E"><title>Financially strained, often divorced and from 1990 · 1996: 41.7% (base 163)</title></circle><circle cx="208.8" cy="156.5" r="2.5" fill="#D67F9E"><title>Financially strained, often divorced and from 1990 · 1998: 34.6% (base 159)</title></circle><circle cx="239.3" cy="149.1" r="2.5" fill="#D67F9E"><title>Financially strained, often divorced and from 1990 · 2000: 37% (base 138)</title></circle><circle cx="269.9" cy="171.1" r="2.5" fill="#D67F9E"><title>Financially strained, often divorced and from 1990 · 2002: 29.9% (base 117)</title></circle><circle cx="331.0" cy="163.0" r="2.5" fill="#D67F9E"><title>Financially strained, often divorced and from 1990 · 2006: 32.5% (base 234)</title></circle><circle cx="361.6" cy="183.9" r="2.5" fill="#D67F9E"><title>Financially strained, often divorced and from 1990 · 2008: 25.8% (base 159)</title></circle><circle cx="392.1" cy="159.3" r="2.5" fill="#D67F9E"><title>Financially strained, often divorced and from 1990 · 2010: 33.7% (base 199)</title></circle><circle cx="422.7" cy="156.5" r="2.5" fill="#D67F9E"><title>Financially strained, often divorced and from 1990 · 2012: 34.6% (base 179)</title></circle><circle cx="453.2" cy="166.8" r="2.5" fill="#D67F9E"><title>Financially strained, often divorced and from 1990 · 2014: 31.3% (base 201)</title></circle><circle cx="483.8" cy="186.7" r="2.5" fill="#D67F9E"><title>Financially strained, often divorced and from 1990 · 2016: 24.9% (base 257)</title></circle><circle cx="514.3" cy="168.9" r="2.5" fill="#D67F9E"><title>Financially strained, often divorced and from 1990 · 2018: 30.6% (base 173)</title></circle><circle cx="544.9" cy="188.2" r="2.5" fill="#D67F9E"><title>Financially strained, often divorced and from 1990 · 2021: 24.4% (base 307)</title></circle><circle cx="575.4" cy="177.6" r="2.5" fill="#D67F9E"><title>Financially strained, often divorced and from 1990 · 2022: 27.8% (base 151)</title></circle><circle cx="606.0" cy="209.9" r="2.5" fill="#D67F9E"><title>Financially strained, often divorced and from 1990 · 2024: 17.4% (base 161)</title></circle><path d="M147.7,153.7 L178.2,134.5 L208.8,156.5 L239.3,149.1 L269.9,171.1 L331.0,163.0 L361.6,183.9 L392.1,159.3 L422.7,156.5 L453.2,166.8 L483.8,186.7 L514.3,168.9 L544.9,188.2 L575.4,177.6 L606.0,209.9" fill="none" stroke="#D67F9E" stroke-width="1.6"></path><text x="550.9" y="134.7" text-anchor="start" font-size="10.5" fill="#C9A85C">42.9%</text><text x="612.0" y="157.1" text-anchor="start" font-size="10.5" fill="#5CB39B">35.7%</text><text x="550.9" y="169.1" text-anchor="start" font-size="10.5" fill="#7FA9D6">33.7%</text><text x="612.0" y="184.8" text-anchor="start" font-size="10.5" fill="#9C8AD6">26.8%</text><text x="612.0" y="199.0" text-anchor="start" font-size="10.5" fill="#D2886B">22.2%</text><text x="612.0" y="213.9" text-anchor="start" font-size="10.5" fill="#D67F9E">17.4%</text></svg><div class="rleg"><span><i style="background:#7FA9D6"></i>Big families at home</span><span><i style="background:#5CB39B"></i>Retired and comfortable</span><span><i style="background:#D2886B"></i>Working married, no children at home</span><span><i style="background:#C9A85C"></i>New parents</span><span><i style="background:#9C8AD6"></i>Never married, no children</span><span><i style="background:#D67F9E"></i>Financially strained, often divorced</span></div></div></div>
+          <div class="spane"><span class="rlab">Receipts</span><div class="cites2"><span>51.7% a great deal [conmedic]</span><span>26.8% a great deal [conmedic]</span><span>40.5% a great deal [conmedic]</span><span>22.2% a great deal [conmedic]</span><span>35.5% a great deal [conmedic] base 155</span><span>17.4% a great deal [conmedic] base 161</span><span>50.8% a great deal [conmedic]</span><span>35.7% a great deal [conmedic]</span><span>51.6% a great deal [conmedic]</span><span>42.9% a great deal [conmedic]</span><span>39.3% a great deal [conmedic]</span><span>33.7% a great deal [conmedic]</span><span>26.8% a great deal [conmedic] base 220</span></div><p class="cav"><b>Caveats.</b> The 2024 figures for Never married, no children (base 220), Working married, no children (base 158) and Financially strained, often divorced (base 161) rest on small bases.; The Financially strained group's series starts in 1994, not 1990.; New parents and Big families end in 2021, not 2024.</p></div>
+        </div>
+      </div>
+    </div>
     <p class="closer">A wrong answer fails a check instead of sounding plausible.</p>
   </div>
 </section>
 
-<section id="two">
+<section class="sect light" id="try">
   <div class="wrap">
-    <span class="lab" style="color:var(--b)">One question, two answers</span>
-    <h2>An AI agent counted right and read it backwards.</h2>
-    <p class="lead">The same question, on 13 September 2026, put to an AI agent that writes and runs Python over the same 65,015 survey rows with the survey's codebook, and to a TalkTask room. Every figure either side stated was recounted from the rows afterwards.</p>
-    <div class="vs">
-      <div class="agent rv">
-        <span class="lab">An AI agent, writing Python</span>
-        <p class="qq">How has confidence in medicine changed for each group since 1990, and which group fell most?</p>
-        <p class="said">“Since 1990, confidence in medicine has <span class="bad">increased</span> for all groups. The ‘Retired and comfortable’ group experienced the smallest increase, with a change of 0.175 in their average confidence score.”</p>
-        <p class="small" style="margin:0 0 6px">Its code, as run:</p>
-        <div class="code">df[df['year'] &gt;= 1990].groupby(['groups', 'year'])['conmedic'].mean()</div>
-        <div class="why">
-          <p>Backwards. The survey codes the answer 1 = a great deal, 2 = only some, 3 = hardly any. The agent averaged the codes, saw the average rise, and read it as more confidence. A higher average means less.</p>
-          <p style="margin:0">The arithmetic was right: 1.585 in 1990 to 1.759 in 2024 for that group. Nothing in the answer could tell you its meaning was wrong. Agent record 3084.</p>
+    <div class="askgrid">
+      <div>
+        <div class="verb rv" aria-hidden="true">Ask.</div>
+        <h2 class="h2s">Get an answer counted from the rows.</h2>
+        <p class="lead">Ask in plain words. Every figure comes with its receipt: the question, the people and the count.</p>
+        <div class="atabs" id="presets" role="group" aria-label="Three real questions"></div>
+      </div>
+      <div class="acard dark" id="console">
+        <div class="ahead"><svg width="20" height="20" viewBox="0 0 22 22" aria-hidden="true"><rect x="1" y="3" width="20" height="13" rx="2.5" fill="none" stroke="#f6f7f9" stroke-width="1.6"/><path d="M6 16v4l4-4" fill="none" stroke="#f6f7f9" stroke-width="1.6" stroke-linejoin="round"/><rect x="5" y="7" width="3" height="5" fill="#5b76ff"/><rect x="9.5" y="9" width="3" height="3" fill="#5b76ff"/><rect x="14" y="6" width="3" height="6" fill="#c3ccff"/></svg><b>TalkTask</b><span>General Social Survey · <span id="pUni"></span> people · <span id="pSpan"></span></span></div>
+        <p class="pq" id="pQ" aria-live="polite"></p>
+        <div class="pbody">
+          <div>
+            <div class="pnum" id="pNum" aria-live="polite"></div>
+            <p class="pbase" id="pBase"></p>
+          </div>
+          <div class="receipt prec" id="pRec" aria-live="polite">
+            <b id="rT"></b><div id="rH"></div>
+            <canvas id="pDots" aria-hidden="true"></canvas>
+            <div class="tot" id="rTot"></div>
+          </div>
+        </div>
+        <svg id="pTrend" viewBox="0 0 600 160" role="img" aria-label="The same question in every year of the survey. Drag to change the year."></svg>
+        <div class="pkey"><span><svg width="10" height="10"><circle cx="5" cy="5" r="3.5" fill="#5b76ff"/></svg>counted</span><span><svg width="10" height="10"><circle cx="5" cy="5" r="3.5" fill="none" stroke="#f2b84b" stroke-width="1.4"/></svg>under 100 people: no figure</span><span><svg width="10" height="10"><path d="M5 1v8" stroke="#9096a6" stroke-width="1.4"/></svg>not asked that year</span><span>Drag across the chart to change the year.</span></div>
+        <div class="pick">
+          <label>Who<select id="pWho"></select></label>
+          <label>What<select id="pWhat"></select></label>
+          <div class="fld">Year
+            <div class="stepper"><button type="button" id="pPrev" aria-label="Earlier year">&#9666;</button><output id="pYearLab" aria-live="polite"></output><button type="button" id="pNext" aria-label="Later year">&#9656;</button></div>
+          </div>
         </div>
       </div>
-      <div class="room rv">
-        <span class="lab">TalkTask</span>
-        <p class="qq">Its plan, in words: the change in confidence in medicine ('a great deal') for each group since 1990, and which group fell the most.</p>
-        <p class="said">“'A great deal' of confidence in medicine fell for every group since 1990; the biggest fall was among the 'Never married, no children' group, from <button class="fig" data-v="a" data-box="vrec" aria-pressed="false">51.7%</button> in 1990 to <button class="fig" data-v="b" data-box="vrec" aria-pressed="false">26.8%</button> in 2024, a drop of 24.9 points.”</p>
-        <p class="small">Select a highlighted figure for its receipt: every person behind it.</p>
-        <div class="receipt" id="vrec"></div>
-        <p class="small" style="margin:16px 0 0">The room compares only cells of 100 people or more. Three groups had fewer in 1990, so they start later. One of them, financially strained, would show a fall of 26.3 points on 71 people; the room did not rest a claim on it. Room record 3072.</p>
-      </div>
     </div>
-    <p class="tally">Across twelve questions, 100 of the agent's figures could be recounted: 80 were right, 1 was wrong, 4 carried the wrong base, and 15 were averages of answer codes, which mean nothing. 21 of the room's could: 20 right, 1 with the wrong base. <b>The agent was usually right. Nothing told you when it was not.</b></p>
+    <p class="small pfoot">A real survey: the US General Social Survey. Each number was counted from its rows on 24 November 2026, on the <span id="pUni2"></span> people who answered all eleven questions the groups are built from. No model runs on this page, and nothing you select is sent anywhere. <span id="pStat"></span></p>
   </div>
 </section>
 
-<section id="checks">
+<section class="sect dark" id="checks">
   <div class="wrap">
+    <div class="verb rv" aria-hidden="true">Check.</div>
     <span class="lab" style="color:var(--i)">The checks</span>
     <h2>Every sentence passes eight checks before you see it.</h2>
     <p class="lead">The model writes the words; the room reads them back against what it counted. Each check looks for one kind of mistake. Select one.</p>
@@ -603,32 +937,82 @@ footer p{max-width:none;margin:0 0 6px}
   </div>
 </section>
 
-<section id="dig">
+<section class="sect light" id="no">
   <div class="wrap">
-    <span class="lab" style="color:var(--b)">It digs like an analyst</span>
-    <h2>Ask why, and it re-measures the finding inside every cut it holds.</h2>
-    <div class="dig">
-      <span class="lab">A finding · bases 10,361 and 6,809</span>
-      <div class="finding">married: 68.2% in the 1970s → 45.7% in the 2020s, −22.5 points</div>
-      <svg class="fan" id="fan" viewBox="0 0 1000 150" aria-hidden="true"></svg>
-      <div class="cuts">
-        <div><h3>age</h3><p>under 30: −35.6<br>60 and over: −7.8</p></div>
-        <div><h3>highest degree</h3><p>no high school: −33.1<br>graduate: −13.2</p></div>
-        <div><h3>the groups</h3><p>new parents: −20.9<br>retired: −1.4</p></div>
-        <div class="dead"><h3>region</h3><p>6.1 points apart<br>no difference</p></div>
-        <div class="dead"><h3>sex</h3><p>2.8 points apart<br>no difference</p></div>
-      </div>
-    </div>
-    <p class="closer">36 cuts: 20 held, 16 made no difference, and the dead ends are said out loud, because a cut that made no difference is a finding too. Cuts are associations, never causes. No model is involved in the dig; it is pure counting.</p>
-    <div class="trio">
-      <div class="rv"><span class="lab">Self-test</span><h3>It checks its answer against a simpler one</h3><p>When a regression reports odds with other factors held still, the plain shares are measured too. Where the two point opposite ways, that reversal leads the answer.</p></div>
-      <div class="rv"><span class="lab">Memory</span><h3>What it has said is evidence</h3><p>Earlier figures stay citable. A new figure that contradicts one already given, for the same people and the same base, is stopped.</p></div>
-      <div class="rv"><span class="lab">Reuse</span><h3>A line of questioning is saved and run again</h3><p>Any thread becomes a workflow and runs again on the next wave, through the same checks, saying what changed since last time.</p></div>
+    <span class="lab" style="color:var(--a)">When the data cannot answer</span>
+    <h2>It says no, and says why.</h2>
+    <div class="nogrid">
+      <div class="pcard dark rv"><div class="phead"><svg width="20" height="20" viewBox="0 0 22 22" aria-hidden="true"><rect x="1" y="3" width="20" height="13" rx="2.5" fill="none" stroke="#f6f7f9" stroke-width="1.6"/><path d="M6 16v4l4-4" fill="none" stroke="#f6f7f9" stroke-width="1.6" stroke-linejoin="round"/><rect x="5" y="7" width="3" height="5" fill="#5b76ff"/><rect x="9.5" y="9" width="3" height="3" fill="#5b76ff"/><rect x="14" y="6" width="3" height="6" fill="#c3ccff"/></svg><b>TalkTask</b><span>General Social Survey · 65,015 people</span><span class="real">Real answer · 24 Nov 2026</span></div><div class="pbd"><p class="qb">What share of the Financially strained group had a great deal of confidence in medicine in 1990?</p><span class="chipx a">Too few people</span><p class="rline">“…only 71 rows match that population, under the floor of 100 - too few for a figure to rest on…”</p><span class="rlab">Its answer</span><p class="rline">Not held: the 1990-only share for Financially strained, often divorced; s1 pools 1990-1999 and holds <b class="n">40.2%</b> for the whole decade. The figures below are the nearest it holds. They are context, not the answer.</p><p class="cav"><b>Caveat.</b> The figure is for 1990 to 1999 pooled, not 1990 alone; the single year holds too few of this group to report.</p></div></div>
+      <div class="pcard dark rv"><div class="phead"><svg width="20" height="20" viewBox="0 0 22 22" aria-hidden="true"><rect x="1" y="3" width="20" height="13" rx="2.5" fill="none" stroke="#f6f7f9" stroke-width="1.6"/><path d="M6 16v4l4-4" fill="none" stroke="#f6f7f9" stroke-width="1.6" stroke-linejoin="round"/><rect x="5" y="7" width="3" height="5" fill="#5b76ff"/><rect x="9.5" y="9" width="3" height="3" fill="#5b76ff"/><rect x="14" y="6" width="3" height="6" fill="#c3ccff"/></svg><b>TalkTask</b><span>General Social Survey · 65,015 people</span><span class="real">Real answer · 24 Nov 2026</span></div><div class="pbd"><p class="qb">Do people prefer baseball or soccer?</p><span class="chipx n">Not in the data</span><p class="rline">No held question measures whether people prefer baseball or soccer.</p><span class="rlab">Its answer</span><p class="rline">The survey does not ask about baseball or soccer. Is there another held topic you meant, or would you like to see what related questions the survey does contain?</p></div></div>
     </div>
   </div>
 </section>
 
-<section id="measured">
+<section class="sect dark ctr" id="two">
+  <div class="wrap">
+    <span class="lab" style="color:var(--b)">One question, two answers</span>
+    <h2>An AI agent counted right and read it backwards.</h2>
+    <p class="lead">The same question, on 13 September 2026, put to an AI agent that writes and runs Python over the same 65,015 survey rows with the survey's codebook, and to a TalkTask room. Every figure either side stated was recounted from the rows afterwards.</p>
+    <div class="vs dark rv">
+      <div class="agent">
+        <span class="lab">An AI agent, writing Python</span>
+        <p class="qq">How has confidence in medicine changed for each group since 1990, and which group fell most?</p>
+        <p class="said">“Since 1990, confidence in medicine has <span class="bad">increased</span> for all groups. The ‘Retired and comfortable’ group experienced the smallest increase, with a change of 0.175 in their average confidence score.”</p>
+        <p class="small" style="margin:0 0 6px">Its code, as run:</p>
+        <div class="code">df[df['year'] &gt;= 1990].groupby(['groups', 'year'])['conmedic'].mean()</div>
+        <div class="why">
+          <p>Backwards. The survey codes the answer 1 = a great deal, 2 = only some, 3 = hardly any. The agent averaged the codes, saw the average rise, and read it as more confidence. A higher average means less.</p>
+          <p style="margin:0">The arithmetic was right: 1.585 in 1990 to 1.759 in 2024 for that group. Nothing in the answer could tell you its meaning was wrong. Agent record 3084.</p>
+        </div>
+      </div>
+      <div class="room">
+        <span class="lab">TalkTask</span>
+        <p class="qq">Its plan, in words: the change in confidence in medicine ('a great deal') for each group since 1990, and which group fell the most.</p>
+        <p class="said">“'A great deal' of confidence in medicine fell for every group since 1990; the biggest fall was among the 'Never married, no children' group, from <button class="fig" data-v="a" data-box="vrec" aria-pressed="false">51.7%</button> in 1990 to <button class="fig" data-v="b" data-box="vrec" aria-pressed="false">26.8%</button> in 2024, a drop of 24.9 points.”</p>
+        <p class="small">Select a highlighted figure for its receipt: every person behind it.</p>
+        <div class="receipt" id="vrec"></div>
+        <p class="small" style="margin:16px 0 0">The room compares only cells of 100 people or more. Three groups had fewer in 1990, so they start later. One of them, financially strained, would show a fall of 26.3 points on 71 people; the room did not rest a claim on it. Room record 3072.</p>
+      </div>
+    </div>
+    <p class="tally">Across twelve questions, 100 of the agent's figures could be recounted: 80 were right, 1 was wrong, 4 carried the wrong base, and 15 were averages of answer codes, which mean nothing. 21 of the room's could: 20 right, 1 with the wrong base. <b>The agent was usually right. Nothing told you when it was not.</b></p>
+  </div>
+</section>
+
+<section class="sect light" id="dig">
+  <div class="wrap">
+    <div class="verb rv" aria-hidden="true">Dig.</div>
+    <span class="lab">It digs like an analyst</span>
+    <h2>Ask why, and it re-measures the finding inside every cut it holds.</h2>
+    <div class="diggrid">
+      <div class="pcard dark rv"><div class="phead"><svg width="20" height="20" viewBox="0 0 22 22" aria-hidden="true"><rect x="1" y="3" width="20" height="13" rx="2.5" fill="none" stroke="#f6f7f9" stroke-width="1.6"/><path d="M6 16v4l4-4" fill="none" stroke="#f6f7f9" stroke-width="1.6" stroke-linejoin="round"/><rect x="5" y="7" width="3" height="5" fill="#5b76ff"/><rect x="9.5" y="9" width="3" height="3" fill="#5b76ff"/><rect x="14" y="6" width="3" height="6" fill="#c3ccff"/></svg><b>TalkTask</b><span>General Social Survey · 65,015 people</span><span class="real">Real answer · 24 Nov 2026</span></div><div class="pbd"><p class="qb">How has the share of married people changed from the 1970s to the 2020s?</p><p class="rline">'married' among from 1970: <b class="n">68.2%</b> in the 1970s (base 10,361) <span class="nb">-&gt;</span> <b class="n">45.7%</b> in the 2020s (base 6,809), -22.5 points.</p><p class="qb">dig into that</p><div class="cutrow rv"><h4>by age of respondent<span>27.8 points apart</span></h4><div class="cbar2"><span>under 30</span><small>54.4% → 18.8%</small><i style="width:89.0%"></i><em>−35.6</em></div><div class="cbar2"><span>60 and over</span><small>57.7% → 49.9%</small><i style="width:19.5%"></i><em>−7.8</em></div></div><div class="cutrow rv"><h4>by total family income<span>25.6 points apart</span></h4><div class="cbar2"><span>$20,000-$34,999</span><small>70.3% → 34.2%</small><i style="width:90.3%"></i><em>−36.1</em></div><div class="cbar2"><span>$60,000 and over</span><small>82.2% → 71.7%</small><i style="width:26.2%"></i><em>−10.5</em></div></div><div class="cutrow rv"><h4>by r's highest degree<span>19.9 points apart</span></h4><div class="cbar2"><span>less than high school</span><small>65.7% → 32.6%</small><i style="width:82.8%"></i><em>−33.1</em></div><div class="cbar2"><span>graduate</span><small>73.9% → 60.7%</small><i style="width:33.0%"></i><em>−13.2</em></div></div><div class="cutrow rv"><h4>by the groups<span>19.5 points apart</span></h4><div class="cbar2"><span>New parents</span><small>90.5% → 69.6%</small><i style="width:52.2%"></i><em>−20.9</em></div><div class="cbar2"><span>Retired and comfortable</span><small>52.6% → 51.2%</small><i style="width:3.5%"></i><em>−1.4</em></div></div></div></div>
+      <div class="pcard dark rv"><div class="phead"><svg width="20" height="20" viewBox="0 0 22 22" aria-hidden="true"><rect x="1" y="3" width="20" height="13" rx="2.5" fill="none" stroke="#f6f7f9" stroke-width="1.6"/><path d="M6 16v4l4-4" fill="none" stroke="#f6f7f9" stroke-width="1.6" stroke-linejoin="round"/><rect x="5" y="7" width="3" height="5" fill="#5b76ff"/><rect x="9.5" y="9" width="3" height="3" fill="#5b76ff"/><rect x="14" y="6" width="3" height="6" fill="#c3ccff"/></svg><b>TalkTask</b><span>General Social Survey · 65,015 people</span><span class="real">Real answer · 24 Nov 2026</span></div><div class="pbd"><span class="rlab">Insight — the room's reading, not the data's</span><dl class="read"><dt>Finding</dt><dd>the fall is concentrated among the young, the less educated and the lower paid: under-30s lost 35.6 points and the $20,000-$34,999 band 36.1, while the 60-and-over and $60,000-and-over groups barely moved.</dd><dt>Because</dt><dd>age, income and schooling each separate the fall on their own, and they likely overlap, since the young are also the less established earners; no cut here separates one from the others.</dd><dt>Not explained</dt><dd>the data dates the fall but cannot say what drove it; these are associations, and region, sex and race made no difference.</dd><dt>Next</dt><dd>re-read the income gap with age held fixed, to see whether income adds anything beyond age.</dd></dl><p class="cav"><b>Caveats.</b> I read that as 'marital status'; The cuts are associations, not causes; the survey dates the fall but does not explain it.; Every figure is the share saying 'married' within that band, not the size of the band.</p></div></div>
+    </div>
+    <div class="trio">
+      <div class="rv"><div class="ibox"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v16M7 20h10M5 8h14M5 8l-2.5 6h5zM19 8l-2.5 6h5z"/></svg></div><span class="lab">Self-test</span><h3>It checks its answer against a simpler one</h3><p>When a regression reports odds with other factors held still, the plain shares are measured too. Where the two point opposite ways, that reversal leads the answer.</p></div>
+      <div class="rv"><div class="ibox"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4l8 4-8 4-8-4zM4 12l8 4 8-4M4 16l8 4 8-4"/></svg></div><span class="lab">Memory</span><h3>What it has said is evidence</h3><p>Earlier figures stay citable. A new figure that contradicts one already given, for the same people and the same base, is stopped.</p></div>
+      <div class="rv"><div class="ibox"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 12a7.5 7.5 0 0 1 13-5.1L19.5 9M19.5 4.5V9H15M19.5 12a7.5 7.5 0 0 1-13 5.1L4.5 15M4.5 19.5V15H9"/></svg></div><span class="lab">Reuse</span><h3>A line of questioning is saved and run again</h3><p>Any thread becomes a workflow and runs again on the next wave, through the same checks, saying what changed since last time.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sect dark ctr" id="files">
+  <div class="wrap">
+    <div class="sub" id="agree">
+    <span class="lab" style="color:var(--a)">When files disagree <span class="tag">in testing</span></span>
+    <h2 class="h2b">It sets the report beside the records, and says which agree.</h2>
+    <p class="lead">From a test company folder we built with known answers: a board report, in Word and in PDF, and the 720-row sales workbook it should rest on. Asked on 21 October 2026 whether the report's revenue figures match the records. Select a region.</p>
+    <div class="recon dark">
+      <div class="chartcard">
+        <div class="legend2"><span><svg width="12" height="12"><circle cx="6" cy="6" r="5" fill="#5b76ff"/></svg>the records, summed by the room</span><span><svg width="12" height="12"><path d="M6 1 11 6 6 11 1 6z" fill="#eef1f4"/></svg>what the board report says</span><span><svg width="18" height="10"><rect width="18" height="10" rx="2" fill="rgba(76,104,255,.25)"/></svg>the report's own rounding</span></div>
+        <svg id="reconSvg" viewBox="0 0 640 330" role="img" aria-label="Board report figures against the sales records for four regions"></svg>
+      </div>
+      <div class="verdict" id="verdict" aria-live="polite"></div>
+    </div>
+    </div>
+  </div>
+</section>
+
+<section class="sect light ctr" id="measured">
   <div class="wrap">
     <span class="lab">What has been measured</span>
     <h2>Measured, not asserted.</h2>
@@ -640,35 +1024,38 @@ footer p{max-width:none;margin:0 0 6px}
       <div class="stat rv" style="--c:var(--i)"><div class="v" data-to="272">272</div><div class="k">Drafts stopped by the checks</div><p>Since August, before anyone saw them. The person got the counted figures and the reason instead.</p></div>
       <div class="stat rv" style="--c:var(--p)"><div class="v" data-to="15" data-fmt="s">15 s</div><div class="k">Half of all answers, within</div><p>2,733 answered questions in September and October 2026, plan, counting, writing and checking included.</p></div>
     </div>
-    <h3 class="kbh" style="margin:34px 0 0;font-size:26px;font-weight:300"><span aria-hidden="true">🥈</span> <b>Silver</b> on the MIT benchmark, KramaBench.</h3>
+    <div class="silver rv" id="silver"><h3 class="kbh"><span aria-hidden="true">🥈</span> <b>Silver</b> on the MIT benchmark, KramaBench.</h3>
     <p class="lead" style="margin-top:10px">It measures whether a system can do a data scientist's job end to end: find the right files, clean them, combine them, analyse them, and reach the right answer with no help. Second place on public tasks, as listed on 24 November 2026.</p>
-    <p><a href="kramabench.html">The scores, and how they were made</a> · <a href="https://kramabench.org/#leaderboard">kramabench.org</a></p>
-    <p class="closer">Every other number on this page comes from the room's own record or from the source files, recounted on 22 and 23 October 2026.</p>
-  </div>
-</section>
-
-<section id="range">
-  <div class="wrap">
+    <p><a href="https://kramabench.org/#leaderboard" target="_blank" rel="noopener">The scores, on kramabench.org</a></p></div>
+    <p class="closer">Every other number on this page comes from the room's own record or from the source files, recounted on 22 and 23 October 2026. The Ask card's numbers were counted from the survey rows on 24 November 2026.</p>
+    <div class="sub" id="range">
     <span class="lab" style="color:var(--t)">One engine, any table</span>
-    <h2>Surveys, logs, reviews, warehouses, folders. The same checks on all of them.</h2>
+    <h2 class="h2b">Surveys, logs, reviews, warehouses, folders. The same checks on all of them.</h2>
     <div class="range">
-      <div class="src rv"><div class="v">75,699</div><div class="u">Survey respondents</div><p>The US General Social Survey, 1972 to 2024: fifty years of the same questions.</p></div>
-      <div class="src rv"><div class="v">5,723,532</div><div class="u">Bike-share trips</div><p>Twelve monthly files of Chicago trips, read as one. The unit is a trip, not a rider, and the room says so.</p></div>
-      <div class="src rv"><div class="v">247,074</div><div class="u">Service requests</div><p>New York City 311 calls, read straight from a BigQuery warehouse table.</p></div>
-      <div class="src rv"><div class="v">4,803</div><div class="u">Films, two tables</div><p>A movies table and a credits table, joined only on a key the rows proved.</p></div>
-      <div class="src rv"><div class="v">24,898</div><div class="u">Reviews and comments</div><p>Public app reviews and video comments about a UK bank: free text, every quote checked.</p></div>
-      <div class="src rv"><div class="v">208,686</div><div class="u">Trending videos</div><p>Where one row is a video in one country, and a count is never double-counted across them.</p></div>
-      <div class="src rv"><div class="v">20,000</div><div class="u">Support tickets</div><p>A plain CSV with no questionnaire. Every column was classified from its own rows.</p></div>
-      <div class="src rv new"><div class="v">21 files</div><div class="u">One company folder · in testing</div><p>Sales workbooks, a board report in Word and PDF, two policy versions, a scanned notice and a survey's tab book, in one catalogue.</p></div>
+      <div class="src rv" tabindex="0"><div class="ibox"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8.5" r="3"/><path d="M3.5 19.5c0-3 2.5-5 5.5-5s5.5 2 5.5 5M16 6.2a3 3 0 0 1 0 5.6M17 14.8c2.2.5 3.5 2.2 3.5 4.7"/></svg></div><div class="v">75,699</div><div class="u">Survey respondents</div><p>The US General Social Survey, 1972 to 2024: fifty years of the same questions.</p></div>
+      <div class="src rv" tabindex="0"><div class="ibox"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="16" r="3.5"/><circle cx="18" cy="16" r="3.5"/><path d="M6 16l4-7h5l3 7M10 9l2.5 7M9 6.5h3"/></svg></div><div class="v">5,723,532</div><div class="u">Bike-share trips</div><p>Twelve monthly files of Chicago trips, read as one. The unit is a trip, not a rider, and the room says so.</p></div>
+      <div class="src rv" tabindex="0"><div class="ibox"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4.5h4l1.5 4-2 1.5a11 11 0 0 0 5.5 5.5l1.5-2 4 1.5v4c-8.5.5-15-6-14.5-14.5z"/></svg></div><div class="v">247,074</div><div class="u">Service requests</div><p>New York City 311 calls, read straight from a BigQuery warehouse table.</p></div>
+      <div class="src rv" tabindex="0"><div class="ibox"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="14" rx="2"/><path d="M8 5v14M16 5v14M3.5 9.5H8M3.5 14.5H8M16 9.5h4.5M16 14.5h4.5"/></svg></div><div class="v">4,803</div><div class="u">Films, two tables</div><p>A movies table and a credits table, joined only on a key the rows proved.</p></div>
+      <div class="src rv" tabindex="0"><div class="ibox"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5h16v10.5H10l-4.5 3.5V16H4z"/><path d="M8 9.5h8M8 12.5h5"/></svg></div><div class="v">24,898</div><div class="u">Reviews and comments</div><p>Public app reviews and video comments about a UK bank: free text, every quote checked.</p></div>
+      <div class="src rv" tabindex="0"><div class="ibox"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5.5" width="17" height="13" rx="2.5"/><path d="M10.2 9.3v5.4l4.6-2.7z"/></svg></div><div class="v">208,686</div><div class="u">Trending videos</div><p>Where one row is a video in one country, and a count is never double-counted across them.</p></div>
+      <div class="src rv" tabindex="0"><div class="ibox"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6.5h16v4a2 2 0 0 0 0 4v3H4v-3a2 2 0 0 0 0-4z"/><path d="M14 7.5v9" stroke-dasharray="2 2.4"/></svg></div><div class="v">20,000</div><div class="u">Support tickets</div><p>A plain CSV with no questionnaire. Every column was classified from its own rows.</p></div>
+      <div class="src rv new" tabindex="0"><div class="ibox"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 6.5h6l2 2.5h9v9.5h-17z"/></svg></div><div class="v">21 files</div><div class="u">One company folder · in testing</div><p>Sales workbooks, a board report in Word and PDF, two policy versions, a scanned notice and a survey's tab book, in one catalogue.</p></div>
+    </div>
     </div>
   </div>
 </section>
 
-<section id="sits">
+<section class="sect dark ctr" id="sits">
   <div class="wrap">
     <span class="lab" style="color:var(--p)">Where it sits</span>
     <h2>Everyone summarises. Nobody verifies.</h2>
-    <div class="sits">
+        <div class="claim">
+        <span class="lab">The claim, precisely</span>
+        <ul><li>counted, not composed</li><li>checked before you see it</li><li>said out loud when it cannot</li></ul>
+        <p>Drop any one of the three and something in the table below already does the rest.</p>
+      </div>
+    <details class="more">
+      <summary>How it differs from five other kinds of tool</summary>
       <table class="tbl">
         <thead><tr><th>Who</th><th>What they do</th><th>Where it stops</th></tr></thead>
         <tbody>
@@ -679,19 +1066,10 @@ footer p{max-width:none;margin:0 0 6px}
           <tr><td>AI-moderated interviews</td><td>Interview fresh respondents at scale.</td><td>Better at what has not happened yet. Every new question needs recruiting and fieldwork.</td></tr>
         </tbody>
       </table>
-      <div class="claim">
-        <span class="lab">The claim, precisely</span>
-        <ul><li>counted, not composed</li><li>checked before you see it</li><li>said out loud when it cannot</li></ul>
-        <p>Drop any one of the three and something on the left already does the rest.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="who">
-  <div class="wrap">
+    </details>
+    <div class="sub" id="who">
     <span class="lab" style="color:var(--o)">Who is building it</span>
-    <h2>Built by someone who did this work by hand.</h2>
+    <h2 class="h2b">Built by someone who did this work by hand.</h2>
     <p class="lead">Ten years of segmentations, personas and driver models for brands and banks, on both sides of the agency table. That is what makes the failure modes legible, and most of the checks in TalkTask began as a real mistake, caught in a real answer.</p>
     <div class="years">
       <div class="yr"><div class="y">2015</div><h3>Kantar</h3><p>Persona and segmentation programmes for Nestlé, GSK, Dabur, Suzuki, Hyundai.</p></div>
@@ -701,10 +1079,11 @@ footer p{max-width:none;margin:0 0 6px}
       <div class="yr"><div class="y">2023</div><h3>HSBC</h3><p>Global CX and NPS programme across 39 countries.</p></div>
       <div class="yr now"><div class="y">2026</div><h3>TalkTask</h3><p>Designed, built and run in London, alone.</p></div>
     </div>
+    </div>
   </div>
 </section>
 
-<section id="plans">
+<section class="sect light ctr" id="plans">
   <div class="wrap">
     <span class="lab" style="color:var(--v)">Plans</span>
     <h2>One product. Two plans, by what you bring.</h2>
@@ -744,17 +1123,13 @@ footer p{max-width:none;margin:0 0 6px}
       </div>
     </div>
     <div class="pilot rv"><p><b>Both start the same way.</b> One study, your honest reaction, then a six-week pilot on your live data at a fixed price, agreed before it starts.</p><a class="btn ghost" href="#ask">Bring one study</a></div>
-  </div>
-</section>
-
-<section id="ask">
-  <div class="wrap">
+    <div class="sub" id="ask">
     <span class="lab" style="color:var(--g)">What we are asking for</span>
-    <h2>Bring one study. Judge it yourself.</h2>
+    <h2 class="h2b">Bring one study. Judge it yourself.</h2>
     <div class="asks">
-      <div><div class="n">01</div><h3>One finished study, or one folder</h3><p>A tracker, a wave, a log, or the files behind a report already delivered, so nothing is at risk. Public or anonymised data works perfectly well as a first test.</p></div>
-      <div><div class="n">02</div><h3>Your honest reaction, including where it breaks</h3><p>You know how claims like these usually fall apart. Better to hear it from you than from a client.</p></div>
-      <div><div class="n">03</div><h3>And if it holds up, a pilot</h3><p>Six weeks on your live data and your questions, every answer receipted, and the receipts checked by you.</p></div>
+      <div><div class="n">01</div><h3>One finished study, or one folder</h3></div>
+      <div><div class="n">02</div><h3>Your honest reaction, including where it breaks</h3></div>
+      <div><div class="n">03</div><h3>And if it holds up, a pilot</h3></div>
     </div>
     <form class="trial" id="trial" aria-label="Ask for a trial">
       <div><label for="tn">Your name</label><input id="tn" name="name" autocomplete="name" required></div>
@@ -763,10 +1138,11 @@ footer p{max-width:none;margin:0 0 6px}
       <button class="btn" type="submit">Ask for a trial</button>
     </form>
     <p class="small" style="margin-top:12px">Opens your own email with this filled in, addressed to hello@talktask.si. This page sends and stores nothing.</p>
+    </div>
   </div>
 </section>
 
-<section id="faq">
+<section class="sect dark ctr" id="faq">
   <div class="wrap">
     <span class="lab">Questions people ask</span>
     <h2>Before you ask for a trial.</h2>
@@ -801,16 +1177,17 @@ footer p{max-width:none;margin:0 0 6px}
   </div>
 </section>
 
-<footer>
+<footer class="dark">
   <div class="wrap">
     <p>TalkTask, London. <a href="mailto:hello@talktask.si">hello@talktask.si</a></p>
-    <p>Examples come from the rooms' own record and were recounted from the source files on 22 and 23 October 2026. The company folder is a test set we built with known answers; its company is not real. Survey data: General Social Survey 1972–2024, NORC at the University of Chicago. Films: the public TMDB 5000 file. Trips: Divvy, Chicago. Service requests: NYC Open Data. Type: Inter and JetBrains Mono, Open Font License. This page sets no cookies and loads nothing from other sites.</p>
+    <p>Examples come from the rooms' own record and were recounted from the source files on 22 and 23 October 2026. The numbers in the Ask card were counted from the survey rows on 24 November 2026. The company folder is a test set we built with known answers; its company is not real. Survey data: General Social Survey 1972–2024, NORC at the University of Chicago. Films: the public TMDB 5000 file. Trips: Divvy, Chicago. Service requests: NYC Open Data. Type: Inter and JetBrains Mono, Open Font License. This page sets no cookies and loads nothing from other sites.</p>
+    <p><button type="button" class="still" id="still" aria-pressed="false">Pause motion</button></p>
   </div>
 </footer>
 
 <script>
 const $ = s => document.querySelector(s);
-const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const reduce = false; // his word, 24 Nov 2026: the page moves whatever the system setting says; the footer holds a pause switch
 const wait = ms => new Promise(r => setTimeout(r, ms));
 const fmt = n => n.toLocaleString("en-GB", {minimumFractionDigits: 2, maximumFractionDigits: 2});
 
@@ -833,72 +1210,8 @@ async function receipt(fig, slow) {
 }
 document.querySelectorAll(".fig").forEach(f => f.addEventListener("click", () => receipt(f, true)));
 
-/* ---------- hero: the question, the plan, the answer, the receipt ---------- */
-const Q = "How has confidence in medicine changed for each group since 1990, and which group fell most?";
-let run = 0;
-async function play() {
-  const me = ++run, typed = $("#typed");
-  ["#d2", "#d3", "#d4"].forEach(id => $(id).classList.remove("on"));
-  $("#hrec").innerHTML = ""; typed.classList.remove("done"); typed.textContent = "";
-  for (let i = 1; i <= Q.length; i++) { if (me !== run) return; typed.textContent = Q.slice(0, i); await wait(22); }
-  typed.classList.add("done");
-  for (const id of ["#d2", "#d3", "#d4"]) { await wait(id === "#d4" ? 700 : 500); if (me !== run) return; $(id).classList.add("on"); }
-  receipt(document.querySelector('#d3 .fig[data-v="b"]'), true);
-}
-$("#replay").onclick = play;
-play();
-// the hero leans toward the pointer
-if (!reduce) {
-  const st = $("#stage3d"), rig = $("#rig3d");
-  st.addEventListener("pointermove", e => {
-    if (innerWidth < 980) return;
-    const r = st.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
-    rig.style.transform = `rotateY(${(-11 + x * 10).toFixed(2)}deg) rotateX(${(5 - y * 8).toFixed(2)}deg)`;
-  });
-  st.addEventListener("pointerleave", () => rig.style.transform = "");
-}
-
 /* ---------- the formats strip ---------- */
 const READS = ["Excel", "CSV", "SPSS", "Stata", "Parquet", "JSON", "Triple-S", "zips of many tables", "Postgres", "BigQuery", "PDF reports*", "Word*", "PowerPoint*", "scans, by OCR*", "survey tab books*"];
-const one = READS.map(s => `<span${s.endsWith("*") ? ' class="t"' : ""}>${s.replace("*", " · in testing")}</span>`).join("");
-$("#readsTrack").innerHTML = one + one;
-
-/* ---------- the folder, in isometric ---------- */
-const plane = $("#plane");
-const FILES = [
-  ["XLSX", "sales_2025.xlsx", "var(--g)"], ["PDF", "board_report_q4.pdf", "var(--r)"], ["DOCX", "board_report_q4.docx", "var(--b)"],
-  ["DOCX", "policy_v1 and v2", "var(--b)"], ["XLS", "survey tab book", "var(--a)"], ["PDF · OCR", "scan_notice.pdf", "var(--ink3)"],
-];
-let iso = "";
-FILES.forEach(([k, n, c], i) => {
-  const col = i % 2, row = Math.floor(i / 2);
-  iso += `<div class="slab file" style="--c:${c};left:${col * 172}px;top:${row * 124 + 20}px;transform:translateZ(${14 + (2 - row) * 6}px)"><i>${k}</i><span>${n}</span></div>`;
-});
-const SHELVES = [
-  ["RECORDS", "rows, one per sale", "var(--g)", 440, 0, "rows"],
-  ["PRINTED TABLES", "cells, with their base", "var(--a)", 440, 220, "cells"],
-  ["TEXT", "passages, with their page", "var(--b)", 440, 440, "text"],
-];
-SHELVES.forEach(([t, s, c, x, y, kind]) => {
-  let inner = "";
-  if (kind === "rows") inner = `<div class="rows">${[0,1,2,3,4,5,6,7].map(j => `<i style="top:${60 + j * 15}px;opacity:${1 - j * .07}"></i>`).join("")}</div>`;
-  if (kind === "cells") inner = `<div class="cells">${Array.from({length: 20}, () => "<i></i>").join("")}</div>`;
-  if (kind === "text") inner = `<div class="text">${[150, 180, 120, 170, 90, 160].map((w, j) => `<i style="top:${62 + j * 19}px;width:${w}px"></i>`).join("")}</div>`;
-  iso += `<div class="slab shelf" style="--c:${c};left:${x}px;top:${y}px;transform:translateZ(22px)"><em>${t}<small>${s}</small></em>${inner}</div>`;
-});
-iso += `<div class="slab disc" style="--c:var(--t);left:730px;top:250px;transform:translateZ(14px);box-shadow:${Array.from({length: 22}, (_, j) => `${j + 1}px ${j + 1}px 0 color-mix(in srgb,var(--t) ${40 - j}%,#0b0e12)`).join(",")},40px 50px 60px rgba(0,0,0,.6)"></div>`;
-iso += `<div class="bill" style="--c:var(--t);left:800px;top:330px;transform:translateZ(70px)"><div><b>One catalogue</b><span>kept current file by file</span></div></div>`;
-iso += `<div class="slab file" style="--c:var(--r);left:100px;top:420px;width:140px;height:70px;transform:translateZ(8px);border-style:dashed;opacity:.85"><i>FLAGGED</i><span>personal columns</span></div>`;
-// wires lie flat on the plane: files to shelves, shelves to the catalogue
-const wire = (x1, y1, x2, y2, c) => { const l = Math.hypot(x2 - x1, y2 - y1), a = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
-  return `<div class="wire" style="--c:${c};left:${x1}px;top:${y1}px;width:${l}px;transform:rotate(${a}deg) translateZ(2px)"></div>`; };
-iso += wire(340, 80, 440, 95, "var(--g)") + wire(340, 200, 440, 315, "var(--a)") + wire(340, 320, 440, 535, "var(--b)");
-iso += wire(670, 95, 760, 270, "var(--t)") + wire(670, 315, 730, 325, "var(--t)") + wire(670, 535, 760, 380, "var(--t)");
-iso += wire(170, 400, 170, 430, "var(--r)");
-plane.innerHTML = iso;
-// measured: the scene spans x 62..1028 and y -31..392 of its frame; crop to that, 30px around, and fill the width
-function fitIso() { const s = $("#isowrap").clientWidth / 1026; $("#isofit").style.transform = `translate(${-32 * s}px,${61 * s}px) scale(${s})`; }
-fitIso(); addEventListener("resize", fitIso);
 
 /* ---------- when files disagree ---------- */
 const REG = [
@@ -924,10 +1237,10 @@ function drawRecon(sel) {
     s += `<g class="rowbtn${on ? " sel" : ""}" data-i="${i}" tabindex="0" role="button" aria-pressed="${on}"><rect class="hit" x="0" y="${y - 30}" width="640" height="60" rx="4"/>`;
     s += `<text x="12" y="${y + 6}" fill="${on ? "#eef1f4" : "#c5cbd3"}" font-size="17">${d.r}</text>`;
     s += `<line x1="120" y1="${y}" x2="610" y2="${y}" stroke="#2a2f39" stroke-dasharray="2 4"/>`;
-    if (d.band) s += `<rect x="${PX(d.band[0])}" y="${y - 11}" width="${Math.max(3, PX(d.band[1]) - PX(d.band[0]))}" height="22" rx="3" fill="rgba(95,177,127,.25)"/>`;
-    if (d.net) s += `<line x1="${PX(d.rec)}" y1="${y}" x2="${PX(d.net) + 7}" y2="${y}" stroke="#e0925a" stroke-width="2"/><path d="M${PX(d.net) + 7} ${y - 5} ${PX(d.net)} ${y} ${PX(d.net) + 7} ${y + 5}" fill="none" stroke="#e0925a" stroke-width="2"/><text x="${(PX(d.rec) + PX(d.net)) / 2}" y="${y - 12}" fill="#e0925a" font-size="10.5" text-anchor="middle">less returns</text><circle cx="${PX(d.net)}" cy="${y}" r="5" fill="none" stroke="#4fb0b0" stroke-width="2"/>`;
+    if (d.band) s += `<rect x="${PX(d.band[0])}" y="${y - 11}" width="${Math.max(3, PX(d.band[1]) - PX(d.band[0]))}" height="22" rx="3" fill="rgba(76,104,255,.25)"/>`;
+    if (d.net) s += `<line x1="${PX(d.rec)}" y1="${y}" x2="${PX(d.net) + 7}" y2="${y}" stroke="#e0925a" stroke-width="2"/><path d="M${PX(d.net) + 7} ${y - 5} ${PX(d.net)} ${y} ${PX(d.net) + 7} ${y + 5}" fill="none" stroke="#e0925a" stroke-width="2"/><text x="${(PX(d.rec) + PX(d.net)) / 2}" y="${y - 12}" fill="#e0925a" font-size="10.5" text-anchor="middle">less returns</text><circle cx="${PX(d.net)}" cy="${y}" r="5" fill="none" stroke="#5b76ff" stroke-width="2"/>`;
     if (d.said && !d.band) s += `<line x1="${PX(d.rec)}" y1="${y}" x2="${PX(d.said)}" y2="${y}" stroke="#e0705f" stroke-width="2"/>`;
-    s += `<circle cx="${PX(d.rec)}" cy="${y}" r="7" fill="#4fb0b0"/>`;
+    s += `<circle cx="${PX(d.rec)}" cy="${y}" r="7" fill="#5b76ff"/>`;
     if (d.said) s += `<path d="M${PX(d.said)} ${y - 8} ${PX(d.said) + 8} ${y} ${PX(d.said)} ${y + 8} ${PX(d.said) - 8} ${y}z" fill="#eef1f4"/>`;
     s += `</g>`;
   });
@@ -939,37 +1252,6 @@ function drawRecon(sel) {
 $("#reconSvg").addEventListener("click", e => { const g = e.target.closest(".rowbtn"); if (g) drawRecon(+g.dataset.i); });
 $("#reconSvg").addEventListener("keydown", e => { const g = e.target.closest(".rowbtn"); if (g && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); drawRecon(+g.dataset.i); } });
 drawRecon(0);
-
-/* ---------- how it works: two lanes ---------- */
-const STEPS = [
-  ["model", "Plan", "a fixed set of steps"], ["room", "Check plan", "against the data"], ["room", "Count", "a base on each figure"],
-  ["room", "Gate", "every step came back?"], ["room", "Spot", "what matters, ranked"], ["model", "Write", "from counted tables"],
-  ["room", "Check", "eight checks, below"], ["room", "Show", "receipts on figures"],
-];
-(function lanes() {
-  const top = 90, bot = 230, x = i => 75 + i * 136, y = r => r === "model" ? top : bot, W = 120, H = 58;
-  let s = `<defs><linearGradient id="lg" x1="0" x2="1"><stop offset="0" stop-color="#a882d6"/><stop offset=".5" stop-color="#4fb0b0"/><stop offset="1" stop-color="#5fb17f"/></linearGradient>
-    <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 10 5 0 10z" fill="#d9b04f"/></marker></defs>`;
-  s += `<rect x="0" y="${top - 46}" width="1100" height="92" fill="rgba(168,130,214,.06)"/><rect x="0" y="${bot - 46}" width="1100" height="92" fill="rgba(79,176,176,.06)"/>`;
-  s += `<text x="14" y="${top - 30}" fill="#a882d6" font-size="10.5" letter-spacing="2.4" font-family="JetBrains Mono">THE MODEL</text><text x="14" y="${bot - 30}" fill="#4fb0b0" font-size="10.5" letter-spacing="2.4" font-family="JetBrains Mono">THE ROOM</text>`;
-  let d = `M${x(0)} ${y(STEPS[0][0])}`;
-  for (let i = 1; i < STEPS.length; i++) { const x0 = x(i - 1), y0 = y(STEPS[i - 1][0]), x1 = x(i), y1 = y(STEPS[i][0]); d += ` C${(x0 + x1) / 2} ${y0} ${(x0 + x1) / 2} ${y1} ${x1} ${y1}`; }
-  s += `<path id="lanePath" d="${d}" fill="none" stroke="url(#lg)" stroke-width="2.5" opacity=".8"/>`;
-  s += `<path d="M${x(3)} ${bot + 30} C${x(3)} ${bot + 80} ${x(0)} ${bot + 80} ${x(0)} ${top + 30}" fill="none" stroke="#d9b04f" stroke-width="1.5" stroke-dasharray="5 5" marker-end="url(#ah)"/>`;
-  s += `<text x="${(x(0) + x(3)) / 2}" y="${bot + 76}" fill="#d9b04f" font-size="11.5" text-anchor="middle">gate fails: plan again, once, with the reason</text>`;
-  s += `<path d="M${x(6) + 20} ${bot - 30} C${x(6) + 20} ${top + 60} ${x(5) + 20} ${top + 60} ${x(5) + 20} ${top + 30}" fill="none" stroke="#d9b04f" stroke-width="1.5" stroke-dasharray="5 5" marker-end="url(#ah)"/>`;
-  s += `<text x="${x(6) + 70}" y="${top + 50}" fill="#d9b04f" font-size="11.5">one strike: write again</text>`;
-  s += `<path d="M${x(6)} ${bot + 30} L${x(6)} ${bot + 66}" stroke="#e0705f" stroke-width="1.5"/><text x="${x(6)}" y="${bot + 82}" fill="#e0705f" font-size="11.5" text-anchor="middle">two strikes: it says what it could not say</text>`;
-  STEPS.forEach(([r, t, sub], i) => {
-    const c = r === "model" ? "#a882d6" : "#4fb0b0";
-    s += `<g><rect x="${x(i) - W / 2}" y="${y(r) - H / 2}" width="${W}" height="${H}" rx="6" fill="#20252e" stroke="${c}" stroke-width="1.2"/>
-      <text x="${x(i)}" y="${y(r) - 4}" fill="#eef1f4" font-size="13" text-anchor="middle">${i + 1} · ${t}</text>
-      <text x="${x(i)}" y="${y(r) + 14}" fill="#8d95a1" font-size="10" text-anchor="middle">${sub}</text></g>`;
-  });
-  if (!reduce) s += `<circle r="5" fill="#eef1f4"><animateMotion dur="7s" repeatCount="indefinite" rotate="auto"><mpath href="#lanePath"/></animateMotion></circle>`;
-  $("#lanes").innerHTML = s;
-  $("#flowList").innerHTML = STEPS.map(([r, t, sub], i) => `<div class="box ${r}"><div class="who">${r === "model" ? "The model" : "The room"}</div><h3>${i + 1} · ${t}</h3><p>${sub}</p></div>`).join("");
-})();
 
 /* ---------- the checks: eight glass filters ---------- */
 const CHECKS = [
@@ -995,14 +1277,6 @@ function pick(i) {
 document.addEventListener("click", e => { const p = e.target.closest(".pane,.band"); if (p) pick(+p.dataset.i); });
 pick(6);
 
-/* ---------- the dig: 36 cuts, 20 held, 16 dead ends ---------- */
-$("#fan").innerHTML = `<defs><filter id="gl"><feGaussianBlur stdDeviation="2.5"/></filter></defs>` + Array.from({length: 36}, (_, i) => {
-  const x = (14 + i * (972 / 35)).toFixed(1), held = i < 20, len = Math.ceil(Math.hypot(x - 500, 132));
-  return `<line x1="500" y1="0" x2="${x}" y2="132" stroke="${held ? "#5c95d6" : "#3a404c"}" stroke-dasharray="${len}" style="--len:${len};--i:${i}"/>` +
-    (held ? `<circle cx="${x}" cy="140" r="7" fill="#5c95d6" opacity=".45" filter="url(#gl)"/>` : "") +
-    `<circle cx="${x}" cy="140" r="5" fill="${held ? "#5c95d6" : "#12151b"}" stroke="${held ? "#5c95d6" : "#5f6774"}" stroke-width="1.4"/>`;
-}).join("");
-
 /* ---------- counting up ---------- */
 function countUp(el) {
   const to = +el.dataset.to, f = el.dataset.fmt, t0 = performance.now(), dur = 1100;
@@ -1021,14 +1295,10 @@ if (!reduce) document.querySelectorAll(".src").forEach(c => {
 const io = new IntersectionObserver(es => es.forEach(e => {
   if (!e.isIntersecting) return;
   const el = e.target; io.unobserve(el);
-  if (el.id === "fan") { el.classList.remove("pre"); if (!reduce) el.classList.add("draw"); }
-  else if (el.classList.contains("v")) countUp(el);
+  if (el.classList.contains("v")) countUp(el);
   else el.classList.add("in");
-}), {threshold: .2});
+}), {threshold: .08});
 document.querySelectorAll(".rv").forEach((el, i) => { el.style.transitionDelay = (i % 3) * 90 + "ms"; io.observe(el); });
-document.querySelectorAll("#rings i").forEach((r, i) => r.style.transitionDelay = i * 140 + "ms");
-if (!reduce) $("#fan").classList.add("pre");
-["#rings", "#fan"].forEach(id => io.observe($(id)));
 document.querySelectorAll(".stat .v[data-to]").forEach(v => io.observe(v));
 
 /* ---------- the trial form: builds an email, sends nothing itself ---------- */
@@ -1038,6 +1308,225 @@ $("#trial").addEventListener("submit", e => {
   const body = "Name: " + v("name") + "\nCompany: " + v("company") + "\nData: " + v("data");
   location.href = "mailto:hello@talktask.si?subject=" + encodeURIComponent("TalkTask trial: " + (v("company") || v("name"))) + "&body=" + encodeURIComponent(body);
 });
+
+/* ---------- the first screen: a field of squares; the ones under a slow wave, and near the pointer, light ---------- */
+let still = false;
+(function field() {
+  const c = $("#field"), x = c.getContext("2d"), host = c.parentElement, S = 22;
+  let W = 0, H = 0, px = -1e4, py = -1e4, seen = true;
+  function size() { const r = host.getBoundingClientRect(), d = Math.min(2, devicePixelRatio || 1); W = r.width; H = r.height; c.width = W * d; c.height = H * d; x.setTransform(d, 0, 0, d, 0, 0); }
+  function draw(t) {
+    requestAnimationFrame(draw);
+    if (!seen || still || document.hidden) return;
+    x.clearRect(0, 0, W, H);
+    for (let j = 0; j * S < H; j++) for (let i = 0; i * S < W; i++) {
+      const wave = Math.sin(i * .33 + t / 1500) + Math.cos(j * .52 - t / 2100) + Math.sin((i + j) * .19 + t / 2900);
+      const near = Math.max(0, 1 - Math.hypot(i * S + S / 2 - px, j * S + S / 2 - py) / 170), a = Math.max(0, (wave - 1.55) / 1.45) * .6 + near * .95;
+      x.fillStyle = a > .04 ? `rgba(92,118,255,${Math.min(1, a).toFixed(3)})` : "rgba(255,255,255,.04)";
+      x.fillRect(i * S + 2, j * S + 2, S - 5, S - 5);
+    }
+  }
+  host.addEventListener("pointermove", e => { const r = host.getBoundingClientRect(); px = e.clientX - r.left; py = e.clientY - r.top; });
+  host.addEventListener("pointerleave", () => { px = py = -1e4; });
+  new IntersectionObserver(es => { seen = es[0].isIntersecting; }).observe(host);
+  addEventListener("resize", size); size(); requestAnimationFrame(draw);
+})();
+$("#still").onclick = e => { still = !still; document.documentElement.classList.toggle("still", still); e.target.setAttribute("aria-pressed", still); e.target.textContent = still ? "Play motion" : "Pause motion"; };
+
+/* ---------- Ask: three real questions, then any question the visitor builds ---------- */
+const P = {"floor":100,"universe":65015,"held":75699,"years":[1972,1973,1974,1975,1976,1977,1978,1980,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1993,1994,1996,1998,2000,2002,2004,2006,2008,2010,2012,2014,2016,2018,2021,2022,2024],"measures":[{"id":"conmedic","phrase":"had a great deal of confidence in medicine","question":"confidence in medicine: a great deal, only some, or hardly any","counted":"a great deal"},{"id":"consci","phrase":"had a great deal of confidence in the scientific community","question":"confidence in scientific community: a great deal, only some, or hardly any","counted":"a great deal"},{"id":"conpress","phrase":"had a great deal of confidence in the press","question":"confidence in press: a great deal, only some, or hardly any","counted":"a great deal"},{"id":"conlegis","phrase":"had a great deal of confidence in Congress","question":"confidence in congress: a great deal, only some, or hardly any","counted":"a great deal"},{"id":"trust","phrase":"said most people can be trusted","question":"can people be trusted: most people can be trusted, can't be too careful, or depends","counted":"most people can be trusted"},{"id":"happy","phrase":"said they were very happy","question":"general happiness: very happy, pretty happy, or not too happy","counted":"very happy"}],"groups":[{"id":"all","kind":"","name":"Everyone","phrase":"everyone"},{"id":"f","kind":"Sex","name":"Women","phrase":"women"},{"id":"m","kind":"Sex","name":"Men","phrase":"men"},{"id":"c0","kind":"Life-stage group","name":"Big families at home","phrase":"the ‘Big families at home’ group"},{"id":"c1","kind":"Life-stage group","name":"Retired and comfortable","phrase":"the ‘Retired and comfortable’ group"},{"id":"c2","kind":"Life-stage group","name":"Working married, no children at home","phrase":"the ‘Working married, no children at home’ group"},{"id":"c3","kind":"Life-stage group","name":"New parents","phrase":"the ‘New parents’ group"},{"id":"c4","kind":"Life-stage group","name":"Never married, no children","phrase":"the ‘Never married, no children’ group"},{"id":"c5","kind":"Life-stage group","name":"Financially strained, often divorced","phrase":"the ‘Financially strained, often divorced’ group"},{"id":"d0","kind":"Highest degree","name":"Less than high school","phrase":"people whose highest degree is ‘less than high school’"},{"id":"d1","kind":"Highest degree","name":"High school","phrase":"people whose highest degree is ‘high school’"},{"id":"d2","kind":"Highest degree","name":"Associate/junior college","phrase":"people whose highest degree is ‘associate/junior college’"},{"id":"d3","kind":"Highest degree","name":"Bachelor's","phrase":"people whose highest degree is ‘bachelor's’"},{"id":"d4","kind":"Highest degree","name":"Graduate","phrase":"people whose highest degree is ‘graduate’"}],"cells":{"conmedic":{"all":[[0,0],[794,1452],[878,1432],[738,1433],[790,1441],[759,1456],[679,1465],[740,1394],[809,1781],[795,1511],[477,926],[0,0],[648,1399],[904,1725],[501,951],[464,987],[395,854],[456,942],[396,1001],[798,1918],[813,1783],[810,1791],[760,1701],[332,885],[308,847],[757,1922],[494,1313],[549,1331],[504,1288],[627,1631],[676,1877],[537,1499],[968,2377],[369,1073],[272,1034]],"f":[[0,0],[422,775],[480,764],[413,788],[423,792],[413,794],[389,848],[400,774],[463,1026],[422,857],[264,533],[0,0],[344,802],[519,983],[262,529],[260,562],[215,469],[262,556],[224,590],[435,1076],[417,981],[406,987],[392,934],[172,494],[152,438],[417,1095],[260,714],[300,756],[257,708],[318,906],[336,1031],[282,811],[502,1321],[168,596],[154,573]],"m":[[0,0],[372,677],[398,668],[325,645],[367,649],[346,662],[290,617],[340,620],[346,755],[373,654],[213,393],[0,0],[304,597],[385,742],[239,422],[204,425],[180,385],[194,386],[172,411],[363,842],[396,802],[404,804],[368,767],[160,391],[156,409],[340,827],[234,599],[249,575],[247,580],[309,725],[340,846],[255,688],[465,1050],[200,476],[116,457]],"c0":[[0,0],[143,276],[184,294],[117,234],[126,212],[126,242],[99,225],[98,184],[85,192],[99,196],[65,122],[0,0],[86,187],[130,225],[68,125],[65,130],[45,99],[46,117],[53,130],[100,225],[75,187],[90,195],[90,215],[30,74],[26,80],[67,162],[46,121],[39,109],[48,119],[44,126],[43,127],[32,98],[62,184],[22,66],[20,80]],"c1":[[0,0],[111,232],[138,252],[122,260],[141,287],[120,255],[109,267],[151,275],[157,347],[122,264],[79,170],[0,0],[130,289],[168,331],[110,217],[94,201],[93,183],[86,194],[60,199],[150,368],[137,295],[154,330],[118,292],[59,159],[46,142],[155,372],[106,262],[116,269],[109,274],[138,335],[147,404],[114,329],[318,649],[120,292],[95,266]],"c2":[[0,0],[156,304],[152,265],[132,259],[132,261],[165,302],[124,279],[139,251],[133,307],[144,281],[88,180],[0,0],[98,232],[143,301],[88,160],[77,187],[62,153],[75,154],[64,174],[141,385],[148,349],[170,371],[140,352],[72,203],[76,211],[130,391],[104,271],[92,250],[95,248],[144,383],[124,369],[130,333],[187,441],[62,171],[35,158]],"c3":[[0,0],[131,205],[156,216],[121,217],[125,214],[105,180],[105,209],[90,182],[120,242],[124,219],[64,112],[0,0],[95,180],[99,187],[60,102],[52,119],[45,91],[63,122],[45,113],[96,230],[102,193],[71,166],[86,163],[30,72],[25,66],[79,173],[45,113],[44,100],[45,107],[44,110],[45,131],[39,102],[60,140],[20,82],[18,68]],"c4":[[0,0],[151,247],[146,227],[159,253],[159,259],[143,266],[157,285],[158,280],[182,363],[185,306],[111,197],[0,0],[148,274],[207,375],[113,196],[123,218],[90,174],[110,197],[96,211],[193,393],[200,408],[200,398],[219,398],[77,192],[85,176],[182,400],[100,255],[143,272],[105,245],[138,324],[181,406],[132,347],[194,449],[68,222],[59,220]],"c5":[[0,0],[46,79],[46,79],[40,91],[46,84],[39,90],[35,93],[44,101],[68,168],[66,131],[26,61],[0,0],[41,113],[73,151],[24,70],[22,60],[31,71],[35,67],[39,89],[55,155],[68,163],[55,159],[51,138],[35,117],[26,91],[76,234],[41,159],[67,199],[62,179],[63,201],[64,257],[53,173],[75,307],[42,151],[28,161]],"d0":[[0,0],[287,527],[291,498],[248,505],[257,505],[271,508],[190,448],[212,412],[247,558],[192,389],[124,243],[0,0],[164,377],[229,438],[118,224],[94,218],[83,177],[79,185],[66,178],[138,323],[134,257],[137,276],[105,244],[49,120],[34,111],[133,296],[78,198],[87,198],[77,204],[78,212],[69,201],[63,163],[32,118],[36,106],[24,86]],"d1":[[0,0],[403,700],[450,705],[395,710],[403,701],[372,711],[386,772],[385,717],[418,906],[425,792],[249,475],[0,0],[336,717],[465,894],[266,520],[250,523],[207,455],[263,513],[205,522],[412,1011],[435,970],[413,969],[383,912],[166,476],[145,440],[343,946],[223,642],[240,657],[243,606],[306,828],[327,981],[234,740],[310,964],[146,509],[108,476]],"d2":[[0,0],[12,19],[16,24],[14,33],[13,24],[15,32],[14,40],[24,44],[32,74],[38,60],[12,30],[0,0],[24,46],[36,74],[24,41],[33,66],[23,47],[27,47],[24,59],[37,108],[42,125],[54,131],[63,139],[21,56],[24,72],[60,170],[38,115],[39,90],[34,103],[38,111],[45,136],[47,129],[70,220],[24,81],[16,100]],"d3":[[0,0],[56,129],[77,133],[64,137],[84,146],[71,131],[62,143],[81,151],[80,155],[97,193],[71,123],[0,0],[87,184],[134,230],[63,115],[64,125],[56,122],[65,151],[70,166],[147,336],[143,305],[152,290],[131,263],[66,153],[65,140],[147,337],[108,240],[103,236],[89,235],[136,301],[140,351],[119,301],[311,624],[91,226],[62,225]],"d4":[[0,0],[30,63],[44,72],[17,48],[30,60],[26,69],[26,61],[36,66],[30,82],[42,76],[20,54],[0,0],[37,75],[36,84],[30,51],[22,54],[26,52],[21,45],[31,76],[61,136],[56,121],[52,119],[73,135],[30,80],[39,83],[74,173],[46,117],[80,150],[61,140],[69,179],[94,207],[74,166],[243,446],[72,151],[61,146]]},"consci":{"all":[[0,0],[544,1327],[657,1297],[546,1300],[627,1289],[603,1359],[535,1355],[586,1280],[633,1621],[638,1436],[422,881],[0,0],[552,1340],[733,1618],[371,882],[403,912],[330,787],[385,884],[382,927],[744,1832],[714,1664],[728,1687],[707,1595],[328,839],[347,820],[794,1849],[511,1256],[540,1276],[517,1231],[670,1584],[772,1827],[661,1461],[1222,2370],[440,1058],[380,1014]],"f":[[0,0],[259,689],[323,683],[288,707],[326,702],[291,723],[271,774],[293,684],[312,912],[318,808],[210,503],[0,0],[265,758],[385,905],[173,481],[196,512],[173,425],[208,508],[199,534],[382,1005],[342,899],[351,918],[361,857],[180,469],[161,421],[391,1038],[254,677],[269,713],[251,669],[345,875],[378,994],[318,784],[626,1317],[226,585],[202,559]],"m":[[0,0],[285,638],[334,614],[258,593],[301,587],[312,636],[264,581],[293,596],[321,709],[320,628],[212,378],[0,0],[287,582],[348,713],[198,401],[207,400],[157,362],[177,376],[183,393],[362,827],[372,765],[377,769],[346,738],[148,370],[186,399],[403,811],[257,579],[271,563],[266,562],[325,709],[394,833],[343,677],[595,1046],[214,472],[177,451]],"c0":[[0,0],[99,260],[130,267],[93,218],[97,194],[95,225],[79,213],[82,179],[63,186],[77,194],[62,121],[0,0],[73,183],[104,221],[50,121],[54,124],[48,96],[53,108],[46,123],[83,217],[66,172],[80,185],[85,202],[23,71],[36,80],[67,159],[54,120],[38,103],[46,116],[44,125],[48,123],[43,93],[85,183],[20,63],[25,78]],"c1":[[0,0],[75,195],[95,203],[72,214],[108,239],[88,218],[73,223],[97,224],[100,273],[93,227],[55,153],[0,0],[89,260],[112,284],[68,187],[73,169],[60,160],[64,172],[54,169],[107,334],[109,258],[135,294],[104,250],[56,143],[46,133],[147,344],[81,238],[114,250],[100,243],[128,319],[148,382],[141,314],[354,648],[122,288],[111,259]],"c2":[[0,0],[129,285],[127,239],[104,236],[119,235],[143,286],[118,265],[108,234],[102,282],[121,269],[82,167],[0,0],[88,227],[129,288],[70,150],[70,176],[62,145],[53,149],[70,155],[152,376],[151,337],[146,355],[142,336],[83,191],[87,204],[145,380],[120,264],[98,241],[104,243],[160,373],[142,362],[154,330],[228,441],[71,169],[58,158]],"c3":[[0,0],[80,189],[114,208],[88,206],[102,194],[74,175],[70,195],[66,168],[90,231],[95,212],[52,112],[0,0],[78,175],[75,179],[45,98],[51,113],[38,85],[54,114],[48,111],[89,222],[66,178],[63,162],[66,157],[24,73],[33,64],[72,164],[45,107],[41,93],[44,100],[55,108],[56,128],[42,101],[75,140],[30,81],[20,68]],"c4":[[0,0],[100,236],[124,223],[123,245],[127,243],[125,259],[125,271],[155,276],[174,352],[162,304],[110,192],[0,0],[138,269],[195,364],[96,188],[113,206],[74,160],[110,193],[103,205],[203,387],[203,391],[196,379],[202,384],[80,190],[87,170],[205,392],[117,250],[138,271],[122,245],[162,319],[209,399],[185,344],[272,448],[114,220],[95,218]],"c5":[[0,0],[22,62],[21,64],[30,79],[25,70],[30,86],[34,86],[34,89],[46,148],[47,121],[25,56],[0,0],[35,106],[53,137],[14,63],[16,55],[21,63],[22,64],[27,82],[48,143],[51,148],[44,151],[53,129],[36,108],[30,89],[80,223],[48,151],[68,194],[62,173],[64,192],[87,253],[45,164],[109,302],[47,150],[40,154]],"d0":[[0,0],[151,454],[165,416],[147,422],[170,411],[166,449],[111,387],[123,346],[152,459],[123,346],[69,217],[0,0],[94,344],[132,382],[51,187],[57,176],[44,142],[49,156],[47,149],[87,283],[83,215],[82,238],[67,212],[36,107],[25,102],[82,273],[60,176],[56,179],[69,182],[67,201],[64,195],[50,157],[30,117],[26,103],[17,83]],"d1":[[0,0],[275,653],[352,661],[288,665],[311,651],[303,677],[283,730],[313,679],[319,849],[331,759],[221,459],[0,0],[294,693],[359,850],[217,489],[203,494],[163,429],[199,487],[188,483],[370,973],[343,907],[350,918],[342,851],[162,451],[158,423],[375,911],[214,613],[231,626],[221,578],[295,798],[346,949],[274,716],[392,959],[175,497],[144,464]],"d2":[[0,0],[11,17],[12,21],[15,32],[14,24],[18,31],[18,36],[23,41],[31,74],[27,60],[17,30],[0,0],[21,45],[27,71],[21,41],[34,63],[25,46],[27,46],[26,58],[39,106],[51,122],[60,123],[64,132],[25,56],[30,72],[68,164],[47,113],[39,89],[38,102],[49,110],[59,132],[48,126],[97,219],[27,81],[35,97]],"d3":[[0,0],[71,127],[81,129],[73,134],[92,141],[76,129],[85,141],[84,147],[89,154],[111,195],[81,122],[0,0],[101,183],[159,229],[51,114],[79,125],[66,120],[85,150],[84,160],[172,332],[170,299],[164,283],[152,258],[66,147],[83,141],[165,329],[126,237],[123,233],[106,231],[159,297],[176,344],[179,297],[392,624],[122,225],[104,223]],"d4":[[0,0],[33,63],[47,70],[23,47],[37,58],[39,69],[37,60],[42,64],[42,82],[46,75],[33,52],[0,0],[42,75],[55,82],[31,51],[29,53],[32,49],[25,44],[37,77],[74,135],[65,118],[71,119],[80,134],[39,78],[50,81],[104,172],[63,116],[91,149],[83,138],[100,178],[127,206],[110,165],[309,446],[90,152],[79,146]]},"conpress":{"all":[[0,0],[336,1446],[378,1434],[350,1410],[418,1432],[368,1440],[301,1450],[310,1380],[322,1756],[206,1505],[161,919],[0,0],[261,1390],[335,1703],[179,931],[166,973],[120,833],[151,933],[112,994],[191,1901],[195,1755],[162,1779],[171,1682],[88,877],[75,847],[205,1917],[115,1303],[137,1324],[118,1274],[135,1619],[155,1873],[189,1495],[284,2370],[94,1066],[80,1024]],"f":[[0,0],[162,772],[190,765],[190,773],[225,790],[185,787],[166,837],[154,760],[182,1012],[106,850],[76,528],[0,0],[141,793],[181,961],[95,517],[97,550],[59,452],[88,544],[64,583],[101,1061],[115,966],[70,979],[99,917],[47,492],[38,440],[104,1090],[69,708],[79,750],[64,697],[69,895],[79,1022],[91,810],[136,1319],[50,591],[46,569]],"m":[[0,0],[174,674],[188,669],[160,637],[193,642],[183,653],[135,613],[156,620],[140,744],[100,655],[85,391],[0,0],[120,597],[154,742],[84,414],[69,423],[61,381],[63,389],[48,411],[90,840],[80,789],[92,800],[72,765],[41,385],[37,407],[101,827],[46,595],[58,574],[54,577],[66,724],[76,851],[98,685],[147,1045],[44,474],[34,451]],"c0":[[0,0],[63,277],[70,294],[51,230],[55,211],[62,241],[45,224],[38,182],[26,191],[23,197],[18,122],[0,0],[28,188],[43,224],[20,123],[20,128],[7,100],[22,116],[17,130],[19,223],[19,187],[15,196],[28,214],[4,72],[9,80],[18,164],[13,121],[8,106],[8,117],[8,125],[10,125],[5,96],[20,183],[3,64],[9,80]],"c1":[[0,0],[54,230],[74,254],[64,252],[67,286],[69,246],[49,262],[60,268],[54,336],[32,262],[26,168],[0,0],[52,285],[58,320],[35,212],[32,194],[23,173],[33,190],[20,193],[37,362],[37,285],[38,327],[25,290],[19,159],[8,142],[38,367],[18,256],[32,264],[16,265],[35,335],[31,400],[55,330],[103,647],[28,292],[33,266]],"c2":[[0,0],[79,305],[57,265],[54,258],[76,259],[79,300],[52,279],[52,249],[62,305],[30,277],[26,180],[0,0],[40,231],[43,302],[26,159],[26,185],[27,148],[16,155],[13,174],[25,386],[29,346],[17,369],[23,345],[19,200],[7,209],[36,389],[20,271],[16,249],[18,246],[24,379],[29,369],[44,334],[54,439],[18,171],[9,156]],"c3":[[0,0],[44,201],[68,215],[57,217],[72,213],[48,179],[46,208],[48,179],[41,239],[25,218],[20,111],[0,0],[41,179],[34,184],[25,99],[21,118],[15,89],[22,120],[17,114],[29,225],[21,186],[13,166],[18,159],[11,73],[4,66],[20,174],[14,112],[13,99],[11,107],[10,110],[4,129],[10,101],[21,140],[4,80],[5,67]],"c4":[[0,0],[53,244],[71,228],[77,248],[80,258],[61,265],[66,282],[65,280],[87,364],[50,308],[44,195],[0,0],[56,274],[85,374],[38,191],[36,215],[29,170],[30,196],[24,209],[47,392],[44,403],[39,397],[48,396],[20,191],[21,177],[43,402],[20,253],[37,272],[30,245],[24,322],[31,406],[45,344],[43,449],[20,220],[13,217]],"c5":[[0,0],[19,80],[19,79],[22,88],[31,82],[20,88],[24,91],[22,102],[21,163],[26,129],[8,60],[0,0],[19,110],[38,150],[17,68],[14,61],[9,72],[14,66],[13,90],[14,153],[20,160],[21,157],[15,135],[11,115],[19,92],[33,231],[16,158],[18,201],[25,178],[20,199],[29,261],[16,173],[20,305],[9,149],[10,158]],"d0":[[0,0],[142,522],[152,496],[119,490],[145,499],[141,498],[111,440],[97,400],[103,537],[65,381],[50,238],[0,0],[70,366],[91,422],[55,211],[45,206],[26,163],[36,181],[35,171],[52,312],[47,246],[42,267],[29,237],[18,120],[21,111],[44,294],[31,194],[26,195],[23,196],[29,209],[29,204],[19,162],[15,120],[11,105],[12,87]],"d1":[[0,0],[141,699],[173,708],[168,704],[207,700],[169,709],[134,767],[162,716],[167,900],[105,792],[79,474],[0,0],[139,720],[162,889],[93,515],[78,522],[65,448],[78,508],[54,521],[95,1005],[95,955],[85,969],[93,908],[41,471],[34,439],[98,942],[52,637],[74,654],[51,602],[65,821],[69,976],[80,737],[76,958],[35,502],[23,468]],"d2":[[0,0],[5,19],[4,24],[10,32],[6,24],[5,31],[8,40],[5,43],[13,74],[6,60],[4,30],[0,0],[7,46],[14,72],[6,40],[16,66],[3,47],[11,47],[5,59],[12,109],[10,123],[8,130],[11,135],[4,56],[4,72],[16,171],[4,114],[5,90],[7,100],[5,110],[10,136],[17,129],[19,219],[5,81],[9,99]],"d3":[[0,0],[30,130],[31,133],[40,137],[46,145],[40,131],[34,142],[32,150],[25,157],[18,195],[17,122],[0,0],[34,183],[49,231],[18,114],[21,125],[17,122],[22,151],[13,166],[22,335],[28,306],[22,287],[24,261],[15,152],[12,141],[31,337],[17,240],[23,234],[22,235],[20,301],[27,350],[39,301],[86,625],[23,226],[15,225]],"d4":[[0,0],[17,63],[18,72],[13,47],[13,59],[13,68],[14,60],[14,67],[14,83],[12,76],[11,54],[0,0],[11,75],[18,84],[7,51],[6,53],[9,52],[4,45],[5,77],[10,136],[13,122],[5,120],[12,133],[10,78],[4,83],[16,173],[11,117],[9,151],[15,141],[16,178],[19,206],[34,166],[88,444],[20,152],[21,144]]},"conlegis":{"all":[[0,0],[346,1428],[249,1408],[196,1412],[199,1426],[281,1431],[189,1431],[130,1362],[239,1760],[149,1483],[123,918],[0,0],[229,1382],[274,1683],[146,930],[170,969],[130,836],[167,921],[71,991],[152,1881],[136,1747],[191,1761],[204,1653],[115,872],[109,838],[207,1891],[123,1294],[124,1316],[85,1260],[92,1599],[110,1866],[79,1474],[131,2377],[40,1064],[47,1025]],"f":[[0,0],[174,753],[119,740],[95,771],[100,782],[147,773],[103,821],[75,747],[146,1008],[69,839],[67,529],[0,0],[125,786],[151,946],[76,514],[93,546],[74,457],[93,533],[47,584],[77,1045],[71,958],[98,964],[116,898],[58,486],[48,431],[116,1068],[70,700],[78,746],[48,687],[47,879],[53,1017],[44,795],[83,1322],[20,589],[28,568]],"m":[[0,0],[172,675],[130,668],[101,641],[99,644],[134,658],[86,610],[55,615],[93,752],[80,644],[56,389],[0,0],[104,596],[123,737],[70,416],[77,423],[56,379],[74,388],[24,407],[75,836],[65,789],[93,797],[88,755],[57,386],[61,407],[91,823],[53,594],[46,570],[37,573],[45,720],[57,849],[35,679],[47,1049],[20,474],[19,453]],"c0":[[0,0],[71,272],[56,287],[30,227],[30,212],[40,237],[27,219],[18,185],[21,192],[18,194],[13,119],[0,0],[22,187],[39,223],[21,122],[25,129],[11,99],[23,116],[11,127],[13,220],[16,186],[17,191],[23,210],[7,69],[12,79],[16,163],[12,120],[13,107],[8,113],[4,122],[14,126],[7,95],[12,184],[1,65],[9,80]],"c1":[[0,0],[59,220],[45,248],[42,255],[45,283],[61,245],[31,251],[39,262],[66,335],[36,257],[22,169],[0,0],[51,282],[45,313],[23,210],[35,194],[25,180],[31,184],[16,197],[36,356],[32,291],[32,318],[27,278],[14,157],[13,140],[28,363],[15,251],[18,262],[15,263],[17,327],[15,401],[12,327],[21,650],[8,291],[10,264]],"c2":[[0,0],[69,307],[45,264],[36,260],[41,257],[78,299],[44,276],[20,249],[52,306],[23,274],[15,179],[0,0],[29,229],[59,296],[21,158],[25,184],[22,147],[20,153],[7,172],[26,383],[22,342],[36,367],[42,346],[28,202],[15,209],[28,384],[23,271],[11,248],[18,248],[12,381],[19,369],[12,334],[21,439],[5,168],[4,158]],"c3":[[0,0],[48,202],[29,215],[22,214],[22,212],[25,177],[26,209],[13,178],[29,240],[18,213],[20,112],[0,0],[31,179],[23,183],[24,102],[16,118],[19,89],[20,119],[9,115],[18,225],[17,183],[21,165],[22,159],[14,73],[14,65],[39,169],[12,111],[19,97],[10,102],[9,109],[10,130],[9,97],[15,139],[3,80],[3,67]],"c4":[[0,0],[51,246],[39,225],[35,252],[31,259],[39,266],[38,281],[23,279],[38,363],[29,304],[32,195],[0,0],[58,273],[65,372],[38,192],[53,213],[30,168],[43,194],[14,208],[31,390],[29,398],[48,391],[59,389],[31,191],[31,173],[60,395],[36,252],[41,271],[22,244],[29,318],[23,401],[29,339],[26,451],[10,220],[13,217]],"c5":[[0,0],[21,74],[14,70],[15,88],[11,81],[17,87],[11,91],[9,92],[19,164],[16,129],[7,61],[0,0],[18,110],[17,146],[10,68],[4,59],[12,71],[16,66],[10,88],[11,150],[9,160],[16,157],[13,135],[10,114],[10,91],[16,228],[15,159],[9,200],[8,175],[9,194],[9,257],[5,168],[17,306],[6,151],[4,159]],"d0":[[0,0],[132,508],[84,485],[86,491],[70,491],[118,491],[66,426],[59,387],[91,536],[45,376],[37,241],[0,0],[78,364],[67,410],[28,209],[37,204],[19,164],[31,173],[24,173],[46,303],[31,242],[47,260],[36,228],[20,117],[19,107],[47,287],[27,187],[34,191],[24,190],[25,202],[27,201],[19,158],[16,118],[10,103],[11,84]],"d1":[[0,0],[165,696],[122,694],[89,704],[97,700],[129,706],[95,762],[59,715],[102,904],[69,779],[63,472],[0,0],[109,713],[146,879],[95,514],[91,522],[77,449],[95,505],[34,517],[77,1001],[68,957],[99,960],[102,891],[62,468],[60,434],[102,933],[57,636],[51,651],[43,597],[47,818],[57,973],[44,724],[56,963],[13,501],[26,473]],"d2":[[0,0],[7,19],[2,24],[3,32],[3,24],[6,31],[3,40],[4,42],[12,74],[8,60],[0,30],[0,0],[2,46],[12,74],[6,41],[14,65],[7,48],[12,47],[3,60],[7,107],[8,121],[15,128],[15,135],[3,55],[10,72],[18,168],[11,115],[10,90],[7,102],[4,109],[7,136],[5,130],[11,220],[5,81],[2,98]],"d3":[[0,0],[26,130],[23,132],[14,137],[17,146],[19,130],[17,143],[3,150],[21,158],[16,193],[16,120],[0,0],[29,184],[36,231],[11,115],[21,124],[17,122],[21,150],[9,165],[12,332],[19,304],[24,288],[32,258],[20,152],[15,141],[28,333],[21,240],[22,234],[7,232],[12,293],[16,350],[5,299],[31,625],[8,227],[3,223]],"d4":[[0,0],[15,62],[18,72],[4,48],[8,60],[9,69],[8,59],[5,65],[13,83],[11,74],[7,54],[0,0],[11,75],[13,84],[6,51],[7,53],[10,52],[8,45],[1,76],[9,134],[9,120],[5,119],[18,133],[10,80],[5,83],[12,170],[7,115],[7,150],[4,139],[4,177],[3,205],[6,163],[17,447],[4,152],[5,146]]},"trust":{"all":[[720,1552],[681,1467],[0,0],[572,1445],[648,1460],[0,0],[581,1476],[644,1410],[0,0],[285,764],[677,1398],[0,0],[535,1416],[687,1736],[371,957],[412,996],[329,863],[375,952],[365,1009],[656,1919],[606,1795],[853,2244],[610,1717],[304,887],[307,850],[794,2442],[437,1318],[446,1338],[416,1291],[509,1639],[605,1883],[482,1499],[0,0],[143,530],[109,430]],"f":[[341,768],[342,783],[0,0],[285,799],[349,805],[0,0],[305,856],[357,788],[0,0],[91,300],[391,827],[0,0],[287,813],[368,988],[195,535],[237,569],[167,478],[219,560],[199,595],[337,1077],[320,989],[468,1270],[314,947],[156,496],[156,441],[410,1378],[230,717],[232,763],[207,712],[254,909],[298,1034],[247,811],[0,0],[72,295],[47,238]],"m":[[379,784],[339,684],[0,0],[287,646],[299,655],[0,0],[276,620],[287,622],[0,0],[194,464],[286,571],[0,0],[248,603],[319,748],[176,422],[175,427],[162,385],[156,392],[166,414],[319,842],[286,806],[385,974],[296,770],[148,391],[151,409],[384,1064],[207,601],[214,575],[209,579],[255,730],[307,849],[235,688],[0,0],[71,235],[62,192]],"c0":[[164,292],[162,279],[0,0],[111,235],[110,214],[0,0],[94,226],[103,187],[0,0],[47,104],[97,183],[0,0],[77,189],[97,225],[53,127],[63,131],[41,100],[43,117],[63,130],[83,224],[71,188],[102,249],[67,212],[27,74],[32,80],[67,208],[41,121],[38,109],[35,121],[34,126],[30,127],[25,98],[0,0],[9,35],[5,24]],"c1":[[91,241],[111,234],[0,0],[88,265],[149,292],[0,0],[95,272],[137,280],[0,0],[46,143],[123,253],[0,0],[106,296],[139,338],[88,219],[95,203],[89,189],[88,199],[72,201],[128,370],[99,304],[167,401],[117,303],[67,160],[51,143],[185,476],[114,262],[122,269],[104,274],[121,336],[173,402],[128,332],[0,0],[50,170],[41,131]],"c2":[[192,339],[156,308],[0,0],[128,261],[134,264],[0,0],[129,281],[144,254],[0,0],[61,139],[160,257],[0,0],[112,234],[156,303],[82,161],[95,189],[57,155],[73,155],[72,175],[155,387],[170,351],[234,462],[160,352],[86,203],[99,211],[233,504],[119,272],[99,251],[119,248],[159,383],[161,370],[128,331],[0,0],[31,84],[21,59]],"c3":[[102,235],[81,207],[0,0],[84,218],[70,216],[0,0],[84,209],[71,183],[0,0],[34,110],[67,171],[0,0],[68,182],[59,188],[33,104],[37,119],[29,91],[34,122],[32,116],[60,230],[42,193],[53,214],[42,164],[19,73],[13,66],[49,233],[23,113],[17,102],[22,108],[29,111],[30,130],[32,102],[0,0],[14,38],[5,25]],"c4":[[101,243],[105,248],[0,0],[94,254],[117,262],[0,0],[113,285],[102,280],[0,0],[63,146],[149,318],[0,0],[109,276],[152,376],[70,195],[81,218],[65,173],[91,199],[75,211],[146,392],[121,407],[163,495],[157,400],[64,192],[63,177],[145,495],[74,255],[84,271],[73,244],[90,327],[118,406],[102,347],[0,0],[21,93],[16,86]],"c5":[[23,83],[17,80],[0,0],[26,92],[18,85],[0,0],[22,95],[31,103],[0,0],[16,62],[33,95],[0,0],[19,114],[30,152],[17,70],[13,63],[14,72],[14,68],[20,91],[33,155],[43,163],[48,198],[24,141],[23,117],[26,92],[42,283],[27,161],[49,202],[31,180],[40,203],[45,264],[30,173],[0,0],[7,69],[14,78]],"d0":[[220,608],[171,533],[0,0],[128,514],[154,517],[0,0],[107,455],[132,423],[0,0],[44,200],[132,385],[0,0],[89,386],[104,443],[64,224],[55,220],[45,180],[42,189],[30,180],[64,325],[41,262],[79,338],[44,248],[26,120],[27,113],[45,366],[28,199],[27,202],[27,207],[27,216],[31,206],[11,164],[0,0],[10,76],[5,47]],"d1":[[375,738],[368,707],[0,0],[311,712],[338,706],[0,0],[332,776],[357,723],[0,0],[143,388],[351,720],[0,0],[262,726],[363,899],[183,526],[215,530],[173,460],[195,517],[168,526],[314,1011],[304,978],[401,1203],[299,924],[131,478],[139,440],[356,1211],[187,645],[180,660],[153,605],[199,830],[236,983],[180,740],[0,0],[49,256],[50,233]],"d2":[[8,16],[11,19],[0,0],[18,33],[11,24],[0,0],[17,40],[21,44],[0,0],[13,33],[27,50],[0,0],[19,46],[32,75],[16,41],[30,67],[14,48],[23,48],[21,61],[43,108],[40,123],[64,168],[56,139],[18,56],[24,72],[74,217],[37,115],[27,90],[33,104],[30,112],[52,136],[38,130],[0,0],[12,35],[10,41]],"d3":[[78,119],[85,131],[0,0],[84,137],[104,148],[0,0],[85,143],[86,150],[0,0],[51,94],[108,168],[0,0],[116,183],[141,231],[73,115],[75,125],[62,122],[86,151],[97,166],[157,336],[153,305],[204,377],[127,263],[80,153],[71,141],[194,426],[120,241],[117,236],[114,235],[150,302],[161,351],[155,300],[0,0],[37,91],[23,70]],"d4":[[33,49],[42,63],[0,0],[31,49],[38,60],[0,0],[40,61],[45,66],[0,0],[34,49],[58,74],[0,0],[49,75],[45,83],[35,51],[37,53],[35,52],[29,45],[49,76],[77,135],[67,122],[104,152],[81,135],[49,80],[46,83],[125,222],[65,117],[95,150],[89,140],[103,179],[125,206],[98,165],[0,0],[35,72],[21,39]]},"happy":{"all":[[472,1567],[531,1471],[554,1451],[477,1456],[500,1464],[513,1474],[512,1478],[479,1415],[552,1805],[474,1530],[490,1404],[428,1501],[458,1418],[511,1743],[484,1430],[490,1484],[434,1305],[442,1431],[484,1539],[823,2881],[832,2750],[855,2705],[831,2605],[406,1330],[404,1300],[894,2913],[571,1945],[523,1995],[576,1908],[766,2468],[785,2777],[677,2263],[702,3615],[343,1609],[331,1585]],"f":[[247,780],[299,785],[325,776],[272,806],[283,808],[296,806],[294,857],[285,789],[335,1046],[270,872],[309,832],[231,824],[275,815],[297,993],[267,812],[284,848],[238,732],[253,832],[291,877],[452,1639],[447,1531],[498,1533],[470,1459],[201,702],[225,688],[507,1646],[315,1048],[307,1126],[325,1047],[436,1364],[430,1537],[379,1249],[356,2008],[182,877],[197,885]],"m":[[225,787],[232,686],[229,675],[205,650],[217,656],[217,668],[218,621],[194,626],[217,759],[204,658],[181,572],[197,677],[183,603],[214,750],[217,618],[206,636],[196,573],[189,599],[193,662],[371,1242],[385,1219],[357,1172],[361,1146],[205,628],[179,612],[387,1267],[256,897],[216,869],[251,861],[330,1104],[355,1240],[298,1014],[343,1598],[160,729],[133,696]],"c0":[[102,294],[115,279],[125,295],[84,235],[88,215],[97,244],[92,226],[66,187],[71,195],[65,197],[76,184],[41,166],[77,189],[65,226],[77,189],[74,203],[61,157],[54,165],[69,196],[105,334],[122,311],[132,296],[121,319],[39,106],[56,128],[110,269],[71,184],[62,162],[60,188],[75,191],[63,187],[68,152],[77,267],[42,109],[36,128]],"c1":[[76,244],[93,236],[113,260],[109,269],[106,293],[97,259],[99,273],[118,283],[140,356],[93,273],[112,253],[94,311],[116,297],[126,340],[115,320],[108,314],[93,287],[112,309],[112,312],[170,541],[168,444],[176,483],[167,472],[80,252],[79,222],[228,588],[138,378],[120,396],[131,395],[165,507],[206,646],[169,516],[220,1002],[95,411],[101,422]],"c2":[[130,343],[154,309],[137,269],[107,266],[102,265],[140,306],[120,281],[122,254],[123,309],[106,282],[115,258],[105,274],[90,234],[124,304],[106,229],[122,270],[92,231],[97,242],[118,264],[226,570],[226,561],[218,564],[219,520],[118,284],[117,306],[232,594],[162,402],[138,364],[149,366],[231,555],[228,562],[213,501],[177,700],[73,247],[78,243]],"c3":[[85,237],[70,207],[81,217],[59,220],[76,216],[63,181],[72,210],[49,183],[75,245],[63,221],[57,172],[46,181],[53,183],[59,189],[56,168],[54,178],[56,129],[55,176],[48,174],[91,330],[91,300],[95,261],[88,249],[43,110],[36,96],[83,264],[56,173],[54,156],[62,152],[68,161],[62,179],[64,166],[57,205],[33,110],[34,103]],"c4":[[55,246],[62,249],[60,228],[74,254],[93,263],[69,269],[87,285],[84,281],[92,367],[102,309],[89,319],[97,321],[84,276],[95,376],[93,299],[104,321],[89,278],[86,311],[97,325],[160,593],[151,610],[146,593],[166,587],[89,305],[76,282],[150,584],[93,381],[85,402],[111,376],[136,494],[143,570],[102,497],[90,680],[67,361],[46,337]],"c5":[[1,84],[3,80],[2,82],[9,92],[2,85],[6,93],[8,95],[1,104],[13,170],[15,131],[3,96],[3,113],[7,114],[1,153],[7,102],[2,100],[5,110],[9,107],[6,140],[9,250],[8,236],[18,232],[10,217],[10,162],[3,137],[13,323],[11,236],[15,306],[16,257],[22,310],[17,373],[13,250],[23,436],[4,228],[9,236]],"d0":[[174,614],[185,536],[179,510],[159,520],[157,518],[157,520],[157,457],[136,425],[165,573],[110,399],[128,387],[111,398],[120,386],[131,446],[109,351],[93,322],[76,264],[65,284],[81,276],[114,480],[115,424],[124,403],[103,395],[51,195],[35,165],[105,432],[66,288],[66,296],[79,276],[85,320],[104,317],[74,244],[29,186],[32,163],[22,133]],"d1":[[224,744],[274,707],[282,711],[234,717],[251,709],[258,716],[266,776],[239,724],[269,911],[235,798],[240,724],[216,783],[228,726],[262,901],[258,755],[278,796],[220,689],[244,786],[240,807],[413,1531],[429,1484],[404,1440],[418,1408],[200,718],[205,677],[413,1451],[272,972],[238,979],[269,945],[346,1237],[352,1422],[304,1140],[239,1435],[153,758],[146,741]],"d2":[[6,16],[8,19],[12,24],[9,33],[10,24],[12,32],[16,40],[18,44],[22,74],[30,61],[12,50],[19,59],[9,46],[21,75],[19,63],[28,89],[21,74],[22,70],[26,95],[49,172],[46,179],[78,199],[71,192],[34,86],[29,107],[70,258],[52,166],[33,142],[45,148],[56,180],[53,209],[42,185],[70,343],[29,134],[27,144]],"d3":[[43,121],[41,131],[53,133],[56,137],[54,148],[54,132],[51,143],[55,151],[66,158],[73,195],[74,168],[49,172],[74,185],[66,232],[63,172],[60,181],[85,191],[75,214],[95,248],[165,482],[157,451],[155,459],[154,407],[89,216],[78,214],[200,510],[107,335],[113,365],[120,337],[177,460],[172,520],[170,452],[204,939],[73,343],[77,336]],"d4":[[19,50],[20,64],[27,72],[19,49],[28,60],[30,69],[22,61],[30,67],[27,83],[26,76],[35,74],[33,89],[27,75],[29,84],[35,88],[31,92],[31,83],[36,73],[42,113],[80,211],[82,206],[91,197],[83,192],[32,115],[56,136],[106,262],[74,183],[73,213],[63,202],[102,271],[104,307],[87,242],[158,702],[56,211],[59,229]]}},"asked":{"conmedic":[0,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],"consci":[0,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],"conpress":[0,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],"conlegis":[0,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],"trust":[1,1,0,1,1,0,1,1,0,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1],"happy":[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]}};
+(function ask() {
+  const Y = P.years, Y0 = Y[0], Y1 = Y[Y.length - 1], FL = P.floor, nf = n => n.toLocaleString("en-GB");
+  const M = Object.fromEntries(P.measures.map(m => [m.id, m])), G = Object.fromEntries(P.groups.map(g => [g.id, g]));
+  const gid = name => P.groups.find(g => g.name.startsWith(name)).id;
+  const PRE = [["Counted", "The number, and every person behind it.", "conmedic", gid("Never married"), 2024],
+    ["Refused", "The group is too small. It gives no figure, and says why.", "conmedic", gid("Financially strained"), 1990],
+    ["Not in the data", "The survey did not ask that year. It says so, and stops.", "conmedic", "all", 1985]];
+  const st = {m: PRE[0][2], g: PRE[0][3], y: PRE[0][4]};
+  const who = $("#pWho"), what = $("#pWhat"), num = $("#pNum"), cv = $("#pDots"), ctx = cv.getContext("2d"), tr = $("#pTrend"), tabs = $("#presets"), card = $("#console");
+  let auto = true, h = "", open = "";
+  for (const g of P.groups) {
+    if (g.kind !== open) { if (open) h += "</optgroup>"; if (g.kind) h += `<optgroup label="${g.kind}">`; open = g.kind; }
+    h += `<option value="${g.id}">${g.name}</option>`;
+  }
+  who.innerHTML = h + (open ? "</optgroup>" : "");
+  what.innerHTML = P.measures.map(m => { const q = m.question.split(":")[0]; return `<option value="${m.id}">${q[0].toUpperCase() + q.slice(1)}: ${m.counted}</option>`; }).join("");
+  tabs.innerHTML = PRE.map((p, i) => `<button type="button" class="atab" data-i="${i}" aria-pressed="false"><i></i><b>${p[0]}</b><span>${p[1]}</span></button>`).join("");
+  $("#pUni").textContent = $("#pUni2").textContent = nf(P.universe); $("#pSpan").textContent = `${Y0} to ${Y1}`;
+  const flat = Object.values(P.cells).flatMap(m => Object.values(m).flat());
+  $("#pStat").textContent = `The card can build ${nf(flat.length)} questions. ${nf(flat.filter(c => c[1] < FL).length)} of them get no figure: the group is under ${FL} people that year, or the survey did not ask.`;
+
+  // one square per person: the rows of the table break into squares, and the counted ones light
+  let run = 0;
+  function squares(k, n, lit, fly) {
+    cv.style.display = n ? "block" : "none";  // shown first: a hidden canvas has no width, and the old picture stayed
+    const me = ++run, W = cv.clientWidth, dpr = Math.min(2, window.devicePixelRatio || 1);
+    if (!n || !W) return;
+    const pitch = Math.max(3, Math.min(15, Math.floor(Math.sqrt(W * 150 / n)))), cols = Math.floor(W / pitch), H = Math.ceil(n / cols) * pitch, sz = pitch - 1;
+    cv.width = W * dpr; cv.height = H * dpr; cv.style.height = H + "px"; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const t0 = performance.now(), rh = H / n, h0 = Math.max(1, rh - .5);
+    (function frame(now) {
+      if (me !== run) return;
+      const T = fly ? now - t0 : 1e9;
+      ctx.clearRect(0, 0, W, H);
+      for (let i = 0; i < n; i++) {
+        const t = Math.max(0, Math.min(1, (T - i / n * 460) / 520)), e = 1 - Math.pow(1 - t, 3), tx = (i % cols) * pitch, ty = Math.floor(i / cols) * pitch;
+        ctx.fillStyle = lit && i < k && t === 1 ? "#2b44ff" : "#cdd2d8";
+        ctx.fillRect(tx * e, i * rh + (ty - i * rh) * e, W + (sz - W) * e, h0 + (sz - h0) * e);
+      }
+      if (T < 1000) requestAnimationFrame(frame);
+    })(t0);
+  }
+
+  let shown = 0, tick = 0;
+  function figure(p, fly) {
+    const me = ++tick, from = shown, t0 = performance.now(); shown = p;
+    if (!fly) { num.textContent = p.toFixed(1) + "%"; return; }
+    (function step(now) { if (me !== tick) return; const t = Math.min(1, (now - t0) / 620), e = 1 - Math.pow(1 - t, 3); num.textContent = (from + (p - from) * e).toFixed(1) + "%"; if (t < 1) requestAnimationFrame(step); })(t0);
+  }
+
+  // the same question in every year: a line where there is a figure, a mark where there is none
+  function trend() {
+    const row = P.cells[st.m][st.g], ok = row.map(c => c[1] >= FL), pc = row.map(c => 100 * c[0] / c[1]);
+    const top = Math.max(10, Math.ceil(Math.max(0, ...pc.filter((p, i) => ok[i])) / 10) * 10);
+    const X = y => (40 + (y - Y0) / (Y1 - Y0) * 548).toFixed(1), V = p => (110 - p / top * 96).toFixed(1);
+    let s = `<line x1="40" y1="14" x2="588" y2="14" stroke="#232733"/><line x1="40" y1="62" x2="588" y2="62" stroke="#232733" stroke-dasharray="2 4"/><line x1="40" y1="110" x2="588" y2="110" stroke="#363b4b"/>` +
+      `<text x="33" y="18" text-anchor="end">${top}%</text><text x="33" y="114" text-anchor="end">0%</text>` +
+      [Y0, 1980, 1990, 2000, 2010, Y1].map(y => `<text x="${X(y)}" y="155" text-anchor="middle">${y}</text>`).join("");
+    let d = "";
+    Y.forEach((y, i) => { if (ok[i]) d += (i && ok[i - 1] ? "L" : "M") + X(y) + " " + V(pc[i]); });
+    s += `<path class="tl" d="${d}" fill="none" stroke="#5b76ff" stroke-width="2.2" stroke-linejoin="round"/>`;
+    Y.forEach((y, i) => { s += ok[i] ? `<circle cx="${X(y)}" cy="${V(pc[i])}" r="2.6" fill="#5b76ff"/>` : row[i][1] ? `<circle cx="${X(y)}" cy="128" r="3.2" fill="none" stroke="#f2b84b" stroke-width="1.4"/>` : `<line x1="${X(y)}" y1="123" x2="${X(y)}" y2="133" stroke="#9096a6" stroke-width="1.4"/>`; });
+    const i = Y.indexOf(st.y), x = X(st.y);
+    s += `<line x1="${x}" y1="6" x2="${x}" y2="138" stroke="#9096a6" stroke-dasharray="2 3"/>` +
+      (ok[i] ? `<circle cx="${x}" cy="${V(pc[i])}" r="6.5" fill="#050608" stroke="#f6f7f9" stroke-width="2"/>` : row[i][1] ? `<circle cx="${x}" cy="128" r="5.5" fill="#f2b84b"/>` : `<rect x="${x - 3.5}" y="122" width="7" height="12" rx="1" fill="#9096a6"/>`);
+    tr.innerHTML = s;
+  }
+
+  function render(fly) {
+    const i = Y.indexOf(st.y), [k, n] = P.cells[st.m][st.g][i], m = M[st.m], g = G[st.g], kind = !n ? "nil" : n < FL ? "no" : "ok", pct = 100 * k / n;
+    const ppl = (n === 1 ? "person" : "people") + (st.g === "all" ? "" : " in this group");
+    who.value = st.g; what.value = st.m; $("#pYearLab").textContent = st.y;
+    $("#pPrev").disabled = i === 0; $("#pNext").disabled = i === Y.length - 1;
+    tabs.querySelectorAll(".atab").forEach((b, j) => { const on = PRE[j][2] === st.m && PRE[j][3] === st.g && PRE[j][4] === st.y; b.setAttribute("aria-pressed", on); b.classList.toggle("run", on && auto); });
+    $("#pQ").textContent = `Of ${g.phrase} interviewed in ${st.y}, what share ${m.phrase}?`;
+    num.className = "pnum " + kind;
+    $("#rH").innerHTML = `<div><span class="m">Question:</span> ${m.question}</div><div><span class="m">Counted:</span> \u2018${m.counted}\u2019</div><div><span class="m">Who:</span> ${g.phrase}, interviewed in ${st.y}, who answered</div>` + (n ? `<div><span class="m">Each square:</span> one person</div>` : "");
+    if (kind === "ok") {
+      figure(pct, fly);
+      $("#pBase").textContent = `${nf(k)} of the ${nf(n)} ${ppl} who answered in ${st.y}.`;
+      $("#rT").textContent = `Receipt for ${pct.toFixed(1)}%`; $("#rTot").textContent = `${nf(k)} of ${nf(n)} = ${pct.toFixed(1)}%`;
+    } else {
+      tick++; shown = 0;
+      num.textContent = kind === "no" ? "No figure." : "Not in the data.";
+      $("#pBase").textContent = kind === "no" ? `Only ${nf(n)} ${ppl} answered in ${st.y}. The room gives no figure on fewer than ${FL} people.` : `The survey did not ask this question in ${st.y}. The room says so, and stops.`;
+      $("#rT").textContent = kind === "no" ? `Refused: under ${FL} people` : "Nothing to count";
+      $("#rTot").textContent = kind === "no" ? `${nf(n)} is under ${FL}. No figure is given.` : `No one was asked in ${st.y}.`;
+    }
+    squares(k, n, kind === "ok", fly);
+    trend();
+  }
+  const pre = j => { st.m = PRE[j][2]; st.g = PRE[j][3]; st.y = PRE[j][4]; render(true); };
+
+  // the three tabs take turns until the visitor touches the card
+  tabs.addEventListener("animationend", e => { if (auto && e.animationName === "fill") pre((+e.target.closest(".atab").dataset.i + 1) % PRE.length); });
+  tabs.addEventListener("click", e => { const b = e.target.closest(".atab"); if (b) { auto = false; pre(+b.dataset.i); } });
+  card.addEventListener("pointerdown", () => { if (auto) { auto = false; render(false); } });
+  who.addEventListener("change", () => { auto = false; st.g = who.value; render(true); });
+  what.addEventListener("change", () => { auto = false; st.m = what.value; render(true); });
+  const move = d => { st.y = Y[Math.max(0, Math.min(Y.length - 1, Y.indexOf(st.y) + d))]; render(true); };
+  $("#pPrev").onclick = () => move(-1); $("#pNext").onclick = () => move(1);
+  const at = e => { const r = tr.getBoundingClientRect(), yr = Y0 + ((e.clientX - r.left) / r.width * 600 - 40) / 548 * (Y1 - Y0);
+    const y = Y.reduce((a, b) => Math.abs(b - yr) < Math.abs(a - yr) ? b : a); if (y !== st.y) { st.y = y; render(false); } };
+  tr.addEventListener("pointerdown", e => { tr.setPointerCapture(e.pointerId); at(e); });
+  tr.addEventListener("pointermove", e => { if (e.buttons) at(e); });
+  tr.addEventListener("pointerup", () => render(true));
+  addEventListener("resize", () => render(false));
+  render(true);
+})();
+
+/* ---------- the eight panes are laid out 1,075 px wide: fit them to the window ---------- */
+function fitRig() { const f = $(".filters"), w = f.parentElement, c = getComputedStyle(w); f.style.zoom = Math.min(1, (w.clientWidth - parseFloat(c.paddingLeft) - parseFloat(c.paddingRight)) / 1075); }
+fitRig(); addEventListener("resize", fitRig);
+
+/* ---------- the bar: where you are on the page ---------- */
+const prog = $("#prog");
+addEventListener("scroll", () => { prog.style.transform = `scaleX(${scrollY / Math.max(1, document.documentElement.scrollHeight - innerHeight)})`; }, {passive: true});
+const here = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) document.querySelectorAll(".nav a").forEach(a => a.classList.toggle("on", a.getAttribute("href") === "#" + e.target.id)); }), {rootMargin: "-45% 0px -50% 0px"});
+document.querySelectorAll(".nav a").forEach(a => here.observe($(a.getAttribute("href"))));
+
+/* ---------- a second way in: where the observer stays silent (a hidden pane, an embedded view), a scroll or a timer still shows each part ---------- */
+if (!document.hidden) document.documentElement.classList.add("anim");
+function sweep() { document.querySelectorAll(".rv:not(.in)").forEach(el => { const r = el.getBoundingClientRect(); if (r.top < innerHeight * .95 && r.bottom > 0) el.classList.add("in"); }); }
+addEventListener("scroll", sweep, {passive: true}); setInterval(sweep, 1500);
+
+/* ---------- one real answer, a step at a time: the steps take turns until the visitor chooses one ---------- */
+(function steps() {
+  const box = $("#steps"), tabs = [...box.querySelectorAll(".atab")], panes = [...document.querySelectorAll("#stage .spane")];
+  let auto = true, cur = 0;
+  function show(i) { cur = i; tabs.forEach((t, j) => { t.setAttribute("aria-pressed", j === i); t.classList.toggle("run", j === i && auto); }); panes.forEach((q, j) => q.classList.toggle("on", j === i)); }
+  box.addEventListener("animationend", e => { if (auto && e.animationName === "fill") show((cur + 1) % tabs.length); });
+  box.addEventListener("click", e => { const b = e.target.closest(".atab"); if (b) { auto = false; show(tabs.indexOf(b)); } });
+  $("#stage").addEventListener("pointerdown", () => { if (auto) { auto = false; show(cur); } });
+  new IntersectionObserver((es, o) => { if (es[0].isIntersecting) { o.disconnect(); show(0); } }, {threshold: .25}).observe(box);
+})();
+
+/* ---------- what it reads: every format a line into the one catalogue, and what comes back (D-797) ---------- */
+(function flow() {
+  const box = $("#flow"), svg = $("#fwires"), pills = $("#fpills"), eng = $("#feng"), outs = [...box.querySelectorAll(".fo")], root = document.documentElement;
+  const G = {file: '<path d="M6 3.5h8l4 4v13H6z"/><path d="M14 3.5v4h4"/>', base: '<ellipse cx="12" cy="6.5" rx="7" ry="3"/><path d="M5 6.5v11c0 1.7 3.1 3 7 3s7-1.3 7-3v-11"/>', zip: '<path d="M3.5 6.5h6l2 2.5h9v9.5h-17z"/>'};
+  const glyph = s => G[/postgres|bigquery/i.test(s) ? "base" : /zip/i.test(s) ? "zip" : "file"];
+  // READS is the old page's own list; a name that ends in * is in testing
+  pills.innerHTML = READS.map((s, i) => { const t = s.endsWith("*"), n = s.replace("*", "");
+    return `<span class="fp${t ? " t" : ""}" tabindex="0" data-i="${i}"${t ? ` title="in testing" aria-label="${n}, in testing"` : ""}><svg viewBox="0 0 24 24" aria-hidden="true">${glyph(n)}</svg>${n}</span>`; }).join("");
+  const P = [...pills.children], LANE = [.3, .8, .04, .56, 1, .2, .68, 0, .9, .42, .74, .1, .52, .96, .26], C = 26, PITCH = 34;
+  const rnd = (i, j) => { const v = Math.sin(i * 127.1 + j * 311.7) * 43758.5453; return v - Math.floor(v); };
+  const f = v => v.toFixed(1);
+  const sq = (d, dur, ph, cls) => `<rect class="fsq${cls}" x="-3.5" y="-3.5" width="7" height="7" rx="1.2" opacity="0"><animateMotion dur="${dur.toFixed(2)}s" begin="-${ph.toFixed(2)}s" repeatCount="indefinite" path="${d}"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.1;.88;1" dur="${dur.toFixed(2)}s" begin="-${ph.toFixed(2)}s" repeatCount="indefinite"/></rect>`;
+  let hot = -1, held = false, turn = 0;
+  function draw() {
+    const wide = getComputedStyle(svg).display !== "none", W = pills.clientWidth, w = P.map(p => p.offsetWidth), x = [], n0 = P.length;
+    // two lanes, the second half a row lower: a line from the first lane runs between two labels of the second
+    let two = wide;
+    for (let r = 0; two && 2 * r + 1 < n0; r++) { const lo = Math.max(w[2 * r], w[2 * r + 2] || 0) + 10, hi = W - w[2 * r + 1]; if (hi < lo) two = false; else x[2 * r + 1] = hi - LANE[(2 * r + 1) % LANE.length] * (hi - lo) * .7; }
+    for (let r = 0; two && 2 * r < n0; r++) x[2 * r] = LANE[(2 * r) % LANE.length] * Math.max(0, Math.min(x[2 * r - 1] ?? W * .55, x[2 * r + 1] ?? W * .55) - 10 - w[2 * r]);
+    P.forEach((p, i) => { const st = p.style;
+      if (two) { st.position = "absolute"; st.left = f(x[i]) + "px"; st.top = (i >> 1) * PITCH + (i & 1) * PITCH / 2 + "px"; st.marginLeft = ""; }
+      else { st.position = st.left = st.top = ""; st.marginLeft = wide ? f(LANE[i % LANE.length] * Math.max(0, W - w[i])) + "px" : ""; } });
+    pills.style.height = two ? (Math.ceil(n0 / 2) - 1) * PITCH + 25 + (n0 % 2 ? 0 : PITCH / 2) + "px" : "";
+    const B = box.getBoundingClientRect();
+    if (!wide || !B.width) { svg.innerHTML = ""; return; }
+    const R = el => { const r = el.getBoundingClientRect(); return {l: r.left - B.left, r: r.right - B.left, t: r.top - B.top, b: r.bottom - B.top, cy: (r.top + r.bottom) / 2 - B.top}; };
+    const e = R(eng), s = R(pills), n = P.length, xs = s.r + 10, x2 = e.l, ecy = (e.t + e.b) / 2, span = Math.min(120, (e.b - e.t) * .5);
+    let h = "";
+    // a field of squares round the box: the nearer the box, the brighter
+    for (let j = -5; e.t + j * C < e.b + 5 * C; j++) for (let i = -5; e.l + i * C < e.r + 5 * C; i++) {
+      const x = e.l + i * C, y = e.t + j * C, cx = x + C / 2, cy = y + C / 2, d = Math.hypot(Math.max(e.l - cx, 0, cx - e.r), Math.max(e.t - cy, 0, cy - e.b));
+      if (!d) continue;
+      const o = Math.max(0, 1 - d / (C * 4.4)) * (.05 + .32 * rnd(i, j));
+      if (o > .012) h += `<rect class="fcell${rnd(j, i) > .86 ? " tw" : ""}" x="${f(x + 1)}" y="${f(y + 1)}" width="${C - 3}" height="${C - 3}" rx="2" style="--o:${o.toFixed(3)};opacity:${o.toFixed(3)};animation-delay:-${(rnd(i + 9, j) * 4).toFixed(2)}s"/>`;
+    }
+    P.forEach((p, i) => { const r = R(p), y2 = ecy + (i - (n - 1) / 2) * span / n, c = (x2 - xs) * .62, dur = 3.6 + rnd(i, 3) * 2.8;
+      const d = `M${f(r.r + 4)} ${f(r.cy)}H${f(xs)}C${f(xs + c)} ${f(r.cy)} ${f(x2 - c)} ${f(y2)} ${f(x2)} ${f(y2)}`;
+      h += `<path class="fw${p.classList.contains("t") ? " t" : ""}${i === hot ? " hot" : ""}" data-i="${i}" d="${d}"/>` + sq(d, dur, rnd(i, 7) * dur, i % 3 === 1 ? " w" : "");
+    });
+    outs.forEach((o, k) => { const r = R(o), y0 = ecy + (k - (outs.length - 1) / 2) * 20, c = (r.l - e.r) * .6, dur = 2.5 + k * .45;
+      const d = `M${f(e.r)} ${f(y0)}C${f(e.r + c)} ${f(y0)} ${f(r.l - c)} ${f(r.cy)} ${f(r.l)} ${f(r.cy)}`;
+      h += `<path class="fw${o.classList.contains("t") ? " t" : ""}" d="${d}"/>` + sq(d, dur, k * .8, " w");
+    });
+    svg.innerHTML = h;
+  }
+  // one format at a time lights its line; the pointer, or a tab key, takes the turn over
+  function light(i) { hot = i; P.forEach((p, k) => p.classList.toggle("hot", k === i)); svg.querySelectorAll(".fw[data-i]").forEach(w => w.classList.toggle("hot", +w.dataset.i === i)); box.classList.toggle("pick", i >= 0); }
+  const take = e => { const p = e.target.closest(".fp"); if (p) { held = true; light(+p.dataset.i); } };
+  pills.addEventListener("pointerover", take); pills.addEventListener("focusin", take);
+  pills.addEventListener("pointerleave", () => { held = false; }); pills.addEventListener("focusout", () => { held = false; });
+  setInterval(() => { if (held || document.hidden || root.classList.contains("still")) return; light(turn % P.length); turn += 4; }, 1700);
+  $("#still").addEventListener("click", () => { root.classList.contains("still") ? svg.pauseAnimations() : svg.unpauseAnimations(); });
+  new ResizeObserver(() => requestAnimationFrame(draw)).observe(box);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(draw);
+  draw();
+})();
 </script>
 </body>
 </html>
