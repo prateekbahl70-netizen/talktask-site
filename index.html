@@ -727,7 +727,7 @@ html.anim .rv:not(.in){opacity:0;transform:translateY(16px)}
 .fw{fill:none;stroke:rgba(147,164,255,.42);stroke-width:1.2;transition:stroke .35s var(--ease),opacity .35s var(--ease)}
 .fw.t{stroke-dasharray:3 4}
 .fw.hot{stroke:#aab7ff;stroke-width:1.9}
-.rflow.pick .fw[data-i]:not(.hot){opacity:.5}
+.rflow.lit .fw[data-i]:not(.hot){opacity:.5}
 .fsq{fill:#93a4ff}
 .fsq.w{fill:#fff}
 .fcell{fill:#4c68ff}
@@ -735,12 +735,77 @@ html.anim .rv:not(.in){opacity:0;transform:translateY(16px)}
 @keyframes twk{0%,100%{opacity:var(--o)}50%{opacity:calc(var(--o)*3.2)}}
 html.still .fcell.tw{animation-play-state:paused}
 .sect>.wrap>.sub:first-child{margin-top:0}                               /* 'When files disagree' now stands as its own band */
+.rflow{--tall:0}
 @media (max-width:900px){
-  .rflow{grid-template-columns:1fr;row-gap:24px}
-  .fsrc,.feng,.fout{grid-column:1}
-  .fpills{flex-direction:row;flex-wrap:wrap;gap:8px}
-  .fp{height:30px}
-  .fwires{display:none}
+  /* a phone: the same diagram, top to bottom (D-801) */
+  .rflow{--tall:1;grid-template-columns:minmax(0,1fr);justify-items:center;row-gap:0}
+  .fsrc,.feng,.fout{grid-column:1;width:100%;max-width:440px}
+  .fsrc{display:flex;flex-direction:column;align-items:center;text-align:center}
+  .fkey{order:1;margin:0 0 12px}
+  .fpills{order:2;flex-direction:row;flex-wrap:wrap;justify-content:center;gap:7px}
+  .fp{height:29px}
+  .feng{margin-top:78px}                       /* room for the lines that run down into the box */
+  .fout{margin-top:30px;padding-left:28px}     /* room for the line that runs down beside the answers */
+}
+
+/* ---------- a trial button opens a box of choices (D-800) ---------- */
+.mailbox{width:min(92vw,430px);padding:26px 26px 20px;border:1px solid var(--line2);border-radius:20px;background:var(--bg2);color:var(--ink2);box-shadow:0 50px 120px -30px #000,0 0 140px -40px rgba(76,104,255,.6)}
+.mailbox::backdrop{background:rgba(5,6,8,.72);-webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px)}
+.mailbox[open]{animation:mbin .28s var(--ease)}
+@keyframes mbin{from{opacity:0;transform:translateY(12px) scale(.98)}}
+.mailbox h3{margin:0 0 6px;font-size:24px;font-weight:700;letter-spacing:-.03em;color:var(--ink)}
+.mto{margin:0 0 18px;font-size:16px;color:var(--ink3);max-width:none}
+.mto b{font:500 16px "JetBrains Mono",monospace;color:var(--ink);user-select:all}
+.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mgrid .btn{display:block;width:100%;text-align:center;cursor:pointer;font-family:inherit;border-width:1px;border-style:solid}
+.msmall{margin:16px 0 0;font-size:13px;color:var(--ink3);max-width:none}
+.mclose{position:absolute;top:12px;right:14px;width:34px;height:34px;border:0;border-radius:50%;background:none;color:var(--ink3);font-size:24px;line-height:1;cursor:pointer;transition:color .2s var(--ease),background-color .2s var(--ease)}
+.mclose:hover{color:var(--ink);background:var(--bg3)}
+@media (max-width:420px){.mgrid{grid-template-columns:1fr}}
+
+/* ================= the page on a phone (D-801) ================= */
+.sdesc{display:none;margin:0;padding:13px 15px 0;font-size:14.5px;line-height:1.45;color:var(--ink3);max-width:none}
+#steps.off .atab.run i{animation-play-state:paused}
+@media (max-width:900px){
+  /* the steps: a row of tabs that stays under the bar; the card is as tall as the step it shows */
+  #how .askgrid{display:block}
+  #how .askgrid>div:first-child{display:contents}
+  #steps{position:sticky;top:56px;z-index:5;display:flex;gap:7px;overflow-x:auto;margin:18px 0 10px;padding:9px 0;background:var(--bg);scrollbar-width:none}
+  #steps::-webkit-scrollbar{display:none}
+  #steps .atab,#steps .atab:last-child{flex:0 0 auto;width:auto;padding:8px 14px;border:1px solid var(--line2);border-radius:999px;overflow:hidden}
+  #steps .atab b{font-size:14.5px;white-space:nowrap}
+  #steps .atab span{display:none}
+  #steps .atab i{top:auto;bottom:0}
+  #steps .atab[aria-pressed=true]{border-color:var(--acct);background:rgba(76,104,255,.18)}
+  .stage{display:block}
+  .spane{display:none}
+  .spane.on{display:block;animation:rise .4s var(--ease) both}
+  .spane:first-child .qb{margin:6px auto}
+  .sdesc{display:block}
+}
+@media (max-width:700px){
+  /* the charts keep a size a person can read, and move sideways under a finger */
+  .rchart,.chartcard{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .rchart svg{width:600px;max-width:none}
+  .chartcard>svg{width:560px;max-width:none}
+  .rleg,.chartcard>:not(svg){position:sticky;left:0}
+  .rchart::after,.chartcard::after{content:"Swipe the chart sideways";display:block;position:sticky;left:0;width:max-content;padding:6px 4px 4px;font-size:12.5px;color:var(--ink3)}
+  #pTrend{overflow:visible}                    /* the last year's label must not be cut at the edge */
+  #pTrend text{font-size:19px}
+}
+@media (max-width:520px){
+  /* the numbers stand two to a row */
+  .stats{grid-template-columns:1fr 1fr;gap:10px}
+  .stat{padding:16px 14px 18px}
+  .stat .v{font-size:29px}
+  .stat p{font-size:13.5px;line-height:1.45}
+  .range{grid-template-columns:1fr 1fr;gap:10px}
+  .range .src{padding:14px}
+  .range .src .v{font-size:23px}
+  .range:not(.uses) .src p{max-height:0;opacity:0;overflow:hidden;transition:max-height .4s var(--ease),opacity .3s var(--ease)}
+  .range:not(.uses) .src:focus p{max-height:16em;opacity:1}
+  .range:not(.uses) .src .u{margin-bottom:0}
+  .range:not(.uses) .src:focus .u{margin-bottom:10px}
 }
 </style>
 </head>
@@ -862,6 +927,7 @@ html.still .fcell.tw{animation-play-state:paused}
       </div>
       <div class="pcard dark rv">
         <div class="phead"><svg width="20" height="20" viewBox="0 0 22 22" aria-hidden="true"><rect x="1" y="3" width="20" height="13" rx="2.5" fill="none" stroke="#f6f7f9" stroke-width="1.6"/><path d="M6 16v4l4-4" fill="none" stroke="#f6f7f9" stroke-width="1.6" stroke-linejoin="round"/><rect x="5" y="7" width="3" height="5" fill="#5b76ff"/><rect x="9.5" y="9" width="3" height="3" fill="#5b76ff"/><rect x="14" y="6" width="3" height="6" fill="#c3ccff"/></svg><b>TalkTask</b><span>General Social Survey · 65,015 people</span><span class="real">Real answer · 24 Nov 2026</span></div>
+        <p class="sdesc" id="sdesc">In plain words. This question was put to the room on 24 November 2026.</p>
         <div class="pbd stage" id="stage">
           <div class="spane on"><p class="qb big">How has confidence in medicine changed for each group since 1990, and which group fell most?</p></div>
           <div class="spane"><span class="rlab">Plan, in words</span><p class="plansay">Measure how the share saying 'a great deal' of confidence in medicine has moved for each group since 1990, and order the groups on it.</p><span class="rlab">It read your question as</span><div class="chips2"><span>confidence in medicine</span><span>from 1990, each group</span><span>by year</span><span>trend</span></div></div>
@@ -1185,6 +1251,19 @@ html.still .fcell.tw{animation-play-state:paused}
   </div>
 </footer>
 
+<dialog class="mailbox" id="mailbox" aria-labelledby="mbTitle">
+  <form method="dialog"><button class="mclose" aria-label="Close">&times;</button></form>
+  <h3 id="mbTitle">Ask for a trial</h3>
+  <p class="mto">Write to <b id="mbTo">hello@talktask.si</b></p>
+  <div class="mgrid">
+    <button type="button" class="btn" id="mbCopy">Copy address</button>
+    <a class="btn ghost" id="mbGmail" target="_blank" rel="noopener" href="https://mail.google.com/">Open Gmail</a>
+    <a class="btn ghost" id="mbOutlook" target="_blank" rel="noopener" href="https://outlook.office.com/">Open Outlook</a>
+    <a class="btn ghost" id="mbApp" href="mailto:hello@talktask.si">Open mail app</a>
+  </div>
+  <p class="msmall">This page sends and stores nothing.</p>
+</dialog>
+
 <script>
 const $ = s => document.querySelector(s);
 const reduce = false; // his word, 24 Nov 2026: the page moves whatever the system setting says; the footer holds a pause switch
@@ -1306,7 +1385,7 @@ $("#trial").addEventListener("submit", e => {
   e.preventDefault();
   const f = e.target, v = n => f.elements[n].value.trim();
   const body = "Name: " + v("name") + "\nCompany: " + v("company") + "\nData: " + v("data");
-  location.href = "mailto:hello@talktask.si?subject=" + encodeURIComponent("TalkTask trial: " + (v("company") || v("name"))) + "&body=" + encodeURIComponent(body);
+  openMail("mailto:hello@talktask.si?subject=" + encodeURIComponent("TalkTask trial: " + (v("company") || v("name"))) + "&body=" + encodeURIComponent(body));
 });
 
 /* ---------- the first screen: a field of squares; the ones under a slow wave, and near the pointer, light ---------- */
@@ -1464,11 +1543,15 @@ addEventListener("scroll", sweep, {passive: true}); setInterval(sweep, 1500);
 (function steps() {
   const box = $("#steps"), tabs = [...box.querySelectorAll(".atab")], panes = [...document.querySelectorAll("#stage .spane")];
   let auto = true, cur = 0;
-  function show(i) { cur = i; tabs.forEach((t, j) => { t.setAttribute("aria-pressed", j === i); t.classList.toggle("run", j === i && auto); }); panes.forEach((q, j) => q.classList.toggle("on", j === i)); }
+  function show(i) { cur = i; tabs.forEach((t, j) => { t.setAttribute("aria-pressed", j === i); t.classList.toggle("run", j === i && auto); }); panes.forEach((q, j) => q.classList.toggle("on", j === i));
+    $("#sdesc").textContent = tabs[i].querySelector("span").textContent; box.scrollLeft = tabs[i].offsetLeft - (box.clientWidth - tabs[i].offsetWidth) / 2; }
   box.addEventListener("animationend", e => { if (auto && e.animationName === "fill") show((cur + 1) % tabs.length); });
-  box.addEventListener("click", e => { const b = e.target.closest(".atab"); if (b) { auto = false; show(tabs.indexOf(b)); } });
+  box.addEventListener("click", e => { const b = e.target.closest(".atab"); if (b) { auto = false; show(tabs.indexOf(b));
+    // on a phone the tabs stay under the bar: bring the top of the card back under them
+    if (getComputedStyle(box).position === "sticky") { const y = $("#stage").parentElement.getBoundingClientRect().top - 56 - box.offsetHeight - 8; if (y < 0) scrollBy({top: y, behavior: "smooth"}); } } });
   $("#stage").addEventListener("pointerdown", () => { if (auto) { auto = false; show(cur); } });
   new IntersectionObserver((es, o) => { if (es[0].isIntersecting) { o.disconnect(); show(0); } }, {threshold: .25}).observe(box);
+  new IntersectionObserver(es => box.classList.toggle("off", !es[0].isIntersecting)).observe($("#stage"));   // the steps wait while the card is out of view
 })();
 
 /* ---------- what it reads: every format a line into the one catalogue, and what comes back (D-797) ---------- */
@@ -1483,9 +1566,9 @@ addEventListener("scroll", sweep, {passive: true}); setInterval(sweep, 1500);
   const rnd = (i, j) => { const v = Math.sin(i * 127.1 + j * 311.7) * 43758.5453; return v - Math.floor(v); };
   const f = v => v.toFixed(1);
   const sq = (d, dur, ph, cls) => `<rect class="fsq${cls}" x="-3.5" y="-3.5" width="7" height="7" rx="1.2" opacity="0"><animateMotion dur="${dur.toFixed(2)}s" begin="-${ph.toFixed(2)}s" repeatCount="indefinite" path="${d}"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.1;.88;1" dur="${dur.toFixed(2)}s" begin="-${ph.toFixed(2)}s" repeatCount="indefinite"/></rect>`;
-  let hot = -1, held = false, turn = 0;
+  let hot = -1, held = false, turn = 0, mod = 0;
   function draw() {
-    const wide = getComputedStyle(svg).display !== "none", W = pills.clientWidth, w = P.map(p => p.offsetWidth), x = [], n0 = P.length;
+    const tall = getComputedStyle(box).getPropertyValue("--tall").trim() === "1", wide = !tall, W = pills.clientWidth, w = P.map(p => p.offsetWidth), x = [], n0 = P.length;
     // two lanes, the second half a row lower: a line from the first lane runs between two labels of the second
     let two = wide;
     for (let r = 0; two && 2 * r + 1 < n0; r++) { const lo = Math.max(w[2 * r], w[2 * r + 2] || 0) + 10, hi = W - w[2 * r + 1]; if (hi < lo) two = false; else x[2 * r + 1] = hi - LANE[(2 * r + 1) % LANE.length] * (hi - lo) * .7; }
@@ -1495,37 +1578,74 @@ addEventListener("scroll", sweep, {passive: true}); setInterval(sweep, 1500);
       else { st.position = st.left = st.top = ""; st.marginLeft = wide ? f(LANE[i % LANE.length] * Math.max(0, W - w[i])) + "px" : ""; } });
     pills.style.height = two ? (Math.ceil(n0 / 2) - 1) * PITCH + 25 + (n0 % 2 ? 0 : PITCH / 2) + "px" : "";
     const B = box.getBoundingClientRect();
-    if (!wide || !B.width) { svg.innerHTML = ""; return; }
+    if (!B.width) { svg.innerHTML = ""; return; }
+    mod = tall ? 7 : 0;
     const R = el => { const r = el.getBoundingClientRect(); return {l: r.left - B.left, r: r.right - B.left, t: r.top - B.top, b: r.bottom - B.top, cy: (r.top + r.bottom) / 2 - B.top}; };
     const e = R(eng), s = R(pills), n = P.length, xs = s.r + 10, x2 = e.l, ecy = (e.t + e.b) / 2, span = Math.min(120, (e.b - e.t) * .5);
     let h = "";
     // a field of squares round the box: the nearer the box, the brighter
     for (let j = -5; e.t + j * C < e.b + 5 * C; j++) for (let i = -5; e.l + i * C < e.r + 5 * C; i++) {
       const x = e.l + i * C, y = e.t + j * C, cx = x + C / 2, cy = y + C / 2, d = Math.hypot(Math.max(e.l - cx, 0, cx - e.r), Math.max(e.t - cy, 0, cy - e.b));
-      if (!d) continue;
+      if (!d || x < -16 || x + C > B.width + 16) continue;   // never wider than the page: a phone must not scroll sideways
       const o = Math.max(0, 1 - d / (C * 4.4)) * (.05 + .32 * rnd(i, j));
       if (o > .012) h += `<rect class="fcell${rnd(j, i) > .86 ? " tw" : ""}" x="${f(x + 1)}" y="${f(y + 1)}" width="${C - 3}" height="${C - 3}" rx="2" style="--o:${o.toFixed(3)};opacity:${o.toFixed(3)};animation-delay:-${(rnd(i + 9, j) * 4).toFixed(2)}s"/>`;
     }
-    P.forEach((p, i) => { const r = R(p), y2 = ecy + (i - (n - 1) / 2) * span / n, c = (x2 - xs) * .62, dur = 3.6 + rnd(i, 3) * 2.8;
+    if (!tall) P.forEach((p, i) => { const r = R(p), y2 = ecy + (i - (n - 1) / 2) * span / n, c = (x2 - xs) * .62, dur = 3.6 + rnd(i, 3) * 2.8;
       const d = `M${f(r.r + 4)} ${f(r.cy)}H${f(xs)}C${f(xs + c)} ${f(r.cy)} ${f(x2 - c)} ${f(y2)} ${f(x2)} ${f(y2)}`;
       h += `<path class="fw${p.classList.contains("t") ? " t" : ""}${i === hot ? " hot" : ""}" data-i="${i}" d="${d}"/>` + sq(d, dur, rnd(i, 7) * dur, i % 3 === 1 ? " w" : "");
     });
-    outs.forEach((o, k) => { const r = R(o), y0 = ecy + (k - (outs.length - 1) / 2) * 20, c = (r.l - e.r) * .6, dur = 2.5 + k * .45;
+    if (!tall) outs.forEach((o, k) => { const r = R(o), y0 = ecy + (k - (outs.length - 1) / 2) * 20, c = (r.l - e.r) * .6, dur = 2.5 + k * .45;
       const d = `M${f(e.r)} ${f(y0)}C${f(e.r + c)} ${f(y0)} ${f(r.l - c)} ${f(r.cy)} ${f(r.l)} ${f(r.cy)}`;
       h += `<path class="fw${o.classList.contains("t") ? " t" : ""}" d="${d}"/>` + sq(d, dur, k * .8, " w");
     });
+    if (tall) {
+      // a phone: seven lines run down from the formats into the box; one line runs down beside the answers and turns into each
+      const top = R(box.querySelector(".fsrc")).b + 6, ecx = (e.l + e.r) / 2, c = (e.t - top) * .62;
+      for (let k = 0; k < mod; k++) { const x1 = s.l + (k + .5) / mod * (s.r - s.l), x2 = ecx + (k - (mod - 1) / 2) * 13, dur = 2.6 + rnd(k, 3) * 1.8;
+        const d = `M${f(x1)} ${f(top)}C${f(x1)} ${f(top + c)} ${f(x2)} ${f(e.t - c)} ${f(x2)} ${f(e.t)}`;
+        h += `<path class="fw${hot >= 0 && hot % mod === k ? " hot" : ""}" data-i="${k}" d="${d}"/>` + sq(d, dur, rnd(k, 7) * dur, k % 3 === 1 ? " w" : "");
+      }
+      const rx = R(box.querySelector(".fout")).l + 9;
+      outs.forEach((o, k) => { const r = R(o), dur = 2.2 + k * .9;
+        const d = `M${f(rx)} ${f(e.b - 12)}V${f(r.cy - 12)}Q${f(rx)} ${f(r.cy)} ${f(rx + 12)} ${f(r.cy)}H${f(r.l)}`;
+        h += `<path class="fw${o.classList.contains("t") ? " t" : ""}" d="${d}"/>` + sq(d, dur, k * .7, " w");
+      });
+    }
     svg.innerHTML = h;
   }
   // one format at a time lights its line; the pointer, or a tab key, takes the turn over
-  function light(i) { hot = i; P.forEach((p, k) => p.classList.toggle("hot", k === i)); svg.querySelectorAll(".fw[data-i]").forEach(w => w.classList.toggle("hot", +w.dataset.i === i)); box.classList.toggle("pick", i >= 0); }
+  function light(i) { hot = i; P.forEach((p, k) => p.classList.toggle("hot", k === i)); svg.querySelectorAll(".fw[data-i]").forEach(w => w.classList.toggle("hot", i >= 0 && +w.dataset.i === (mod ? i % mod : i))); box.classList.toggle("lit", i >= 0); }
   const take = e => { const p = e.target.closest(".fp"); if (p) { held = true; light(+p.dataset.i); } };
   pills.addEventListener("pointerover", take); pills.addEventListener("focusin", take);
   pills.addEventListener("pointerleave", () => { held = false; }); pills.addEventListener("focusout", () => { held = false; });
   setInterval(() => { if (held || document.hidden || root.classList.contains("still")) return; light(turn % P.length); turn += 4; }, 1700);
   $("#still").addEventListener("click", () => { root.classList.contains("still") ? svg.pauseAnimations() : svg.unpauseAnimations(); });
-  new ResizeObserver(() => requestAnimationFrame(draw)).observe(box);
+  let wait; const again = () => { clearTimeout(wait); wait = setTimeout(draw, 60); };   // a timer, not a frame: a hidden tab gives no frames
+  new ResizeObserver(again).observe(box); addEventListener("resize", again);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(draw);
   draw();
+})();
+
+/* ---------- a trial button opens a box: copy the address, or open Gmail, Outlook or the mail app (D-800) ---------- */
+(function mail() {
+  const box = $("#mailbox"), q = encodeURIComponent, copy = $("#mbCopy");
+  function open(href) {
+    const u = new URL(href), to = decodeURIComponent(u.pathname), su = u.searchParams.get("subject") || "", body = u.searchParams.get("body") || "";
+    $("#mbTo").textContent = to;
+    $("#mbGmail").href = `https://mail.google.com/mail/?view=cm&fs=1&to=${q(to)}&su=${q(su)}&body=${q(body)}`;
+    $("#mbOutlook").href = `https://outlook.office.com/mail/deeplink/compose?to=${q(to)}&subject=${q(su)}&body=${q(body)}`;
+    $("#mbApp").href = href;
+    copy.textContent = "Copy address";
+    box.showModal();
+  }
+  document.addEventListener("click", e => { const a = e.target.closest('a[href^="mailto:"]'); if (a && !box.contains(a)) { e.preventDefault(); open(a.href); } });
+  copy.onclick = async () => {
+    const el = $("#mbTo");
+    try { await navigator.clipboard.writeText(el.textContent); copy.textContent = "Copied"; }
+    catch (_) { const r = document.createRange(); r.selectNodeContents(el); getSelection().removeAllRanges(); getSelection().addRange(r); copy.textContent = "Selected: press Ctrl+C"; }
+  };
+  box.addEventListener("click", e => { if (e.target === box) box.close(); });
+  window.openMail = open;   // the trial form hands its filled letter to the same box
 })();
 </script>
 </body>
